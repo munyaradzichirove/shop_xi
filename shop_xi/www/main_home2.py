@@ -1,4 +1,5 @@
 import math
+from urllib.parse import urlencode
 
 import frappe
 
@@ -9,16 +10,24 @@ def get_context(context):
 
     page_length = 6
     group = frappe.form_dict.get("group")
+    search = (frappe.form_dict.get("q") or "").strip()
+    selected_sort = frappe.form_dict.get("sort") or "default"
+    selected_price = frappe.form_dict.get("price") or "all"
 
     filters = {"disabled": 0}
     if group:
         filters["item_group"] = group
 
-    total_items = frappe.db.count("Item", filters)
-    total_pages = max(1, math.ceil(total_items / page_length))
-    page = max(1, min(page, total_pages))
+    or_filters = None
+    if search:
+        search_text = f"%{search}%"
+        or_filters = [
+            ["Item", "name", "like", search_text],
+            ["Item", "item_name", "like", search_text],
+            ["Item", "description", "like", search_text],
+        ]
 
-    items = frappe.get_all(
+    all_items = frappe.get_all(
         "Item",
         fields=[
             "name",
@@ -26,14 +35,14 @@ def get_context(context):
             "item_group",
             "description",
             "image",
+            "creation",
             "custom_is_trendy",
             "custom_just_arrived",
             "custom_image_2",
         ],
         filters=filters,
+        or_filters=or_filters,
         order_by="item_name asc",
-        limit_start=(page - 1) * page_length,
-        limit_page_length=page_length,
     )
 
     prices = frappe.get_all(
@@ -43,10 +52,26 @@ def get_context(context):
     )
     price_map = {p.item_code: p for p in prices}
 
-    for item in items:
+    for item in all_items:
         p = price_map.get(item.name)
         item.selling_price = p.price_list_rate if p else None
         item.custom_price_before = p.custom_price_before if p else None
+
+    min_price, max_price = get_price_bounds(selected_price)
+    if min_price is not None or max_price is not None:
+        all_items = [
+            item for item in all_items
+            if item.selling_price is not None
+            and (min_price is None or item.selling_price >= min_price)
+            and (max_price is None or item.selling_price <= max_price)
+        ]
+
+    all_items = sort_items(all_items, selected_sort)
+
+    total_items = len(all_items)
+    total_pages = max(1, math.ceil(total_items / page_length))
+    page = max(1, min(page, total_pages))
+    items = all_items[(page - 1) * page_length:page * page_length]
 
     modal_products = []
     for item in items:
@@ -73,14 +98,113 @@ def get_context(context):
         order_by="item_group_name asc",
     )
 
+    common_params = {
+        "q": search,
+        "sort": selected_sort if selected_sort != "default" else None,
+        "price": selected_price if selected_price != "all" else None,
+    }
+
+    category_links = [
+        {
+            "label": "All Products",
+            "url": build_url({**common_params, "page": 1}),
+            "active": not group,
+        }
+    ]
+    for item_group in item_groups:
+        category_links.append(
+            {
+                "label": item_group.item_group_name,
+                "url": build_url({**common_params, "group": item_group.name, "page": 1}),
+                "active": item_group.name == group,
+            }
+        )
+
+    page_params = {
+        "group": group,
+        "q": search,
+        "sort": selected_sort if selected_sort != "default" else None,
+        "price": selected_price if selected_price != "all" else None,
+    }
+
+    sort_options = [
+        {"label": "Default", "value": "default"},
+        {"label": "Newest", "value": "newest"},
+        {"label": "Price: Low to High", "value": "price_asc"},
+        {"label": "Price: High to Low", "value": "price_desc"},
+    ]
+
+    price_options = [
+        {"label": "All", "value": "all"},
+        {"label": "$0.00 - $50.00", "value": "0-50"},
+        {"label": "$50.00 - $100.00", "value": "50-100"},
+        {"label": "$100.00 - $150.00", "value": "100-150"},
+        {"label": "$150.00 - $200.00", "value": "150-200"},
+        {"label": "$200.00+", "value": "200-plus"},
+    ]
+
+    for option in sort_options:
+        option["active"] = option["value"] == selected_sort
+        option["url"] = build_url({**page_params, "sort": option["value"], "page": 1})
+
+    for option in price_options:
+        option["active"] = option["value"] == selected_price
+        option["url"] = build_url({**page_params, "price": option["value"], "page": 1})
+
+    pages = [
+        {
+            "number": page_no,
+            "url": build_url({**page_params, "page": page_no}),
+            "active": page_no == page,
+        }
+        for page_no in range(1, total_pages + 1)
+    ]
+
     context.items = items
     context.modal_products = modal_products
     context.item_groups = item_groups
+    context.category_links = category_links
+    context.sort_options = sort_options
+    context.price_options = price_options
+    context.pages = pages
     context.current_page = page
     context.total_pages = total_pages
     context.selected_group = group
+    context.search = search
     context.has_prev = page > 1
     context.has_next = page < total_pages
+    context.prev_url = build_url({**page_params, "page": page - 1})
+    context.next_url = build_url({**page_params, "page": page + 1})
     context.show_pagination = total_pages > 1
 
     return context
+
+
+def build_url(params):
+    clean_params = {key: value for key, value in params.items() if value not in (None, "")}
+    return f"?{urlencode(clean_params)}" if clean_params else "?page=1"
+
+
+def get_price_bounds(price_filter):
+    ranges = {
+        "0-50": (0, 50),
+        "50-100": (50, 100),
+        "100-150": (100, 150),
+        "150-200": (150, 200),
+        "200-plus": (200, None),
+    }
+
+    return ranges.get(price_filter, (None, None))
+
+
+def sort_items(items, selected_sort):
+    if selected_sort == "price_asc":
+        return sorted(items, key=lambda item: (item.selling_price is None, item.selling_price or 0))
+
+    if selected_sort == "price_desc":
+        return sorted(items, key=lambda item: (item.selling_price is None, -(item.selling_price or 0)))
+
+    if selected_sort == "newest":
+        return sorted(items, key=lambda item: item.creation, reverse=True)
+
+    return sorted(items, key=lambda item: (item.item_name or item.name or "").lower())
