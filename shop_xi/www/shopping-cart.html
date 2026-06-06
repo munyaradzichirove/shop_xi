@@ -29,10 +29,21 @@
 	<link rel="stylesheet" type="text/css" href="/assets/shop_xi/css/main.css">
 	<style>
 		.js-cart-page-remove {
-			background: transparent;
-			border: 0;
+			background: #e65540;
+			border: 1px solid #e65540;
+			border-radius: 3px;
+			color: #fff;
 			cursor: pointer;
-			padding: 0;
+			font-family: Poppins-Medium;
+			font-size: 12px;
+			min-width: 78px;
+			padding: 9px 14px;
+			transition: all 0.3s;
+		}
+
+		.js-cart-page-remove:hover {
+			background: #222;
+			border-color: #222;
 		}
 
 		.cart-page-num-product-up,
@@ -327,11 +338,12 @@
 									<th class="column-3">Price</th>
 									<th class="column-4">Quantity</th>
 									<th class="column-5">Total</th>
+									<th class="column-5">Action</th>
 								</tr>
 
 								<tbody class="js-cart-page-items">
 									<tr class="table_row">
-										<td class="column-1" colspan="5">Your cart is empty.</td>
+										<td class="column-1" colspan="6">Your cart is empty.</td>
 									</tr>
 								</tbody>
 							</table>
@@ -623,6 +635,8 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 <!--===============================================================================================-->
 	<script src="/assets/shop_xi/vendor/MagnificPopup/jquery.magnific-popup.min.js"></script>
 <!--===============================================================================================-->
+	<script src="/assets/shop_xi/vendor/sweetalert/sweetalert.min.js"></script>
+<!--===============================================================================================-->
 	<script src="/assets/shop_xi/vendor/perfect-scrollbar/perfect-scrollbar.min.js"></script>
 	<script>
 		$('.js-pscroll').each(function(){
@@ -746,7 +760,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 			$('.js-cart-subtotal, .js-cart-total').text(formatMoney(data.total || 0));
 
 			if (!items.length) {
-				$items.html('<tr class="table_row"><td class="column-1" colspan="5">Your cart is empty.</td></tr>');
+				$items.html('<tr class="table_row"><td class="column-1" colspan="6">Your cart is empty.</td></tr>');
 				return;
 			}
 
@@ -761,9 +775,9 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 				return (
 					'<tr class="table_row js-cart-page-row" data-item="' + itemCode + '">' +
 						'<td class="column-1">' +
-							'<button type="button" class="how-itemcart1 js-cart-page-remove" data-item="' + itemCode + '">' +
+							'<div class="how-itemcart1">' +
 								'<img src="' + image + '" alt="' + name + '">' +
-							'</button>' +
+							'</div>' +
 						'</td>' +
 						'<td class="column-2">' + name + '</td>' +
 						'<td class="column-3">' + rate + '</td>' +
@@ -779,6 +793,9 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 							'</div>' +
 						'</td>' +
 						'<td class="column-5">' + amount + '</td>' +
+						'<td class="column-5">' +
+							'<button type="button" class="js-cart-page-remove" data-item="' + itemCode + '">Delete</button>' +
+						'</td>' +
 					'</tr>'
 				);
 			}).join(''));
@@ -791,7 +808,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 				renderCartDrawer(data);
 				renderCartPage(data);
 			}, function() {
-				$('.js-cart-page-items').html('<tr class="table_row"><td class="column-1" colspan="5">Could not load cart.</td></tr>');
+				$('.js-cart-page-items').html('<tr class="table_row"><td class="column-1" colspan="6">Could not load cart.</td></tr>');
 			});
 		}
 
@@ -852,10 +869,32 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 
 		$(document).on('click', '.js-cart-page-remove', function(e) {
 			e.preventDefault();
-			callCartApi('shop_xi.www.cart.delete_from_cart', {
-				item_code: $(this).attr('data-item'),
-				guest_id: getGuestId()
-			}, refreshCartViews, refreshCartViews);
+
+			var itemCode = $(this).attr('data-item');
+			var itemName = $(this).closest('.js-cart-page-row').find('.column-2').text().trim() || 'this item';
+
+			swal({
+				title: 'Remove from cart?',
+				text: 'Delete ' + itemName + ' from your cart?',
+				icon: 'warning',
+				buttons: ['Cancel', 'Delete'],
+				dangerMode: true
+			}).then(function(willDelete) {
+				if (!willDelete) {
+					return;
+				}
+
+				callCartApi('shop_xi.www.cart.delete_from_cart', {
+					item_code: itemCode,
+					guest_id: getGuestId()
+				}, function() {
+					refreshCartViews();
+					swal(itemName, 'has been removed from cart.', 'success');
+				}, function() {
+					refreshCartViews();
+					swal('Cart error', 'Could not delete this product from cart.', 'error');
+				});
+			});
 		});
 
 		$(document).on('click', '.js-show-cart', function() {
