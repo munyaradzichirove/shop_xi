@@ -804,6 +804,77 @@
 			});
 		}
 
+		var paymentPollTimer = null;
+
+		function storePendingPayment(invoice, orderNumber) {
+			localStorage.setItem('shop_xi_pending_payment', JSON.stringify({
+				invoice: invoice,
+				orderNumber: orderNumber,
+				startedAt: Date.now()
+			}));
+		}
+
+		function clearPendingPayment() {
+			localStorage.removeItem('shop_xi_pending_payment');
+			if (paymentPollTimer) {
+				clearInterval(paymentPollTimer);
+				paymentPollTimer = null;
+			}
+		}
+
+		function checkInvoicePayment(invoice, orderNumber) {
+			callCartApi('shop_xi.www.orders2.get_invoice_payment_status', {
+				invoice: invoice
+			}, function(data) {
+				if (!data.paid) {
+					return;
+				}
+
+				clearPendingPayment();
+				swal('Payment success', (orderNumber || invoice) + ' has been paid successfully.', 'success')
+					.then(function() {
+						window.location.reload();
+					});
+			});
+		}
+
+		function startPaymentPolling(invoice, orderNumber) {
+			if (!invoice) {
+				return;
+			}
+
+			if (paymentPollTimer) {
+				clearInterval(paymentPollTimer);
+			}
+
+			checkInvoicePayment(invoice, orderNumber);
+			paymentPollTimer = setInterval(function() {
+				checkInvoicePayment(invoice, orderNumber);
+			}, 5000);
+		}
+
+		function resumePendingPaymentPolling() {
+			var storedPayment = localStorage.getItem('shop_xi_pending_payment');
+
+			if (!storedPayment) {
+				return;
+			}
+
+			try {
+				storedPayment = JSON.parse(storedPayment);
+			} catch (err) {
+				clearPendingPayment();
+				return;
+			}
+
+			if (!storedPayment.invoice || Date.now() - storedPayment.startedAt > 15 * 60 * 1000) {
+				clearPendingPayment();
+				return;
+			}
+
+			startPaymentPolling(storedPayment.invoice, storedPayment.orderNumber);
+		}
+
 		$(document).on('click', '.js-view-order', function() {
 			var $button = $(this);
 			var orderNumber = $button.attr('data-order-number') || 'Order Details';
@@ -889,6 +960,8 @@
 						return;
 					}
 
+					storePendingPayment(invoice, orderNumber);
+					startPaymentPolling(invoice, orderNumber);
 					swal(
 						'Payment request sent',
 						data.message || 'Check OTP on your mobile to confirm payment.',
@@ -906,6 +979,7 @@
 		});
 
 		refreshCartDrawer();
+		resumePendingPaymentPolling();
 	</script>
 <!--===============================================================================================-->
 	<script src="/assets/shop_xi/js/main.js"></script>

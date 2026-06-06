@@ -109,6 +109,49 @@ def get_invoice_items(invoice_name):
     ]
 
 
+def can_view_invoice(user, invoice_name):
+    if user == "Guest" or not frappe.db.exists("Sales Invoice", invoice_name):
+        return False
+
+    customers = get_linked_customers(user)
+    invoice = frappe.db.get_value(
+        "Sales Invoice",
+        invoice_name,
+        ["customer", "owner", "contact_email"],
+        as_dict=True,
+    )
+
+    if not invoice:
+        return False
+
+    user_email = get_user_email(user)
+    return (
+        invoice.owner == user
+        or invoice.customer in customers
+        or invoice.contact_email == user_email
+    )
+
+
+@frappe.whitelist()
+def get_invoice_payment_status(invoice):
+    user = frappe.session.user
+
+    if not can_view_invoice(user, invoice):
+        frappe.throw("You do not have permission to view this invoice", frappe.PermissionError)
+
+    invoice_doc = frappe.get_doc("Sales Invoice", invoice)
+    outstanding = flt(invoice_doc.outstanding_amount)
+    paid = invoice_doc.status == "Paid" or outstanding <= 0
+
+    return {
+        "invoice": invoice_doc.name,
+        "paid": paid,
+        "status": invoice_doc.status,
+        "outstanding_amount": outstanding,
+        "grand_total": flt(invoice_doc.grand_total),
+    }
+
+
 def get_context(context):
     user = frappe.session.user
 
