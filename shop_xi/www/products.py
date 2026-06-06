@@ -8,7 +8,7 @@ def get_context(context):
     page = frappe.form_dict.get("page")
     page = int(page) if page and str(page).isdigit() else 1
 
-    page_length = 6
+    page_length = 8
     group = frappe.form_dict.get("group")
     search = (frappe.form_dict.get("q") or "").strip()
     selected_sort = frappe.form_dict.get("sort") or "default"
@@ -42,7 +42,7 @@ def search_products(q="", group="", sort="default", price="all", page=1):
     return get_product_context(page, group, (q or "").strip(), sort or "default", price or "all")
 
 
-def get_product_context(page, group, search, selected_sort, selected_price, page_length=6):
+def get_product_context(page, group, search, selected_sort, selected_price, page_length=8):
     filters = {"disabled": 0}
     if group:
         filters["item_group"] = group

@@ -248,11 +248,11 @@
 					<!-- Menu desktop -->
 					<div class="menu-desktop">
 						<ul class="main-menu">
-							<li><a href="index2.html">Home</a></li>
-							<li class="active-menu"><a href="main_home2.html">Shop</a></li>
-							<li><a href="shopping-cart.html">Cart</a></li>
-							<li><a href="orders2.html">Orders</a></li>
-							<li><a href="contact.html">Contact</a></li>
+							<li><a href="/index2">Home</a></li>
+							<li class="active-menu"><a href="/products">Shop</a></li>
+							<li><a href="/shopping-cart">Cart</a></li>
+							<li><a href="/orders2">Orders</a></li>
+							<li><a href="/contact">Contact</a></li>
 						</ul>
 					</div>	
 
@@ -274,7 +274,7 @@
 		<div class="wrap-header-mobile">
 			<!-- Logo moblie -->		
 			<div class="logo-mobile">
-				<a href="index.html"><img src="/assets/shop_xi/images/icons/logo-01.png" alt="IMG-LOGO"></a>
+				<a href="/index2"><img src="/assets/shop_xi/images/icons/logo-01.png" alt="IMG-LOGO"></a>
 			</div>
 
 			<!-- Icon header -->
@@ -328,11 +328,11 @@
 			</ul>
 
 			<ul class="main-menu-m">
-				<li><a href="index2.html">Home</a></li>
-				<li><a href="main_home2.html">Shop</a></li>
-				<li><a href="shopping-cart.html">Cart</a></li>
-				<li><a href="orders2.html">Orders</a></li>
-				<li><a href="contact.html">Contact</a></li>
+				<li><a href="/index2">Home</a></li>
+				<li><a href="/products">Shop</a></li>
+				<li><a href="/shopping-cart">Cart</a></li>
+				<li><a href="/orders2">Orders</a></li>
+				<li><a href="/contact">Contact</a></li>
 			</ul>
 		</div>
 
@@ -370,11 +370,11 @@
 					</div>
 
 					<div class="header-cart-buttons flex-w w-full">
-						<a href="shopping-cart.html" class="flex-c-m stext-101 cl0 size-107 bg3 bor2 hov-btn3 p-lr-15 trans-04 m-r-8 m-b-10">
+						<a href="/shopping-cart" class="flex-c-m stext-101 cl0 size-107 bg3 bor2 hov-btn3 p-lr-15 trans-04 m-r-8 m-b-10">
 							View Cart
 						</a>
 
-						<a href="shopping-cart.html" class="flex-c-m stext-101 cl0 size-107 bg3 bor2 hov-btn3 p-lr-15 trans-04 m-b-10">
+						<a href="/shopping-cart" class="flex-c-m stext-101 cl0 size-107 bg3 bor2 hov-btn3 p-lr-15 trans-04 m-b-10">
 							Check Out
 						</a>
 					</div>
@@ -1073,7 +1073,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 
 			$('.js-products-grid').addClass('products-live-loading');
 
-			return fetch('/api/method/shop_xi.www.main_home2.search_products?' + requestParams.toString(), {
+			return fetch('/api/method/shop_xi.www.products.search_products?' + requestParams.toString(), {
 				headers: {
 					'Accept': 'application/json'
 				}

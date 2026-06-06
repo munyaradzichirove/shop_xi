@@ -16,7 +16,6 @@ def get_context(context):
 	context.contact_phone = settings["phone"]
 	context.contact_email = settings["email"]
 
-
 def get_contact_settings():
 	settings = DEFAULT_CONTACT_SETTINGS.copy()
 
