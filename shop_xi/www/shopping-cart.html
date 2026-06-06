@@ -327,7 +327,7 @@
 							</div>
 						</div>
 
-						<button type="button" class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer">
+						<button type="button" class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer js-proceed-checkout">
 							Proceed to Checkout
 						</button>
 					</div>
@@ -696,11 +696,13 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 			});
 		}
 
-		function updateCartPageRows() {
+		function saveCartPageRows(done) {
 			var rows = $('.js-cart-page-row').toArray();
 
 			if (!rows.length) {
-				swal('Cart is empty', 'There are no items to update.', 'info');
+				if (done) {
+					done(false, 'empty');
+				}
 				return;
 			}
 
@@ -719,20 +721,77 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 				}, function() {
 					pending -= 1;
 					if (pending === 0) {
-						refreshCartViews();
-						if (hasError) {
-							swal('Cart error', 'Some items could not be updated.', 'error');
-						} else {
-							swal('Cart updated', 'Your cart quantities have been updated.', 'success');
+						if (done) {
+							done(!hasError);
 						}
 					}
 				}, function() {
 					hasError = true;
 					pending -= 1;
 					if (pending === 0) {
-						refreshCartViews();
-						swal('Cart error', 'Some items could not be updated.', 'error');
+						if (done) {
+							done(false);
+						}
 					}
+				});
+			});
+		}
+
+		function updateCartPageRows() {
+			saveCartPageRows(function(success, reason) {
+				refreshCartViews();
+				if (reason === 'empty') {
+					swal('Cart is empty', 'There are no items to update.', 'info');
+				} else if (success) {
+					swal('Cart updated', 'Your cart quantities have been updated.', 'success');
+				} else {
+					swal('Cart error', 'Some items could not be updated.', 'error');
+				}
+			});
+		}
+
+		function proceedToCheckout() {
+			var $button = $('.js-proceed-checkout');
+
+			$button.prop('disabled', true).text('Processing...');
+			saveCartPageRows(function(success, reason) {
+				if (reason === 'empty') {
+					$button.prop('disabled', false).text('Proceed to Checkout');
+					swal('Cart is empty', 'Add items before checkout.', 'info');
+					return;
+				}
+
+				if (!success) {
+					$button.prop('disabled', false).text('Proceed to Checkout');
+					refreshCartViews();
+					swal('Cart error', 'Could not update cart before checkout.', 'error');
+					return;
+				}
+
+				callCartApi('shop_xi.www.cart.place_order', {}, function(data) {
+					$button.prop('disabled', false).text('Proceed to Checkout');
+
+					if (data.status === 'login_required') {
+						swal('Login required', data.message || 'Please log in before checkout.', 'info')
+							.then(function() {
+								window.location.href = '/login';
+							});
+						return;
+					}
+
+					if (data.status !== 'success') {
+						swal('Checkout error', data.message || 'Could not create order.', 'error');
+						return;
+					}
+
+					refreshCartViews();
+					swal('Order placed', 'Invoice ' + data.invoice + ' has been created.', 'success')
+						.then(function() {
+							window.location.href = 'orders2.html';
+						});
+				}, function() {
+					$button.prop('disabled', false).text('Proceed to Checkout');
+					swal('Checkout error', 'Could not create order.', 'error');
 				});
 			});
 		}
@@ -758,6 +817,11 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 		$(document).on('click', '.js-update-cart-page', function(e) {
 			e.preventDefault();
 			updateCartPageRows();
+		});
+
+		$(document).on('click', '.js-proceed-checkout', function(e) {
+			e.preventDefault();
+			proceedToCheckout();
 		});
 
 		$(document).on('click', '.js-cart-page-remove', function(e) {

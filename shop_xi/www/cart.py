@@ -1,5 +1,5 @@
 import frappe
-from frappe.utils import cint, flt
+from frappe.utils import cint, flt, nowdate
 
 
 def get_identity(guest_id=None):
@@ -13,6 +13,10 @@ def get_identity(guest_id=None):
 
 def get_cart_amount(qty, rate):
     return flt(qty) * flt(rate)
+
+
+def get_user_email(user):
+    return frappe.db.get_value("User", user, "email") or user
 
 
 @frappe.whitelist(allow_guest=True)
@@ -179,6 +183,93 @@ def delete_from_cart(item_code, guest_id=None):
         "amount": 0,
         "cart_count": frappe.db.count("Cart Item", {"cart_owner": identity}),
     }
+
+
+def get_checkout_customer(user):
+    user_email = get_user_email(user)
+    customer = frappe.db.get_value("Customer", {"email_id": user_email}, "name")
+
+    if customer:
+        return customer
+
+    if frappe.db.exists("Customer", "Guest Customer"):
+        return "Guest Customer"
+
+    user_doc = frappe.get_doc("User", user)
+    customer = frappe.new_doc("Customer")
+    customer.customer_name = user_doc.full_name or user_email
+    customer.customer_type = "Individual"
+
+    if customer.meta.has_field("email_id"):
+        customer.email_id = user_email
+    if customer.meta.has_field("customer_group"):
+        customer.customer_group = (
+            frappe.db.get_value("Customer Group", "All Customer Groups", "name")
+            or frappe.db.get_value("Customer Group", {}, "name")
+        )
+    if customer.meta.has_field("territory"):
+        customer.territory = (
+            frappe.db.get_value("Territory", "All Territories", "name")
+            or frappe.db.get_value("Territory", {}, "name")
+        )
+
+    customer.insert(ignore_permissions=True)
+    return customer.name
+
+
+@frappe.whitelist()
+def place_order():
+    user = frappe.session.user
+
+    if user == "Guest":
+        return {
+            "status": "login_required",
+            "message": "Please log in before checkout.",
+        }
+
+    cart_items = frappe.get_all(
+        "Cart Item",
+        filters={"cart_owner": user},
+        fields=["item", "qty", "rate"],
+        order_by="modified desc",
+    )
+
+    if not cart_items:
+        return {
+            "status": "error",
+            "message": "Cart is empty",
+        }
+
+    try:
+        invoice = frappe.new_doc("Sales Invoice")
+        invoice.customer = get_checkout_customer(user)
+        invoice.posting_date = nowdate()
+
+        for item in cart_items:
+            invoice.append("items", {
+                "item_code": item.item,
+                "qty": item.qty,
+                "rate": item.rate,
+            })
+
+        invoice.flags.ignore_permissions = True
+        invoice.insert(ignore_permissions=True)
+        invoice.submit()
+
+        frappe.db.delete("Cart Item", {"cart_owner": user})
+        frappe.db.commit()
+
+        return {
+            "status": "success",
+            "invoice": invoice.name,
+            "cart_count": 0,
+        }
+    except Exception as exc:
+        frappe.log_error(frappe.get_traceback(), "Shop Xi Checkout Error")
+        return {
+            "status": "error",
+            "message": str(exc),
+        }
 
 
 def get_context(context):

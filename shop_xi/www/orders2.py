@@ -6,17 +6,22 @@ def money(value):
     return "${:,.2f}".format(flt(value))
 
 
+def get_user_email(user):
+    return frappe.db.get_value("User", user, "email") or user
+
+
 def get_linked_customers(user):
+    user_email = get_user_email(user)
     customers = set(frappe.get_all(
         "Customer",
-        filters={"email_id": user},
+        filters={"email_id": user_email},
         pluck="name",
     ))
 
     try:
         contacts = frappe.get_all(
             "Contact Email",
-            filters={"email_id": user},
+            filters={"email_id": user_email},
             pluck="parent",
         )
         if contacts:
@@ -70,10 +75,12 @@ def get_user_invoices(user, customers):
         "owner": user,
     })
 
+    user_email = get_user_email(user)
+
     if frappe.get_meta("Sales Invoice").has_field("contact_email"):
         add_invoices({
             **base_filters,
-            "contact_email": user,
+            "contact_email": user_email,
         })
 
     return sorted(
