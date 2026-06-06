@@ -100,17 +100,35 @@
 			transition: opacity 0.2s ease;
 		}
 
-		.product-delete-cart {
-			background-color: #dc3545;
-			border-color: #dc3545;
-			margin-left: 10px;
-		}
+			.product-delete-cart {
+				background-color: #dc3545;
+				border-color: #dc3545;
+			}
 
-		.product-delete-cart:hover {
-			background-color: #c82333;
-			border-color: #bd2130;
-			color: #fff;
-		}
+			.product-delete-cart:hover {
+				background-color: #c82333;
+				border-color: #bd2130;
+				color: #fff;
+			}
+
+				.product-cart-button-row {
+					display: grid;
+					flex: 0 0 100%;
+					grid-template-columns: repeat(2, minmax(0, 179px));
+					gap: 10px;
+				}
+
+				.product-cart-button-row .size-101 {
+					margin: 0;
+					width: 100%;
+				}
+
+				@media (max-width: 575px) {
+					.product-cart-button-row {
+						grid-template-columns: 1fr;
+						width: 100%;
+					}
+				}
 
 		@media (max-width: 991px) {
 			.product-toolbar-sticky {
@@ -874,15 +892,17 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 											</div>
 										</div>
 
-											<button class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail" data-item="">
-												Add to cart
-											</button>
+												<div class="product-cart-button-row">
+													<button class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail" data-item="">
+														Add to cart
+													</button>
 
-											<button class="flex-c-m stext-101 cl0 size-101 bor1 hov-btn1 p-lr-15 trans-04 js-deletecart-detail product-delete-cart" data-item="">
-												Delete
-											</button>
-										</div>
-									</div>	
+													<button class="flex-c-m stext-101 cl0 size-101 bor1 hov-btn1 p-lr-15 trans-04 js-deletecart-detail product-delete-cart" data-item="">
+														Delete
+													</button>
+												</div>
+											</div>
+										</div>	
 							</div>
 
 							<!--  -->
