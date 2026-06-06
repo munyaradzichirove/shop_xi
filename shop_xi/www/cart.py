@@ -27,6 +27,49 @@ def get_cart_count(guest_id=None):
     }
 
 
+def build_cart_item_response(cart_item):
+    item_details = frappe.db.get_value(
+        "Item",
+        cart_item.item,
+        ["item_name", "image"],
+        as_dict=True,
+    ) or {}
+    item_name = cart_item.item_name or item_details.get("item_name") or cart_item.item
+    image = cart_item.image or item_details.get("image") or "/assets/shop_xi/images/product-01.jpg"
+    amount = get_cart_amount(cart_item.qty, cart_item.rate)
+
+    return {
+        "item": cart_item.item,
+        "item_name": item_name,
+        "qty": cart_item.qty,
+        "rate": cart_item.rate,
+        "amount": amount,
+        "image": image,
+    }
+
+
+@frappe.whitelist(allow_guest=True)
+def get_cart_items(guest_id=None):
+    identity = get_identity(guest_id)
+
+    if not identity:
+        return {"items": [], "cart_count": 0, "total": 0}
+
+    cart_items = frappe.get_all(
+        "Cart Item",
+        filters={"cart_owner": identity},
+        fields=["item", "item_name", "qty", "rate", "image"],
+        order_by="modified desc",
+    )
+    items = [build_cart_item_response(cart_item) for cart_item in cart_items]
+
+    return {
+        "items": items,
+        "cart_count": len(items),
+        "total": sum(item["amount"] for item in items),
+    }
+
+
 @frappe.whitelist(allow_guest=True)
 def get_cart_item(item_code, guest_id=None):
     identity = get_identity(guest_id)

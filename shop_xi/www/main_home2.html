@@ -426,59 +426,19 @@
 			</div>
 			
 			<div class="header-cart-content flex-w js-pscroll">
-				<ul class="header-cart-wrapitem w-full">
+				<ul class="header-cart-wrapitem w-full js-cart-drawer-items">
 					<li class="header-cart-item flex-w flex-t m-b-12">
-						<div class="header-cart-item-img">
-							<img src="/assets/shop_xi/images/item-cart-01.jpg" alt="IMG">
-						</div>
-
 						<div class="header-cart-item-txt p-t-8">
-							<a href="#" class="header-cart-item-name m-b-18 hov-cl1 trans-04">
-								White Shirt Pleat
-							</a>
-
 							<span class="header-cart-item-info">
-								1 x $19.00
-							</span>
-						</div>
-					</li>
-
-					<li class="header-cart-item flex-w flex-t m-b-12">
-						<div class="header-cart-item-img">
-							<img src="/assets/shop_xi/images/item-cart-02.jpg" alt="IMG">
-						</div>
-
-						<div class="header-cart-item-txt p-t-8">
-							<a href="#" class="header-cart-item-name m-b-18 hov-cl1 trans-04">
-								Converse All Star
-							</a>
-
-							<span class="header-cart-item-info">
-								1 x $39.00
-							</span>
-						</div>
-					</li>
-
-					<li class="header-cart-item flex-w flex-t m-b-12">
-						<div class="header-cart-item-img">
-							<img src="/assets/shop_xi/images/item-cart-03.jpg" alt="IMG">
-						</div>
-
-						<div class="header-cart-item-txt p-t-8">
-							<a href="#" class="header-cart-item-name m-b-18 hov-cl1 trans-04">
-								Nixon Porter Leather
-							</a>
-
-							<span class="header-cart-item-info">
-								1 x $17.00
+								Your cart is empty.
 							</span>
 						</div>
 					</li>
 				</ul>
 				
 				<div class="w-full">
-					<div class="header-cart-total w-full p-tb-40">
-						Total: $75.00
+					<div class="header-cart-total w-full p-tb-40 js-cart-drawer-total">
+						Total: $0.00
 					</div>
 
 					<div class="header-cart-buttons flex-w w-full">
@@ -1336,6 +1296,66 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 			return '$' + (parseFloat(value) || 0).toFixed(2);
 		}
 
+		function escapeHtml(value) {
+			return $('<div>').text(value || '').html();
+		}
+
+		function renderCartDrawer(data) {
+			var items = data.items || [];
+			var $items = $('.js-cart-drawer-items');
+			var fallbackImage = '/assets/shop_xi/images/product-01.jpg';
+
+			updateCartBadge(data.cart_count || 0);
+			$('.js-cart-drawer-total').text('Total: ' + formatMoney(data.total || 0));
+
+			if (!items.length) {
+				$items.html(
+					'<li class="header-cart-item flex-w flex-t m-b-12">' +
+						'<div class="header-cart-item-txt p-t-8">' +
+							'<span class="header-cart-item-info">Your cart is empty.</span>' +
+						'</div>' +
+					'</li>'
+				);
+				$(window).trigger('resize');
+				return;
+			}
+
+			$items.html(items.map(function(item) {
+				var image = escapeHtml(item.image || fallbackImage);
+				var name = escapeHtml(item.item_name || item.item || 'Product');
+				var qty = parseInt(item.qty, 10) || 0;
+				var rate = formatMoney(item.rate || 0);
+				var amount = formatMoney(item.amount || 0);
+
+				return (
+					'<li class="header-cart-item flex-w flex-t m-b-12">' +
+						'<div class="header-cart-item-img">' +
+							'<img src="' + image + '" alt="' + name + '">' +
+						'</div>' +
+						'<div class="header-cart-item-txt p-t-8">' +
+							'<a href="#" class="header-cart-item-name m-b-18 hov-cl1 trans-04">' + name + '</a>' +
+							'<span class="header-cart-item-info">' + qty + ' x ' + rate + ' = ' + amount + '</span>' +
+						'</div>' +
+					'</li>'
+				);
+			}).join(''));
+			$(window).trigger('resize');
+		}
+
+		function refreshCartDrawer() {
+			callCartApi('shop_xi.www.cart.get_cart_items', {
+				guest_id: getGuestId()
+			}, renderCartDrawer, function() {
+				$('.js-cart-drawer-items').html(
+					'<li class="header-cart-item flex-w flex-t m-b-12">' +
+						'<div class="header-cart-item-txt p-t-8">' +
+							'<span class="header-cart-item-info">Could not load cart items.</span>' +
+						'</div>' +
+					'</li>'
+				);
+			});
+		}
+
 		function updateModalCartSummary(qty, amount) {
 			qty = parseInt(qty, 10) || 0;
 
@@ -1426,6 +1446,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 				}
 
 				updateModalCartSummary(data.qty || 0, data.amount || 0);
+				refreshCartDrawer();
 				swal(nameProduct, isInCart ? 'cart quantity updated!' : 'is added to cart!', 'success');
 			}, function() {
 				swal('Cart error', 'Could not add this product to cart.', 'error');
@@ -1461,6 +1482,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 					updateCartBadge(data.cart_count || 0);
 					updateModalCartSummary(data.qty || 0, data.amount || 0);
 					$('.js-modal1 .num-product').val(1);
+					refreshCartDrawer();
 
 					if (data.status === 'not_found') {
 						swal(nameProduct, 'was not in your cart.', 'info');
@@ -1472,6 +1494,10 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 					swal('Cart error', 'Could not delete this product from cart.', 'error');
 				});
 			});
+		});
+
+		$(document).on('click', '.js-show-cart', function() {
+			refreshCartDrawer();
 		});
 
 		refreshCartCount();
