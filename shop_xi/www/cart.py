@@ -81,6 +81,29 @@ def add_to_cart(item_code, qty=1, guest_id=None, is_set_qty=False):
     }
 
 
+@frappe.whitelist(allow_guest=True)
+def delete_from_cart(item_code, guest_id=None):
+    identity = get_identity(guest_id)
+
+    if not identity:
+        frappe.throw("Cart owner could not be identified")
+
+    existing = frappe.db.get_value(
+        "Cart Item",
+        {"cart_owner": identity, "item": item_code},
+        "name",
+    )
+
+    if existing:
+        frappe.delete_doc("Cart Item", existing, ignore_permissions=True)
+
+    return {
+        "status": "deleted" if existing else "not_found",
+        "item": item_code,
+        "cart_count": frappe.db.count("Cart Item", {"cart_owner": identity}),
+    }
+
+
 def get_context(context):
     identity = get_identity(frappe.form_dict.get("guest_id"))
 

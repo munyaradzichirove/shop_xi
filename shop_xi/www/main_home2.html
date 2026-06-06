@@ -100,6 +100,18 @@
 			transition: opacity 0.2s ease;
 		}
 
+		.product-delete-cart {
+			background-color: #dc3545;
+			border-color: #dc3545;
+			margin-left: 10px;
+		}
+
+		.product-delete-cart:hover {
+			background-color: #c82333;
+			border-color: #bd2130;
+			color: #fff;
+		}
+
 		@media (max-width: 991px) {
 			.product-toolbar-sticky {
 				top: 0;
@@ -862,11 +874,15 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 											</div>
 										</div>
 
-										<button class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail" data-item="">
-											Add to cart
-										</button>
-									</div>
-								</div>	
+											<button class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail" data-item="">
+												Add to cart
+											</button>
+
+											<button class="flex-c-m stext-101 cl0 size-101 bor1 hov-btn1 p-lr-15 trans-04 js-deletecart-detail product-delete-cart" data-item="">
+												Delete
+											</button>
+										</div>
+									</div>	
 							</div>
 
 							<!--  -->
@@ -991,6 +1007,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 			$('.js-modal1 .js-price-detail').text(product.price !== null && product.price !== undefined ? '$' + product.price : 'Price unavailable');
 			$('.js-modal1 .js-description-detail').html(product.description || 'No description available.');
 			$('.js-modal1 .js-addcart-detail').attr('data-item', product.name || '');
+			$('.js-modal1 .js-deletecart-detail').attr('data-item', product.name || '');
 			$('.js-modal1 .num-product').val(1);
 
 			if ($gallery.hasClass('slick-initialized')) {
@@ -1323,6 +1340,46 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 				swal(nameProduct, 'is added to cart!', 'success');
 			}, function() {
 				swal('Cart error', 'Could not add this product to cart.', 'error');
+			});
+		});
+
+		$(document).on('click', '.js-deletecart-detail', function(e){
+			e.preventDefault();
+
+			var itemCode = $(this).attr('data-item');
+			var nameProduct = $('.js-modal1 .js-name-detail').text().trim() || 'Product';
+
+			if (!itemCode) {
+				swal('Missing item', 'Please choose a product first.', 'error');
+				return;
+			}
+
+			swal({
+				title: 'Remove from cart?',
+				text: 'Delete ' + nameProduct + ' from your cart?',
+				icon: 'warning',
+				buttons: ['Cancel', 'Delete'],
+				dangerMode: true
+			}).then(function(willDelete) {
+				if (!willDelete) {
+					return;
+				}
+
+				callCartApi('shop_xi.www.cart.delete_from_cart', {
+					item_code: itemCode,
+					guest_id: getGuestId()
+				}, function(data) {
+					updateCartBadge(data.cart_count || 0);
+
+					if (data.status === 'not_found') {
+						swal(nameProduct, 'was not in your cart.', 'info');
+						return;
+					}
+
+					swal(nameProduct, 'has been removed from cart.', 'success');
+				}, function() {
+					swal('Cart error', 'Could not delete this product from cart.', 'error');
+				});
 			});
 		});
 
