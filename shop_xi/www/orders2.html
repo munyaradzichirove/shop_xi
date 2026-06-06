@@ -144,7 +144,8 @@
 			background: #e6e6e6;
 		}
 
-		#orderModal {
+		#orderModal,
+		#paynowModal {
 			z-index: 2200;
 		}
 
@@ -209,6 +210,72 @@
 			font-family: Poppins-Regular;
 			font-size: 14px;
 			vertical-align: middle;
+		}
+
+		.paynow-panel {
+			background: #f7f7f7;
+			border: 1px solid #eee;
+			border-radius: 8px;
+			padding: 14px 16px;
+		}
+
+		.paynow-brand {
+			color: #222;
+			display: block;
+			font-family: Poppins-Medium;
+			font-size: 15px;
+			margin-bottom: 4px;
+		}
+
+		.paynow-copy {
+			color: #666;
+			font-family: Poppins-Regular;
+			font-size: 13px;
+			line-height: 1.6;
+			margin: 0;
+		}
+
+		.paynow-input-label {
+			color: #222;
+			display: block;
+			font-family: Poppins-Medium;
+			font-size: 13px;
+			margin: 18px 0 8px;
+		}
+
+		.paynow-input {
+			border: 1px solid #e6e6e6;
+			border-radius: 4px;
+			color: #333;
+			font-family: Poppins-Regular;
+			font-size: 14px;
+			height: 46px;
+			padding: 0 14px;
+			width: 100%;
+		}
+
+		.paynow-input:focus {
+			border-color: #717fe0;
+			outline: 0;
+		}
+
+		.paynow-submit {
+			background: #222;
+			border: 0;
+			border-radius: 25px;
+			color: #fff;
+			cursor: pointer;
+			font-family: Poppins-SemiBold;
+			font-size: 12px;
+			margin-top: 20px;
+			padding: 12px 30px;
+			text-transform: uppercase;
+			transition: all 0.3s;
+			width: 100%;
+		}
+
+		.paynow-submit:hover {
+			background: #717fe0;
 		}
 
 		.order-modal-total {
@@ -399,7 +466,14 @@
 
 			<div class="order-actions">
 				{% if not order.is_paid %}
-				<button class="order-action-primary" type="button">Pay Now</button>
+				<button
+					class="order-action-primary js-paynow-order"
+					type="button"
+					data-order-number="Order #{{ order.name }}"
+					data-order-total="{{ order.total }}"
+				>
+					Pay Now
+				</button>
 				{% endif %}
 				<button
 					class="order-action-secondary js-view-order"
@@ -447,6 +521,44 @@
 					<div class="order-modal-total">
 						Order Total: <span id="modal-order-total">$0.00</span>
 					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal fade" id="paynowModal" tabindex="-1" role="dialog" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered order-modal-dialog" role="document">
+			<div class="modal-content order-modal-content">
+				<div class="modal-header order-modal-header">
+					<h5 class="modal-title js-paynow-modal-title">Pay with Paynow</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body order-modal-body">
+					<div class="paynow-panel">
+						<span class="paynow-brand">Pay with Paynow Gateway</span>
+						<p class="paynow-copy">
+							Enter your mobile money number to start payment for
+							<strong class="js-paynow-order-number">this order</strong>.
+						</p>
+						<p class="paynow-copy">
+							Amount: <strong class="js-paynow-order-total">$0.00</strong>
+						</p>
+					</div>
+
+					<label class="paynow-input-label" for="paynow-mobile-number">Mobile number</label>
+					<input
+						class="paynow-input"
+						id="paynow-mobile-number"
+						type="tel"
+						placeholder="e.g. 0771234567"
+						autocomplete="tel"
+					>
+
+					<button class="paynow-submit js-confirm-paynow" type="button">
+						Pay with Paynow
+					</button>
 				</div>
 			</div>
 		</div>
@@ -558,6 +670,8 @@
 	</script>
 <!--===============================================================================================-->
 	<script src="/assets/shop_xi/vendor/MagnificPopup/jquery.magnific-popup.min.js"></script>
+<!--===============================================================================================-->
+	<script src="/assets/shop_xi/vendor/sweetalert/sweetalert.min.js"></script>
 <!--===============================================================================================-->
 	<script src="/assets/shop_xi/vendor/perfect-scrollbar/perfect-scrollbar.min.js"></script>
 	<script>
@@ -714,6 +828,51 @@
 			}).join('') || '<tr><td colspan="4">No order items found.</td></tr>');
 
 			$('#orderModal').modal('show');
+		});
+
+		$(document).on('click', '.js-paynow-order', function() {
+			var $button = $(this);
+			var orderNumber = $button.attr('data-order-number') || 'this order';
+			var orderTotal = $button.attr('data-order-total') || '$0.00';
+
+			$('.js-paynow-modal-title').text('Pay with Paynow');
+			$('.js-paynow-order-number').text(orderNumber);
+			$('.js-paynow-order-total').text(orderTotal);
+			$('#paynow-mobile-number').val('');
+			$('#paynowModal').data({
+				orderNumber: orderNumber,
+				orderTotal: orderTotal
+			}).modal('show');
+		});
+
+		$(document).on('click', '.js-confirm-paynow', function() {
+			var mobileNumber = $('#paynow-mobile-number').val().trim();
+			var orderNumber = $('#paynowModal').data('orderNumber') || 'this order';
+			var orderTotal = $('#paynowModal').data('orderTotal') || '$0.00';
+
+			if (!mobileNumber) {
+				swal('Mobile number required', 'Please enter your mobile number to pay with Paynow.', 'info');
+				return;
+			}
+
+			swal({
+				title: 'Confirm Paynow payment?',
+				text: 'Pay ' + orderTotal + ' for ' + orderNumber + ' using ' + mobileNumber + '?',
+				icon: 'warning',
+				buttons: ['Cancel', 'Yes, pay'],
+				dangerMode: false
+			}).then(function(willPay) {
+				if (!willPay) {
+					return;
+				}
+
+				$('#paynowModal').modal('hide');
+				swal(
+					'Payment request sent',
+					'Check OTP on your mobile to confirm payment.',
+					'success'
+				);
+			});
 		});
 
 		$(document).on('click', '.js-show-cart', function() {
