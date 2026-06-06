@@ -862,7 +862,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 											</div>
 										</div>
 
-										<button class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail">
+										<button class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail" data-item="">
 											Add to cart
 										</button>
 									</div>
@@ -896,6 +896,13 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 		</div>
 	</div>
 
+<!--===============================================================================================-->	
+	<script>
+		window.frappe_boot = {
+			csrf_token: "{{ frappe.session.csrf_token }}",
+			user: "{{ frappe.session.user }}"
+		};
+	</script>
 <!--===============================================================================================-->	
 	<script src="/assets/shop_xi/vendor/jquery/jquery-3.2.1.min.js"></script>
 <!--===============================================================================================-->
@@ -983,6 +990,8 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 			$('.js-modal1 .js-name-detail').text(product.title || product.name || 'Product');
 			$('.js-modal1 .js-price-detail').text(product.price !== null && product.price !== undefined ? '$' + product.price : 'Price unavailable');
 			$('.js-modal1 .js-description-detail').html(product.description || 'No description available.');
+			$('.js-modal1 .js-addcart-detail').attr('data-item', product.name || '');
+			$('.js-modal1 .num-product').val(1);
 
 			if ($gallery.hasClass('slick-initialized')) {
 				$gallery.slick('unslick');
@@ -1184,6 +1193,83 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 <!--===============================================================================================-->
 	<script src="/assets/shop_xi/vendor/sweetalert/sweetalert.min.js"></script>
 	<script>
+		function setCookie(name, value, days) {
+			var expires = '';
+
+			if (days) {
+				var date = new Date();
+				date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
+				expires = '; expires=' + date.toUTCString();
+			}
+
+			document.cookie = name + '=' + value + expires + '; path=/';
+		}
+
+		function getGuestId() {
+			var id = localStorage.getItem('guest_id');
+
+			if (!id) {
+				if (window.crypto && crypto.randomUUID) {
+					id = crypto.randomUUID();
+				} else {
+					id = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+						var r = Math.random() * 16 | 0;
+						var v = c === 'x' ? r : (r & 0x3 | 0x8);
+						return v.toString(16);
+					});
+				}
+
+				localStorage.setItem('guest_id', id);
+			}
+
+			setCookie('guest_id', id, 365);
+			return id;
+		}
+
+		function callCartApi(method, args, callback, errCallback) {
+			fetch('/api/method/' + method, {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+					'X-Frappe-CSRF-Token': window.frappe_boot && window.frappe_boot.csrf_token ? window.frappe_boot.csrf_token : ''
+				},
+				credentials: 'include',
+				body: JSON.stringify(args)
+			})
+				.then(function(res) {
+					return res.json().then(function(data) {
+						if (!res.ok) {
+							throw data || new Error('API error');
+						}
+
+						return data.message || data;
+					});
+				})
+				.then(function(data) {
+					if (callback) {
+						callback(data);
+					}
+				})
+				.catch(function(err) {
+					console.error('Cart API error:', method, err);
+					if (errCallback) {
+						errCallback(err);
+					}
+				});
+		}
+
+		function updateCartBadge(count) {
+			$('.js-show-cart.icon-header-noti').attr('data-notify', count || 0);
+		}
+
+		function refreshCartCount() {
+			callCartApi('shop_xi.www.cart.get_cart_count', {
+				guest_id: getGuestId()
+			}, function(data) {
+				updateCartBadge(data.cart_count || 0);
+			});
+		}
+
 		$('.js-addwish-b2, .js-addwish-detail').on('click', function(e){
 			e.preventDefault();
 		});
@@ -1211,12 +1297,36 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 
 		/*---------------------------------------------*/
 
-		$('.js-addcart-detail').each(function(){
-			var nameProduct = $(this).parent().parent().parent().parent().find('.js-name-detail').html();
-			$(this).on('click', function(){
-				swal(nameProduct, "is added to cart !", "success");
+		$(document).on('click', '.js-addcart-detail', function(e){
+			e.preventDefault();
+
+			var itemCode = $(this).attr('data-item');
+			var qty = parseInt($('.js-modal1 .num-product').val(), 10) || 1;
+			var nameProduct = $('.js-modal1 .js-name-detail').text().trim() || 'Product';
+
+			if (!itemCode) {
+				swal('Missing item', 'Please choose a product first.', 'error');
+				return;
+			}
+
+			callCartApi('shop_xi.www.cart.add_to_cart', {
+				item_code: itemCode,
+				qty: qty,
+				guest_id: getGuestId()
+			}, function(data) {
+				if (data.cart_count !== undefined) {
+					updateCartBadge(data.cart_count || 0);
+				} else {
+					refreshCartCount();
+				}
+
+				swal(nameProduct, 'is added to cart!', 'success');
+			}, function() {
+				swal('Cart error', 'Could not add this product to cart.', 'error');
 			});
 		});
+
+		refreshCartCount();
 	
 	</script>
 <!--===============================================================================================-->
