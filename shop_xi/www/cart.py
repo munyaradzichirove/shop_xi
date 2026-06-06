@@ -11,6 +11,10 @@ def get_identity(guest_id=None):
     return guest_id or frappe.request.cookies.get("guest_id")
 
 
+def get_cart_amount(qty, rate):
+    return flt(qty) * flt(rate)
+
+
 @frappe.whitelist(allow_guest=True)
 def get_cart_count(guest_id=None):
     identity = get_identity(guest_id)
@@ -20,6 +24,29 @@ def get_cart_count(guest_id=None):
 
     return {
         "cart_count": frappe.db.count("Cart Item", {"cart_owner": identity})
+    }
+
+
+@frappe.whitelist(allow_guest=True)
+def get_cart_item(item_code, guest_id=None):
+    identity = get_identity(guest_id)
+
+    if not identity:
+        return {"in_cart": False, "qty": 0, "rate": 0, "amount": 0, "cart_count": 0}
+
+    cart_item = frappe.db.get_value(
+        "Cart Item",
+        {"cart_owner": identity, "item": item_code},
+        ["name", "qty", "rate"],
+        as_dict=True,
+    )
+
+    return {
+        "in_cart": bool(cart_item),
+        "qty": cart_item.qty if cart_item else 0,
+        "rate": cart_item.rate if cart_item else 0,
+        "amount": get_cart_amount(cart_item.qty, cart_item.rate) if cart_item else 0,
+        "cart_count": frappe.db.count("Cart Item", {"cart_owner": identity}),
     }
 
 
@@ -57,6 +84,8 @@ def add_to_cart(item_code, qty=1, guest_id=None, is_set_qty=False):
             "status": "updated",
             "item": item_code,
             "qty": doc.qty,
+            "rate": doc.rate,
+            "amount": get_cart_amount(doc.qty, doc.rate),
             "cart_count": frappe.db.count("Cart Item", {"cart_owner": identity}),
         }
 
@@ -77,6 +106,8 @@ def add_to_cart(item_code, qty=1, guest_id=None, is_set_qty=False):
         "name": doc.name,
         "item": item_code,
         "qty": doc.qty,
+        "rate": doc.rate,
+        "amount": get_cart_amount(doc.qty, doc.rate),
         "cart_count": frappe.db.count("Cart Item", {"cart_owner": identity}),
     }
 
@@ -100,6 +131,9 @@ def delete_from_cart(item_code, guest_id=None):
     return {
         "status": "deleted" if existing else "not_found",
         "item": item_code,
+        "qty": 0,
+        "rate": 0,
+        "amount": 0,
         "cart_count": frappe.db.count("Cart Item", {"cart_owner": identity}),
     }
 
