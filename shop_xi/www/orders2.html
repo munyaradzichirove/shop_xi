@@ -315,20 +315,6 @@
 			</ul>
 		</div>
 
-		<div class="modal-search-header flex-c-m trans-04 js-hide-modal-search">
-			<div class="container-search-header">
-				<button class="flex-c-m btn-hide-modal-search trans-04 js-hide-modal-search">
-					<img src="/assets/shop_xi/images/icons/icon-close2.png" alt="CLOSE">
-				</button>
-
-				<form class="wrap-search-header flex-w p-l-15">
-					<button class="flex-c-m trans-04">
-						<i class="zmdi zmdi-search"></i>
-					</button>
-					<input class="plh3" type="text" name="search" placeholder="Search...">
-				</form>
-			</div>
-		</div>
 	</header>
 
 	<!-- Cart -->
@@ -374,7 +360,7 @@
 
 	<div class="container">
 		<div class="bread-crumb flex-w p-l-25 p-r-15 p-t-30 p-lr-0-lg">
-			<a href="index.html" class="stext-109 cl8 hov-cl1 trans-04">
+			<a href="index2.html" class="stext-109 cl8 hov-cl1 trans-04">
 				Home
 				<i class="fa fa-angle-right m-l-9 m-r-10" aria-hidden="true"></i>
 			</a>
@@ -386,60 +372,55 @@
 	<main class="orders-shell">
 		<h2 class="mtext-109 cl2 p-b-30">My Orders</h2>
 
+		{% if login_required %}
+		<div class="order-card">
+			<p class="order-items">Please log in to view your orders.</p>
+			<div class="order-actions">
+				<a href="/login" class="order-action-primary">Login</a>
+			</div>
+		</div>
+		{% elif orders %}
+		{% for order in orders %}
 		<div class="order-card">
 			<div class="order-card-head">
 				<div>
-					<strong class="order-number">Order #ORD-2026-001</strong>
-					<span class="order-date">June 6, 2026</span>
+					<strong class="order-number">Order #{{ order.name }}</strong>
+					<span class="order-date">{{ order.date }}</span>
 				</div>
-				<div class="order-status order-status-pending">Pending</div>
+				<div class="order-status {% if order.is_paid %}order-status-paid{% else %}order-status-pending{% endif %}">
+					{{ order.status }}
+				</div>
 			</div>
 
 			<div class="order-card-body">
-				<p class="order-items">Fresh Strawberries, Lightweight Jacket</p>
-				<strong class="order-total">$79.65</strong>
+				<p class="order-items">{{ order.items_summary }}</p>
+				<strong class="order-total">{{ order.total }}</strong>
 			</div>
 
 			<div class="order-actions">
+				{% if not order.is_paid %}
 				<button class="order-action-primary" type="button">Pay Now</button>
+				{% endif %}
 				<button
 					class="order-action-secondary js-view-order"
 					type="button"
-					data-order-number="Order #ORD-2026-001"
-					data-order-total="$79.65"
-					data-order-items='[{"item":"Fresh Strawberries","qty":1,"total":"$36.00"},{"item":"Lightweight Jacket","qty":1,"total":"$43.65"}]'
+					data-order-number="Order #{{ order.name }}"
+					data-order-total="{{ order.total }}"
+					data-order-items='{{ order.items_json | e }}'
 				>
 					View
 				</button>
 			</div>
 		</div>
-
+		{% endfor %}
+		{% else %}
 		<div class="order-card">
-			<div class="order-card-head">
-				<div>
-					<strong class="order-number">Order #ORD-2026-000</strong>
-					<span class="order-date">May 20, 2026</span>
-				</div>
-				<div class="order-status order-status-paid">Paid</div>
-			</div>
-
-			<div class="order-card-body">
-				<p class="order-items">Denim Jacket</p>
-				<strong class="order-total">$45.00</strong>
-			</div>
-
+			<p class="order-items">You have no orders yet.</p>
 			<div class="order-actions">
-				<button
-					class="order-action-secondary js-view-order"
-					type="button"
-					data-order-number="Order #ORD-2026-000"
-					data-order-total="$45.00"
-					data-order-items='[{"item":"Denim Jacket","qty":1,"total":"$45.00"}]'
-				>
-					Invoice
-				</button>
+				<a href="main_home2.html" class="order-action-primary">Shop Now</a>
 			</div>
 		</div>
+		{% endif %}
 	</main>
 
 	<div class="modal fade" id="orderModal" tabindex="-1" role="dialog" aria-hidden="true">
@@ -457,6 +438,7 @@
 							<tr>
 								<th>Item</th>
 								<th>Qty</th>
+								<th>Price</th>
 								<th>Total</th>
 							</tr>
 						</thead>
@@ -725,10 +707,11 @@
 					'<tr>' +
 						'<td>' + escapeHtml(item.item || '') + '</td>' +
 						'<td>' + escapeHtml(item.qty || 0) + '</td>' +
+						'<td>' + escapeHtml(item.rate || '$0.00') + '</td>' +
 						'<td>' + escapeHtml(item.total || '$0.00') + '</td>' +
 					'</tr>'
 				);
-			}).join('') || '<tr><td colspan="3">No order items found.</td></tr>');
+			}).join('') || '<tr><td colspan="4">No order items found.</td></tr>');
 
 			$('#orderModal').modal('show');
 		});
