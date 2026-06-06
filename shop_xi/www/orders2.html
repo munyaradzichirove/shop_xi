@@ -470,7 +470,9 @@
 					class="order-action-primary js-paynow-order"
 					type="button"
 					data-order-number="Order #{{ order.name }}"
+					data-order-invoice="{{ order.name }}"
 					data-order-total="{{ order.total }}"
+					data-order-amount="{{ order.amount }}"
 				>
 					Pay Now
 				</button>
@@ -833,22 +835,29 @@
 		$(document).on('click', '.js-paynow-order', function() {
 			var $button = $(this);
 			var orderNumber = $button.attr('data-order-number') || 'this order';
+			var invoice = $button.attr('data-order-invoice') || '';
 			var orderTotal = $button.attr('data-order-total') || '$0.00';
+			var orderAmount = $button.attr('data-order-amount') || '0';
 
 			$('.js-paynow-modal-title').text('Pay with Paynow');
 			$('.js-paynow-order-number').text(orderNumber);
 			$('.js-paynow-order-total').text(orderTotal);
 			$('#paynow-mobile-number').val('');
 			$('#paynowModal').data({
+				invoice: invoice,
 				orderNumber: orderNumber,
-				orderTotal: orderTotal
+				orderTotal: orderTotal,
+				orderAmount: orderAmount
 			}).modal('show');
 		});
 
 		$(document).on('click', '.js-confirm-paynow', function() {
 			var mobileNumber = $('#paynow-mobile-number').val().trim();
+			var invoice = $('#paynowModal').data('invoice') || '';
 			var orderNumber = $('#paynowModal').data('orderNumber') || 'this order';
 			var orderTotal = $('#paynowModal').data('orderTotal') || '$0.00';
+			var orderAmount = $('#paynowModal').data('orderAmount') || '0';
+			var $button = $('.js-confirm-paynow');
 
 			if (!mobileNumber) {
 				swal('Mobile number required', 'Please enter your mobile number to pay with Paynow.', 'info');
@@ -866,12 +875,29 @@
 					return;
 				}
 
-				$('#paynowModal').modal('hide');
-				swal(
-					'Payment request sent',
-					'Check OTP on your mobile to confirm payment.',
-					'success'
-				);
+				$button.prop('disabled', true).text('Sending...');
+				callCartApi('paynow_gateway.paynow_gateway.api.process_paynow_payment', {
+					invoice: invoice,
+					phone: mobileNumber,
+					amount: orderAmount
+				}, function(data) {
+					$button.prop('disabled', false).text('Pay with Paynow');
+					$('#paynowModal').modal('hide');
+
+					if (data.status !== 'success') {
+						swal('Paynow error', data.message || 'Could not send payment request.', 'error');
+						return;
+					}
+
+					swal(
+						'Payment request sent',
+						data.message || 'Check OTP on your mobile to confirm payment.',
+						'success'
+					);
+				}, function() {
+					$button.prop('disabled', false).text('Pay with Paynow');
+					swal('Paynow error', 'Could not send payment request. Please try again.', 'error');
+				});
 			});
 		});
 
