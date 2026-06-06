@@ -13,7 +13,36 @@ def get_context(context):
     search = (frappe.form_dict.get("q") or "").strip()
     selected_sort = frappe.form_dict.get("sort") or "default"
     selected_price = frappe.form_dict.get("price") or "all"
+    product_context = get_product_context(page, group, search, selected_sort, selected_price, page_length)
+    item_groups = frappe.get_all(
+        "Item Group",
+        fields=["name", "item_group_name", "image"],
+        filters={"custom_disabled": 0},
+        order_by="item_group_name asc",
+    )
 
+    context.update(product_context)
+    context.item_groups = item_groups
+    context.category_links = build_category_links(
+        item_groups,
+        group,
+        {
+            "q": search,
+            "sort": selected_sort if selected_sort != "default" else None,
+            "price": selected_price if selected_price != "all" else None,
+        },
+    )
+
+    return context
+
+
+@frappe.whitelist(allow_guest=True)
+def search_products(q="", group="", sort="default", price="all", page=1):
+    page = int(page) if page and str(page).isdigit() else 1
+    return get_product_context(page, group, (q or "").strip(), sort or "default", price or "all")
+
+
+def get_product_context(page, group, search, selected_sort, selected_price, page_length=6):
     filters = {"disabled": 0}
     if group:
         filters["item_group"] = group
@@ -91,35 +120,6 @@ def get_context(context):
             }
         )
 
-    item_groups = frappe.get_all(
-        "Item Group",
-        fields=["name", "item_group_name", "image"],
-        filters={"custom_disabled": 0},
-        order_by="item_group_name asc",
-    )
-
-    common_params = {
-        "q": search,
-        "sort": selected_sort if selected_sort != "default" else None,
-        "price": selected_price if selected_price != "all" else None,
-    }
-
-    category_links = [
-        {
-            "label": "All Products",
-            "url": build_url({**common_params, "page": 1}),
-            "active": not group,
-        }
-    ]
-    for item_group in item_groups:
-        category_links.append(
-            {
-                "label": item_group.item_group_name,
-                "url": build_url({**common_params, "group": item_group.name, "page": 1}),
-                "active": item_group.name == group,
-            }
-        )
-
     page_params = {
         "group": group,
         "q": search,
@@ -160,29 +160,48 @@ def get_context(context):
         for page_no in range(1, total_pages + 1)
     ]
 
-    context.items = items
-    context.modal_products = modal_products
-    context.item_groups = item_groups
-    context.category_links = category_links
-    context.sort_options = sort_options
-    context.price_options = price_options
-    context.pages = pages
-    context.current_page = page
-    context.total_pages = total_pages
-    context.selected_group = group
-    context.search = search
-    context.has_prev = page > 1
-    context.has_next = page < total_pages
-    context.prev_url = build_url({**page_params, "page": page - 1})
-    context.next_url = build_url({**page_params, "page": page + 1})
-    context.show_pagination = total_pages > 1
-
-    return context
+    return {
+        "items": items,
+        "modal_products": modal_products,
+        "sort_options": sort_options,
+        "price_options": price_options,
+        "pages": pages,
+        "current_page": page,
+        "total_pages": total_pages,
+        "selected_group": group,
+        "search": search,
+        "has_prev": page > 1,
+        "has_next": page < total_pages,
+        "prev_url": build_url({**page_params, "page": page - 1}),
+        "next_url": build_url({**page_params, "page": page + 1}),
+        "show_pagination": total_pages > 1,
+    }
 
 
 def build_url(params):
     clean_params = {key: value for key, value in params.items() if value not in (None, "")}
     return f"?{urlencode(clean_params)}" if clean_params else "?page=1"
+
+
+def build_category_links(item_groups, group, common_params):
+    category_links = [
+        {
+            "label": "All Products",
+            "url": build_url({**common_params, "page": 1}),
+            "active": not group,
+        }
+    ]
+
+    for item_group in item_groups:
+        category_links.append(
+            {
+                "label": item_group.item_group_name,
+                "url": build_url({**common_params, "group": item_group.name, "page": 1}),
+                "active": item_group.name == group,
+            }
+        )
+
+    return category_links
 
 
 def get_price_bounds(price_filter):

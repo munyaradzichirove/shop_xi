@@ -94,6 +94,12 @@
 			background-color: #f8f8f8;
 		}
 
+		.products-live-loading {
+			opacity: 0.45;
+			pointer-events: none;
+			transition: opacity 0.2s ease;
+		}
+
 		@media (max-width: 991px) {
 			.product-toolbar-sticky {
 				top: 0;
@@ -460,7 +466,7 @@
 				
 					<!-- Search product -->
 					<div class="dis-none panel-search w-full p-t-10 p-b-15">
-						<form class="bor8 dis-flex p-l-15" method="get">
+						<form class="bor8 dis-flex p-l-15 js-live-search-form" method="get">
 							{% if selected_group %}
 							<input type="hidden" name="group" value="{{ selected_group }}">
 							{% endif %}
@@ -479,7 +485,7 @@
 								<i class="zmdi zmdi-search"></i>
 							</button>
 
-							<input class="mtext-107 cl2 size-114 plh2 p-r-15" type="text" name="q" value="{{ search }}" placeholder="Search products">
+							<input class="mtext-107 cl2 size-114 plh2 p-r-15 js-live-search-input" type="search" name="q" value="{{ search }}" placeholder="Search products" autocomplete="off">
 						</form>	
 					</div>
 
@@ -521,7 +527,7 @@
 					</div>
 			</div>
 
-			<div class="row isotope-grid">
+				<div class="row isotope-grid js-products-grid">
 				{% for i in items %}
 				<div class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item">
 					<div class="block2">
@@ -562,9 +568,10 @@
 				{% endfor %}
 			</div>
 
-			{% if show_pagination %}
-				<nav class="w-full p-t-45" aria-label="Product pagination">
-					<ul class="pagination product-pagination justify-content-center flex-wrap">
+				<div class="js-pagination-wrap">
+				{% if show_pagination %}
+					<nav class="w-full p-t-45" aria-label="Product pagination">
+						<ul class="pagination product-pagination justify-content-center flex-wrap">
 						<li class="page-item {% if not has_prev %}disabled{% endif %}">
 							<a class="page-link" href="{{ prev_url }}" tabindex="{% if not has_prev %}-1{% else %}0{% endif %}" aria-disabled="{{ 'true' if not has_prev else 'false' }}">
 								Previous
@@ -585,9 +592,10 @@
 							</a>
 						</li>
 				</ul>
-			</nav>
-			{% endif %}
-		</div>
+				</nav>
+				{% endif %}
+				</div>
+			</div>
 	</div>
 		
 
@@ -973,7 +981,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 			var $gallery = $('.js-modal1 .gallery-lb');
 
 			$('.js-modal1 .js-name-detail').text(product.title || product.name || 'Product');
-			$('.js-modal1 .js-price-detail').text(product.price ? '$' + product.price : 'Price unavailable');
+			$('.js-modal1 .js-price-detail').text(product.price !== null && product.price !== undefined ? '$' + product.price : 'Price unavailable');
 			$('.js-modal1 .js-description-detail').html(product.description || 'No description available.');
 
 			if ($gallery.hasClass('slick-initialized')) {
@@ -1001,7 +1009,166 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 			initProductLightbox($(this));
 		});
 
-		$('.js-product-quick-view').on('click', function(e) {
+		function escapeHtml(value) {
+			return String(value || '').replace(/[&<>"']/g, function(char) {
+				return {
+					'&': '&amp;',
+					'<': '&lt;',
+					'>': '&gt;',
+					'"': '&quot;',
+					"'": '&#39;'
+				}[char];
+			});
+		}
+
+		function productUrl(itemName) {
+			return '/product?item=' + encodeURIComponent(itemName || '');
+		}
+
+		function renderProducts(items) {
+			if (!items || !items.length) {
+				return '<div class="col-12 p-b-35"><p class="stext-106 cl6">No items found.</p></div>';
+			}
+
+			return items.map(function(item, index) {
+				var image = item.image || '/assets/shop_xi/images/product-01.jpg';
+				var title = item.item_name || item.name || 'Product';
+				var price = item.selling_price !== null && item.selling_price !== undefined ? '<span class="stext-105 cl3">$' + escapeHtml(item.selling_price) + '</span>' : '';
+
+				return '' +
+					'<div class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item">' +
+						'<div class="block2">' +
+							'<div class="block2-pic hov-img0">' +
+								'<img src="' + escapeHtml(image) + '" alt="' + escapeHtml(title) + '">' +
+								'<a href="#" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-product-quick-view" data-product-index="' + index + '">Quick View</a>' +
+							'</div>' +
+							'<div class="block2-txt flex-w flex-t p-t-14">' +
+								'<div class="block2-txt-child1 flex-col-l ">' +
+									'<a href="' + productUrl(item.name) + '" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">' + escapeHtml(title) + '</a>' +
+									price +
+								'</div>' +
+								'<div class="block2-txt-child2 flex-r p-t-3">' +
+									'<a href="#" class="btn-addwish-b2 dis-block pos-relative js-addwish-b2" data-item="' + escapeHtml(item.name) + '">' +
+										'<img class="icon-heart1 dis-block trans-04" src="/assets/shop_xi/images/icons/icon-heart-01.png" alt="ICON">' +
+										'<img class="icon-heart2 dis-block trans-04 ab-t-l" src="/assets/shop_xi/images/icons/icon-heart-02.png" alt="ICON">' +
+									'</a>' +
+								'</div>' +
+							'</div>' +
+						'</div>' +
+					'</div>';
+			}).join('');
+		}
+
+		function renderPagination(data) {
+			if (!data.show_pagination) {
+				return '';
+			}
+
+			var pageLinks = (data.pages || []).map(function(page) {
+				return '' +
+					'<li class="page-item ' + (page.active ? 'active' : '') + '" ' + (page.active ? 'aria-current="page"' : '') + '>' +
+						'<a class="page-link" href="' + escapeHtml(page.url) + '">' + escapeHtml(page.number) + '</a>' +
+					'</li>';
+			}).join('');
+
+			return '' +
+				'<nav class="w-full p-t-45" aria-label="Product pagination">' +
+					'<ul class="pagination product-pagination justify-content-center flex-wrap">' +
+						'<li class="page-item ' + (!data.has_prev ? 'disabled' : '') + '">' +
+							'<a class="page-link" href="' + escapeHtml(data.prev_url) + '" tabindex="' + (!data.has_prev ? '-1' : '0') + '" aria-disabled="' + (!data.has_prev ? 'true' : 'false') + '">Previous</a>' +
+						'</li>' +
+						pageLinks +
+						'<li class="page-item ' + (!data.has_next ? 'disabled' : '') + '">' +
+							'<a class="page-link" href="' + escapeHtml(data.next_url) + '" tabindex="' + (!data.has_next ? '-1' : '0') + '" aria-disabled="' + (!data.has_next ? 'true' : 'false') + '">Next</a>' +
+						'</li>' +
+					'</ul>' +
+				'</nav>';
+		}
+
+		function getSearchParams(page) {
+			var params = new URLSearchParams(window.location.search);
+			var query = $('.js-live-search-input').val() || '';
+
+			params.set('q', query);
+			params.set('page', page || 1);
+
+			if (!query) {
+				params.delete('q');
+			}
+
+			return params;
+		}
+
+		function updateSearchUrl(params) {
+			var queryString = params.toString();
+			var url = window.location.pathname + (queryString ? '?' + queryString : '');
+			window.history.replaceState({}, '', url);
+		}
+
+		var liveSearchRequest = 0;
+
+		function runLiveSearch(page) {
+			var requestId = ++liveSearchRequest;
+			var params = getSearchParams(page);
+			var requestParams = new URLSearchParams(params);
+
+			$('.js-products-grid').addClass('products-live-loading');
+
+			return fetch('/api/method/shop_xi.www.main_home2.search_products?' + requestParams.toString(), {
+				headers: {
+					'Accept': 'application/json'
+				}
+			})
+				.then(function(response) {
+					return response.json();
+				})
+				.then(function(response) {
+					var data = response.message || {};
+
+					if (requestId !== liveSearchRequest) {
+						return;
+					}
+
+					productModalData = data.modal_products || [];
+					$('.js-products-grid').html(renderProducts(data.items || []));
+					$('.js-pagination-wrap').html(renderPagination(data));
+					updateSearchUrl(params);
+				})
+				.finally(function() {
+					$('.js-products-grid').removeClass('products-live-loading');
+				});
+		}
+
+		var liveSearchTimer;
+
+		$('.js-live-search-input').on('input', function() {
+			clearTimeout(liveSearchTimer);
+			liveSearchTimer = setTimeout(function() {
+				runLiveSearch(1);
+			}, 250);
+		});
+
+		$('.js-live-search-form').on('submit', function(e) {
+			e.preventDefault();
+			clearTimeout(liveSearchTimer);
+			runLiveSearch(1);
+		});
+
+		$('.js-pagination-wrap').on('click', '.page-link', function(e) {
+			var $item = $(this).closest('.page-item');
+
+			if ($item.hasClass('disabled') || $item.hasClass('active')) {
+				e.preventDefault();
+				return;
+			}
+
+			e.preventDefault();
+			var params = new URLSearchParams($(this).attr('href').replace(/^\?/, ''));
+			$('.js-live-search-input').val(params.get('q') || '');
+			runLiveSearch(params.get('page') || 1);
+		});
+
+		$(document).on('click', '.js-product-quick-view', function(e) {
 			e.preventDefault();
 			var product = productModalData[$(this).data('product-index')];
 
