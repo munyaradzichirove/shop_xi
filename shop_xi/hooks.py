@@ -171,6 +171,23 @@ home_page = "home"
 
 # before_tests = "shop_xi.install.before_tests"
 
+fixtures = [
+	{
+		"doctype": "Custom Field",
+		"filters": [
+			[
+				"name",
+				"in",
+				[
+					"Item Group-custom_ecommerce_excluded_",
+					"Item Group-custom_bigger_front_card",
+					"Item Group-custom_smaller_front_card",
+				],
+			]
+		],
+	}
+]
+
 # Overriding Methods
 # ------------------------------
 #
