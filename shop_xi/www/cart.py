@@ -225,7 +225,7 @@ def place_order():
         return {
             "status": "login_required",
             "message": "Please log in before checkout.",
-            "redirect_to": "/login?redirect-to=/shopping-cart",
+            "redirect_to": "/login?redirect-to=/shopping-cart%3Fcheckout%3D1",
         }
 
     cart_items = frappe.get_all(

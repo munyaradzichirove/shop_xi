@@ -47,6 +47,7 @@ def get_context(context):
 	context.title = "Login"
 	context.hide_login = True
 	context.redirect_to = redirect_to
+	context.back_to_label = "Back to checkout" if redirect_to.startswith("/shopping-cart") else "Back to shop"
 	context.disable_signup = cint(frappe.get_website_settings("disable_signup"))
 	context.disable_user_pass_login = cint(frappe.get_system_settings("disable_user_pass_login"))
 	context.login_with_email_link = frappe.get_system_settings("login_with_email_link")

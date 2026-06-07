@@ -756,7 +756,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 			if (!window.frappe_boot || window.frappe_boot.user === 'Guest') {
 				swal('Login required', 'Please log in before checkout.', 'info')
 					.then(function() {
-						window.location.href = '/login?redirect-to=/shopping-cart';
+						window.location.href = '/login?redirect-to=' + encodeURIComponent('/shopping-cart?checkout=1');
 					});
 				return;
 			}
@@ -782,7 +782,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 					if (data.status === 'login_required') {
 						swal('Login required', data.message || 'Please log in before checkout.', 'info')
 							.then(function() {
-								window.location.href = data.redirect_to || '/login?redirect-to=/shopping-cart';
+								window.location.href = data.redirect_to || '/login?redirect-to=' + encodeURIComponent('/shopping-cart?checkout=1');
 							});
 						return;
 					}
@@ -831,6 +831,18 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 			e.preventDefault();
 			proceedToCheckout();
 		});
+
+		if (window.frappe_boot && window.frappe_boot.user !== 'Guest') {
+			var query = new URLSearchParams(window.location.search);
+			if (query.get('checkout') === '1') {
+				query.delete('checkout');
+				var cleanUrl = window.location.pathname + (query.toString() ? '?' + query.toString() : '');
+				window.history.replaceState({}, '', cleanUrl);
+				setTimeout(function() {
+					proceedToCheckout();
+				}, 500);
+			}
+		}
 
 		$(document).on('click', '.js-cart-page-remove', function(e) {
 			e.preventDefault();
