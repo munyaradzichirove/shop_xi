@@ -4,6 +4,10 @@ from urllib.parse import urlencode
 import frappe
 
 
+EXCLUDED_GROUP_FIELD = "custom_ecommerce_excluded_"
+ROOT_ITEM_GROUPS = {"All Item Groups", "All Item Group"}
+
+
 def get_context(context):
     page = frappe.form_dict.get("page")
     page = int(page) if page and str(page).isdigit() else 1
@@ -14,12 +18,7 @@ def get_context(context):
     selected_sort = frappe.form_dict.get("sort") or "default"
     selected_price = frappe.form_dict.get("price") or "all"
     product_context = get_product_context(page, group, search, selected_sort, selected_price, page_length)
-    item_groups = frappe.get_all(
-        "Item Group",
-        fields=["name", "item_group_name", "image"],
-        filters={"custom_disabled": 0},
-        order_by="item_group_name asc",
-    )
+    item_groups = get_visible_item_groups()
 
     context.update(product_context)
     context.item_groups = item_groups
@@ -44,7 +43,18 @@ def search_products(q="", group="", sort="default", price="all", page=1):
 
 def get_product_context(page, group, search, selected_sort, selected_price, page_length=8):
     filters = {"disabled": 0}
+    visible_group_names = get_visible_item_group_names()
+
+    if visible_group_names is not None:
+        if not visible_group_names:
+            return get_empty_product_context(page, group, search, selected_sort, selected_price)
+
+        filters["item_group"] = ["in", visible_group_names]
+
     if group:
+        if visible_group_names is not None and group not in visible_group_names:
+            return get_empty_product_context(page, group, search, selected_sort, selected_price)
+
         filters["item_group"] = group
 
     or_filters = None
@@ -176,6 +186,97 @@ def get_product_context(page, group, search, selected_sort, selected_price, page
         "next_url": build_url({**page_params, "page": page + 1}),
         "show_pagination": total_pages > 1,
     }
+
+
+def get_visible_item_group_filters():
+    filters = {}
+    meta = frappe.get_meta("Item Group")
+
+    if meta.has_field("custom_disabled"):
+        filters["custom_disabled"] = 0
+
+    if meta.has_field(EXCLUDED_GROUP_FIELD):
+        filters[EXCLUDED_GROUP_FIELD] = 0
+
+    return filters
+
+
+def get_visible_item_groups():
+    item_groups = frappe.get_all(
+        "Item Group",
+        fields=["name", "item_group_name", "image"],
+        filters=get_visible_item_group_filters(),
+        order_by="item_group_name asc",
+    )
+    return [
+        group for group in item_groups
+        if group.name not in ROOT_ITEM_GROUPS
+        and group.item_group_name not in ROOT_ITEM_GROUPS
+    ]
+
+
+def get_visible_item_group_names():
+    meta = frappe.get_meta("Item Group")
+
+    return [group.name for group in get_visible_item_groups()]
+
+
+def get_empty_product_context(page, group, search, selected_sort, selected_price):
+    page_params = {
+        "group": group,
+        "q": search,
+        "sort": selected_sort if selected_sort != "default" else None,
+        "price": selected_price if selected_price != "all" else None,
+    }
+
+    return {
+        "items": [],
+        "modal_products": [],
+        "sort_options": get_sort_options(page_params, selected_sort),
+        "price_options": get_price_options(page_params, selected_price),
+        "pages": [],
+        "current_page": 1,
+        "total_pages": 1,
+        "selected_group": group,
+        "search": search,
+        "has_prev": False,
+        "has_next": False,
+        "prev_url": build_url({**page_params, "page": 1}),
+        "next_url": build_url({**page_params, "page": 1}),
+        "show_pagination": False,
+    }
+
+
+def get_sort_options(page_params, selected_sort):
+    sort_options = [
+        {"label": "Default", "value": "default"},
+        {"label": "Newest", "value": "newest"},
+        {"label": "Price: Low to High", "value": "price_asc"},
+        {"label": "Price: High to Low", "value": "price_desc"},
+    ]
+
+    for option in sort_options:
+        option["active"] = option["value"] == selected_sort
+        option["url"] = build_url({**page_params, "sort": option["value"], "page": 1})
+
+    return sort_options
+
+
+def get_price_options(page_params, selected_price):
+    price_options = [
+        {"label": "All", "value": "all"},
+        {"label": "$0.00 - $50.00", "value": "0-50"},
+        {"label": "$50.00 - $100.00", "value": "50-100"},
+        {"label": "$100.00 - $150.00", "value": "100-150"},
+        {"label": "$150.00 - $200.00", "value": "150-200"},
+        {"label": "$200.00+", "value": "200-plus"},
+    ]
+
+    for option in price_options:
+        option["active"] = option["value"] == selected_price
+        option["url"] = build_url({**page_params, "price": option["value"], "page": 1})
+
+    return price_options
 
 
 def build_url(params):

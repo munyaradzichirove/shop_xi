@@ -434,7 +434,7 @@
 		<div class="container">
 			<div class="row">
 				{% for category in home_categories %}
-				<div class="{% if loop.index <= 2 %}col-md-6{% else %}col-md-6 col-lg-4{% endif %} p-b-30 m-lr-auto">
+				<div class="{% if category.card_size == 'big' %}col-md-6{% else %}col-md-6 col-lg-4{% endif %} p-b-30 m-lr-auto">
 					<!-- Block1 -->
 					<div class="block1 wrap-pic-w">
 						<img src="{{ category.image }}" alt="{{ category.label }}">

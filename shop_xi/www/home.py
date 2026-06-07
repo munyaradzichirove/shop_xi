@@ -11,6 +11,11 @@ DEFAULT_CATEGORY_IMAGES = [
 	"/assets/shop_xi/images/banner-09.jpg",
 ]
 
+EXCLUDED_GROUP_FIELD = "custom_ecommerce_excluded_"
+BIG_FRONT_CARD_FIELD = "custom_bigger_front_card"
+SMALL_FRONT_CARD_FIELD = "custom_smaller_front_card"
+ROOT_ITEM_GROUPS = {"All Item Groups", "All Item Group"}
+
 
 def get_context(context):
 	context.home_categories = get_home_categories()
@@ -20,42 +25,29 @@ def get_context(context):
 	return context
 
 
-def get_home_categories(limit=5):
-	filters = {}
-	meta = frappe.get_meta("Item Group")
-
-	if meta.has_field("custom_disabled"):
-		filters["custom_disabled"] = 0
-
-	item_groups = frappe.get_all(
-		"Item Group",
-		fields=["name", "item_group_name", "image"],
-		filters=filters,
-		order_by="item_group_name asc",
-		limit_page_length=limit,
-	)
+def get_home_categories(small_limit=3):
+	big_groups = get_front_card_item_groups(BIG_FRONT_CARD_FIELD)
+	small_groups = get_front_card_item_groups(SMALL_FRONT_CARD_FIELD, small_limit)
 
 	categories = []
-	for index, group in enumerate(item_groups):
-		label = group.item_group_name or group.name
-		categories.append(
-			{
-				"label": label,
-				"image": group.image or DEFAULT_CATEGORY_IMAGES[index % len(DEFAULT_CATEGORY_IMAGES)],
-				"url": "/products?" + urlencode({"group": group.name}),
-				"info": "Shop Collection",
-			}
-		)
+	for group in big_groups:
+		categories.append(get_category_card(group, "big"))
 
-	return categories or get_fallback_categories()
+	for group in small_groups:
+		categories.append(get_category_card(group, "small"))
+
+	if categories:
+		return categories
+
+	return [] if get_visible_item_group_filters() else get_fallback_categories()
 
 
 def get_home_category_links(limit=50):
-	categories = get_home_categories(limit=limit)
+	categories = get_visible_item_groups(limit=limit)
 	return [{"label": "All Products", "url": "/products"}] + [
 		{
-			"label": category["label"],
-			"url": category["url"],
+			"label": category.item_group_name or category.name,
+			"url": "/products?" + urlencode({"group": category.name}),
 		}
 		for category in categories
 	]
@@ -64,8 +56,12 @@ def get_home_category_links(limit=50):
 def get_trendy_items(limit=8):
 	meta = frappe.get_meta("Item")
 	trendy_field = get_trendy_field(meta)
+	visible_group_names = get_visible_item_group_names()
 
 	if not trendy_field:
+		return []
+
+	if visible_group_names is not None and not visible_group_names:
 		return []
 
 	fields = [
@@ -80,13 +76,18 @@ def get_trendy_items(limit=8):
 	if meta.has_field("custom_image_2"):
 		fields.append("custom_image_2")
 
+	filters = {
+		"disabled": 0,
+		trendy_field: 1,
+	}
+
+	if visible_group_names is not None:
+		filters["item_group"] = ["in", visible_group_names]
+
 	items = frappe.get_all(
 		"Item",
 		fields=fields,
-		filters={
-			"disabled": 0,
-			trendy_field: 1,
-		},
+		filters=filters,
 		order_by="modified desc",
 		limit_page_length=limit,
 	)
@@ -104,6 +105,77 @@ def get_trendy_items(limit=8):
 		item.custom_price_before = price.custom_price_before if price else None
 
 	return items
+
+
+def get_visible_item_group_filters():
+	filters = {}
+	meta = frappe.get_meta("Item Group")
+
+	if meta.has_field("custom_disabled"):
+		filters["custom_disabled"] = 0
+
+	if meta.has_field(EXCLUDED_GROUP_FIELD):
+		filters[EXCLUDED_GROUP_FIELD] = 0
+
+	return filters
+
+
+def get_visible_item_groups(limit=None):
+	query = {
+		"doctype": "Item Group",
+		"fields": ["name", "item_group_name", "image"],
+		"filters": get_visible_item_group_filters(),
+		"order_by": "item_group_name asc",
+	}
+	if limit:
+		query["limit_page_length"] = limit
+
+	item_groups = frappe.get_all(**query)
+	return [
+		group for group in item_groups
+		if group.name not in ROOT_ITEM_GROUPS
+		and group.item_group_name not in ROOT_ITEM_GROUPS
+	]
+
+
+def get_front_card_item_groups(fieldname, limit=None):
+	meta = frappe.get_meta("Item Group")
+
+	if not meta.has_field(fieldname):
+		return []
+
+	filters = get_visible_item_group_filters()
+	filters[fieldname] = 1
+
+	query = {
+		"doctype": "Item Group",
+		"fields": ["name", "item_group_name", "image"],
+		"filters": filters,
+		"order_by": "item_group_name asc",
+	}
+	if limit:
+		query["limit_page_length"] = limit
+
+	item_groups = frappe.get_all(**query)
+	return [
+		group for group in item_groups
+		if group.name not in ROOT_ITEM_GROUPS
+		and group.item_group_name not in ROOT_ITEM_GROUPS
+	]
+
+
+def get_category_card(group, card_size):
+	return {
+		"label": group.item_group_name or group.name,
+		"image": group.image,
+		"url": "/products?" + urlencode({"group": group.name}),
+		"info": "Shop Collection",
+		"card_size": card_size,
+	}
+
+
+def get_visible_item_group_names():
+	return [group.name for group in get_visible_item_groups()]
 
 
 def get_trendy_field(meta):
