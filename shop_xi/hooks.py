@@ -237,6 +237,10 @@ home_page = "home"
 
 on_login = "shop_xi.www.cart.merge_cart_on_login"
 
+override_doctype_class = {
+	"Cart Item": "shop_xi.shop_xi.doctype.cart_item.cart_item.CartItem"
+}
+
 # Automatically update python controller files with type annotations for this app.
 # export_python_type_annotations = True
 
