@@ -155,11 +155,12 @@ def get_invoice_payment_status(invoice):
 def get_context(context):
     user = frappe.session.user
 
-    context.login_required = user == "Guest"
-    context.orders = []
+    if user == "Guest":
+        frappe.local.flags.redirect_location = "/login?redirect-to=/orders2"
+        raise frappe.Redirect
 
-    if context.login_required:
-        return context
+    context.login_required = False
+    context.orders = []
 
     customers = get_linked_customers(user)
     invoices = get_user_invoices(user, customers)

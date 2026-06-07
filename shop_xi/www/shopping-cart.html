@@ -753,6 +753,14 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 		function proceedToCheckout() {
 			var $button = $('.js-proceed-checkout');
 
+			if (!window.frappe_boot || window.frappe_boot.user === 'Guest') {
+				swal('Login required', 'Please log in before checkout.', 'info')
+					.then(function() {
+						window.location.href = '/login?redirect-to=/shopping-cart';
+					});
+				return;
+			}
+
 			$button.prop('disabled', true).text('Processing...');
 			saveCartPageRows(function(success, reason) {
 				if (reason === 'empty') {
@@ -774,7 +782,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 					if (data.status === 'login_required') {
 						swal('Login required', data.message || 'Please log in before checkout.', 'info')
 							.then(function() {
-								window.location.href = '/login';
+								window.location.href = data.redirect_to || '/login?redirect-to=/shopping-cart';
 							});
 						return;
 					}
