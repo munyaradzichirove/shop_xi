@@ -1,4 +1,4 @@
-from urllib.parse import urlparse
+from urllib.parse import quote, urlparse
 
 import frappe
 from frappe import _
@@ -47,6 +47,7 @@ def get_context(context):
 	context.title = "Login"
 	context.hide_login = True
 	context.redirect_to = redirect_to
+	context.signup_url = "/signup?redirect-to=" + quote(redirect_to, safe="/")
 	context.back_to_label = "Back to checkout" if redirect_to.startswith("/shopping-cart") else "Back to shop"
 	context.disable_signup = cint(frappe.get_website_settings("disable_signup"))
 	context.disable_user_pass_login = cint(frappe.get_system_settings("disable_user_pass_login"))
