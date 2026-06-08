@@ -358,6 +358,7 @@
 <!--===============================================================================================-->
 </head>
 <body class="animsition orders-page">
+	{% set ecommerce_logo = frappe.db.get_single_value("Ecommerce Settings", "logo") %}
 
 	<!-- Header -->
 	<header class="header-v4">
@@ -380,7 +381,7 @@
 			<div class="wrap-menu-desktop how-shadow1">
 				<nav class="limiter-menu-desktop container">
 					<a href="/home" class="logo">
-						<img src="/assets/shop_xi/images/icons/logo-01.png" alt="IMG-LOGO">
+						<img src="{{ ecommerce_logo }}" alt="IMG-LOGO">
 					</a>
 
 					<div class="menu-desktop">
@@ -419,7 +420,7 @@
 
 		<div class="wrap-header-mobile">
 			<div class="logo-mobile">
-				<a href="/home"><img src="/assets/shop_xi/images/icons/logo-01.png" alt="IMG-LOGO"></a>
+				<a href="/home"><img src="{{ ecommerce_logo }}" alt="IMG-LOGO"></a>
 			</div>
 
 			<div class="wrap-icon-header flex-w flex-r-m m-r-15">
