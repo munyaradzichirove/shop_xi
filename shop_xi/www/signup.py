@@ -4,8 +4,7 @@ import frappe
 from frappe import _
 from frappe.auth import LoginManager
 from frappe.rate_limiter import rate_limit
-from frappe.utils import cint, validate_email_address
-from frappe.website.utils import is_signup_disabled
+from frappe.utils import validate_email_address
 
 from shop_xi.www.login import sanitize_redirect
 
@@ -26,7 +25,7 @@ def get_context(context):
 	context.hide_login = True
 	context.redirect_to = redirect_to
 	context.login_url = "/login?redirect-to=" + quote(redirect_to, safe="/")
-	context.disable_signup = cint(frappe.get_website_settings("disable_signup"))
+	context.disable_signup = False
 
 	return context
 
@@ -35,9 +34,6 @@ def get_context(context):
 @rate_limit(limit=20, seconds=60 * 60)
 def create_account(full_name, email, password, confirm_password, redirect_to=None):
 	try:
-		if is_signup_disabled():
-			return error_response(_("Sign up is disabled."))
-
 		full_name = (full_name or "").strip()
 		email = (email or "").strip().lower()
 		password = password or ""
@@ -118,18 +114,26 @@ def get_or_create_customer(user):
 	if customer.meta.has_field("email_id"):
 		customer.email_id = user_email
 	if customer.meta.has_field("customer_group"):
-		customer.customer_group = (
-			frappe.db.get_value("Customer Group", "All Customer Groups", "name")
-			or frappe.db.get_value("Customer Group", {}, "name")
-		)
+		customer.customer_group = get_default_customer_group()
 	if customer.meta.has_field("territory"):
-		customer.territory = (
-			frappe.db.get_value("Territory", "All Territories", "name")
-			or frappe.db.get_value("Territory", {}, "name")
-		)
+		customer.territory = get_default_territory()
 
 	customer.insert(ignore_permissions=True)
 	return customer.name
+
+
+def get_default_customer_group():
+	return (
+		frappe.db.get_value("Customer Group", {"name": "Individual", "is_group": 0}, "name")
+		or frappe.db.get_value("Customer Group", {"is_group": 0}, "name", order_by="lft asc")
+	)
+
+
+def get_default_territory():
+	return (
+		frappe.db.get_value("Territory", {"name": "All Territories", "is_group": 0}, "name")
+		or frappe.db.get_value("Territory", {"is_group": 0}, "name", order_by="lft asc")
+	)
 
 
 def split_full_name(full_name):

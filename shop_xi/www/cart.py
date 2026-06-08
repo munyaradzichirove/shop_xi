@@ -203,18 +203,26 @@ def get_checkout_customer(user):
     if customer.meta.has_field("email_id"):
         customer.email_id = user_email
     if customer.meta.has_field("customer_group"):
-        customer.customer_group = (
-            frappe.db.get_value("Customer Group", "All Customer Groups", "name")
-            or frappe.db.get_value("Customer Group", {}, "name")
-        )
+        customer.customer_group = get_default_customer_group()
     if customer.meta.has_field("territory"):
-        customer.territory = (
-            frappe.db.get_value("Territory", "All Territories", "name")
-            or frappe.db.get_value("Territory", {}, "name")
-        )
+        customer.territory = get_default_territory()
 
     customer.insert(ignore_permissions=True)
     return customer.name
+
+
+def get_default_customer_group():
+    return (
+        frappe.db.get_value("Customer Group", {"name": "Individual", "is_group": 0}, "name")
+        or frappe.db.get_value("Customer Group", {"is_group": 0}, "name", order_by="lft asc")
+    )
+
+
+def get_default_territory():
+    return (
+        frappe.db.get_value("Territory", {"name": "All Territories", "is_group": 0}, "name")
+        or frappe.db.get_value("Territory", {"is_group": 0}, "name", order_by="lft asc")
+    )
 
 
 @frappe.whitelist()
