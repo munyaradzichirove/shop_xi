@@ -4,8 +4,8 @@ from frappe.utils import validate_email_address
 
 
 DEFAULT_CONTACT_SETTINGS = {
-	"address": "Coza Store Center 8th floor, 379 Hudson St, New York, NY 10018 US",
-	"phone": "+1 800 1236879",
+	"address": "6037 Kuwadzana 5, 151 Street, Harare",
+	"phone": "+263 77 603 1280",
 	"email": "contact@example.com",
 }
 
