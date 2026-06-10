@@ -1,0 +1,1148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Consultancy Services | VerityCore Consultancy</title>
+	<meta name="description" content="VerityCore Consultancy provides digital strategy, ERP advisory, Zoho consulting, process improvement, automation, cybersecurity and cloud consultancy services.">
+
+	<style>
+		:root {
+			--nav: #131a22;
+			--nav-2: #232f3e;
+			--ink: #0f1720;
+			--muted: #5f6b7a;
+			--line: #d5dbdb;
+			--soft: #f6f7f8;
+			--orange: #a58a62;
+			--orange-2: #ffb84d;
+			--blue: #146eb4;
+			--cyan: #2dd4bf;
+			--green: #067d62;
+			--panel: #ffffff;
+		}
+
+		* { box-sizing: border-box; }
+
+		html { scroll-behavior: smooth; }
+
+		body {
+			background: #fff;
+			color: var(--ink);
+			font-family: Arial, Helvetica, sans-serif;
+			margin: 0;
+		}
+
+		a { color: inherit; text-decoration: none; }
+
+		.top-nav {
+			align-items: center;
+			background: var(--nav);
+			color: #fff;
+			display: flex;
+			gap: 26px;
+			min-height: 62px;
+			padding: 0 38px;
+			position: sticky;
+			top: 0;
+			z-index: 20;
+		}
+
+		.logo {
+			align-items: baseline;
+			display: flex;
+			font-size: 26px;
+			font-weight: 900;
+			gap: 4px;
+			white-space: nowrap;
+		}
+
+		.logo span { color: var(--orange); }
+
+		.main-links,
+		.utility-links {
+			align-items: center;
+			display: flex;
+			gap: 22px;
+		}
+
+		.main-links {
+			flex: 1;
+			font-size: 14px;
+			font-weight: 700;
+		}
+
+		.utility-links {
+			color: #d5dbdb;
+			font-size: 13px;
+		}
+
+		.console-btn {
+			background: var(--orange);
+			border-radius: 3px;
+			color: #111;
+			font-weight: 800;
+			padding: 10px 15px;
+		}
+
+		.sub-nav {
+			background: var(--nav-2);
+			color: #f2f3f3;
+			display: flex;
+			font-size: 14px;
+			gap: 24px;
+			overflow-x: auto;
+			padding: 12px 38px;
+			white-space: nowrap;
+		}
+
+		.hero {
+			background:
+				radial-gradient(circle at 12% 18%, rgba(255, 184, 77, 0.18), transparent 26%),
+				radial-gradient(circle at 86% 22%, rgba(20, 110, 180, 0.23), transparent 30%),
+				linear-gradient(135deg, #101923 0%, #172231 52%, #0f1720 100%);
+			color: #fff;
+			overflow: hidden;
+			padding: 76px 38px 66px;
+			position: relative;
+		}
+
+		.hero::before {
+			background:
+				linear-gradient(rgba(255,255,255,0.045) 1px, transparent 1px),
+				linear-gradient(90deg, rgba(255,255,255,0.045) 1px, transparent 1px);
+			background-size: 44px 44px;
+			content: "";
+			inset: 0;
+			opacity: 0.35;
+			position: absolute;
+		}
+
+		.hero-inner {
+			display: grid;
+			gap: 46px;
+			grid-template-columns: minmax(0, 0.95fr) minmax(420px, 1.05fr);
+			margin: 0 auto;
+			max-width: 1240px;
+			position: relative;
+			z-index: 1;
+			align-items: center;
+		}
+
+		.eyebrow {
+			align-items: center;
+			background: rgba(255,255,255,0.08);
+			border: 1px solid rgba(255,255,255,0.14);
+			border-radius: 999px;
+			color: var(--orange-2);
+			display: inline-flex;
+			font-size: 12px;
+			font-weight: 900;
+			gap: 8px;
+			letter-spacing: 0.4px;
+			margin-bottom: 18px;
+			padding: 8px 12px;
+			text-transform: uppercase;
+		}
+
+		.eyebrow::before {
+			background: linear-gradient(135deg, var(--orange), var(--orange-2));
+			border-radius: 50%;
+			content: "";
+			height: 8px;
+			width: 8px;
+		}
+
+		h1 {
+			font-size: clamp(42px, 5.6vw, 72px);
+			font-weight: 900;
+			letter-spacing: -1.9px;
+			line-height: 1.02;
+			margin: 0;
+		}
+
+		.hero h1 span { color: var(--orange-2); }
+
+		.hero p {
+			color: #d5dbdb;
+			font-size: 19px;
+			line-height: 1.65;
+			margin: 24px 0 0;
+			max-width: 760px;
+		}
+
+		.hero-actions {
+			display: flex;
+			flex-wrap: wrap;
+			gap: 12px;
+			margin-top: 32px;
+		}
+
+		.primary,
+		.secondary {
+			align-items: center;
+			border-radius: 999px;
+			display: inline-flex;
+			font-size: 15px;
+			font-weight: 900;
+			justify-content: center;
+			min-height: 48px;
+			padding: 13px 22px;
+			transition: transform 160ms ease, box-shadow 160ms ease;
+		}
+
+		.primary {
+			background: linear-gradient(135deg, var(--orange), var(--orange-2));
+			box-shadow: 0 16px 32px rgba(255, 153, 0, 0.26);
+			color: #111;
+		}
+
+		.secondary {
+			background: transparent;
+			border: 1px solid rgba(255,255,255,0.32);
+			color: #fff;
+		}
+
+		.primary:hover,
+		.secondary:hover { transform: translateY(-2px); }
+
+		.advisory-board {
+			display: grid;
+			gap: 16px;
+			grid-template-columns: 1fr 1fr;
+		}
+
+		.board-card {
+			background: rgba(255,255,255,0.09);
+			border: 1px solid rgba(255,255,255,0.14);
+			border-radius: 18px;
+			padding: 20px;
+			backdrop-filter: blur(12px);
+		}
+
+		.board-card.large {
+			background: #fff;
+			color: var(--ink);
+			grid-column: span 2;
+			box-shadow: 0 28px 68px rgba(0,0,0,0.28);
+		}
+
+		.board-card strong {
+			display: block;
+			font-size: 18px;
+			margin-bottom: 8px;
+		}
+
+		.board-card span {
+			color: #d5dbdb;
+			display: block;
+			font-size: 13px;
+			font-weight: 700;
+			line-height: 1.5;
+		}
+
+		.board-card.large span {
+			color: var(--muted);
+		}
+
+		.score-row {
+			align-items: center;
+			display: grid;
+			gap: 12px;
+			grid-template-columns: 100px 1fr 42px;
+			margin-top: 14px;
+		}
+
+		.score-row small {
+			color: var(--muted);
+			font-weight: 800;
+		}
+
+		.bar {
+			background: #edf0f3;
+			border-radius: 999px;
+			height: 9px;
+			overflow: hidden;
+		}
+
+		.bar i {
+			background: linear-gradient(90deg, var(--orange), var(--orange-2));
+			display: block;
+			height: 100%;
+		}
+
+		.score-row b {
+			color: var(--green);
+			font-size: 13px;
+		}
+
+		.section {
+			margin: 0 auto;
+			max-width: 1240px;
+			padding: 72px 38px;
+		}
+
+		.section h2 {
+			font-size: 42px;
+			font-weight: 900;
+			letter-spacing: -0.9px;
+			line-height: 1.08;
+			margin: 0 0 12px;
+		}
+
+		.section-lead {
+			color: var(--muted);
+			font-size: 17px;
+			line-height: 1.65;
+			margin: 0 0 32px;
+			max-width: 820px;
+		}
+
+		.diagnostic {
+			background: #f6f7f8;
+			border-bottom: 1px solid var(--line);
+			border-top: 1px solid var(--line);
+		}
+
+		.diagnostic-grid {
+			display: grid;
+			gap: 22px;
+			grid-template-columns: 0.85fr 1.15fr;
+			align-items: start;
+		}
+
+		.sticky-note {
+			background: linear-gradient(135deg, var(--orange), var(--orange-2));
+			border-radius: 18px;
+			box-shadow: 0 20px 42px rgba(165,138,98,0.24);
+			color: #111;
+			padding: 28px;
+			position: sticky;
+			top: 96px;
+		}
+
+		.sticky-note h2 {
+			font-size: 34px;
+		}
+
+		.sticky-note p {
+			font-weight: 700;
+			line-height: 1.65;
+		}
+
+		.checklist {
+			display: grid;
+			gap: 14px;
+		}
+
+		.check-item {
+			align-items: start;
+			background: #fff;
+			border: 1px solid var(--line);
+			border-radius: 16px;
+			display: grid;
+			gap: 16px;
+			grid-template-columns: 44px 1fr;
+			padding: 18px;
+		}
+
+		.check-item b {
+			background: var(--nav);
+			border-radius: 999px;
+			color: #fff;
+			display: grid;
+			height: 44px;
+			place-items: center;
+			width: 44px;
+		}
+
+		.check-item h3 {
+			font-size: 20px;
+			margin: 0 0 6px;
+		}
+
+		.check-item p {
+			color: var(--muted);
+			font-size: 14px;
+			line-height: 1.6;
+			margin: 0;
+		}
+
+		.consulting-services {
+			background: #fff;
+		}
+
+		.service-tabs {
+			display: grid;
+			gap: 22px;
+			grid-template-columns: 310px 1fr;
+		}
+
+		.tab-list {
+			background: #f7f8fa;
+			border: 1px solid var(--line);
+			border-radius: 18px;
+			padding: 10px;
+		}
+
+		.tab-btn {
+			background: transparent;
+			border: 0;
+			border-left: 4px solid transparent;
+			border-radius: 12px;
+			color: var(--ink);
+			cursor: pointer;
+			display: block;
+			font: inherit;
+			font-size: 15px;
+			font-weight: 900;
+			padding: 16px;
+			text-align: left;
+			width: 100%;
+		}
+
+		.tab-btn.active {
+			background: #fff;
+			border-left-color: var(--orange);
+			box-shadow: 0 12px 28px rgba(15,23,32,0.08);
+		}
+
+		.tab-panel {
+			background:
+				radial-gradient(circle at 90% 10%, rgba(255,184,77,0.15), transparent 26%),
+				#fff;
+			border: 1px solid var(--line);
+			border-radius: 18px;
+			box-shadow: 0 18px 48px rgba(15,23,32,0.08);
+			display: grid;
+			gap: 24px;
+			grid-template-columns: 1fr 280px;
+			min-height: 420px;
+			padding: 30px;
+		}
+
+		.tab-panel h3 {
+			font-size: 32px;
+			line-height: 1.1;
+			margin: 0 0 12px;
+		}
+
+		.tab-panel p {
+			color: var(--muted);
+			font-size: 16px;
+			line-height: 1.7;
+			margin: 0 0 22px;
+		}
+
+		.feature-list {
+			display: grid;
+			gap: 10px;
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+			list-style: none;
+			margin: 0;
+			padding: 0;
+		}
+
+		.feature-list li {
+			color: var(--muted);
+			font-size: 14px;
+			font-weight: 700;
+			padding-left: 22px;
+			position: relative;
+		}
+
+		.feature-list li::before {
+			color: var(--orange);
+			content: "✓";
+			font-weight: 900;
+			left: 0;
+			position: absolute;
+		}
+
+		.output-box {
+			background: linear-gradient(135deg, #101923, #172231);
+			border-radius: 16px;
+			color: #fff;
+			padding: 22px;
+		}
+
+		.output-box h4 {
+			color: var(--orange-2);
+			font-size: 13px;
+			margin: 0 0 14px;
+			text-transform: uppercase;
+		}
+
+		.output-box ul {
+			display: grid;
+			gap: 12px;
+			list-style: none;
+			margin: 0;
+			padding: 0;
+		}
+
+		.output-box li {
+			border-bottom: 1px solid rgba(255,255,255,0.12);
+			color: #d5dbdb;
+			font-size: 13px;
+			font-weight: 700;
+			padding-bottom: 10px;
+		}
+
+		.packages {
+			background: #f6f7f8;
+			border-bottom: 1px solid var(--line);
+			border-top: 1px solid var(--line);
+		}
+
+		.package-grid {
+			display: grid;
+			gap: 20px;
+			grid-template-columns: repeat(3, minmax(0, 1fr));
+		}
+
+		.package-card {
+			background: #fff;
+			border: 1px solid var(--line);
+			border-radius: 18px;
+			box-shadow: 0 14px 34px rgba(15,23,32,0.07);
+			padding: 26px;
+		}
+
+		.package-card.featured {
+			background: linear-gradient(135deg, #101923, #172231);
+			border-color: rgba(255,184,77,0.45);
+			color: #fff;
+			transform: translateY(-8px);
+		}
+
+		.package-card h3 {
+			font-size: 24px;
+			margin: 0 0 10px;
+		}
+
+		.package-card p {
+			color: var(--muted);
+			font-size: 14px;
+			line-height: 1.6;
+		}
+
+		.package-card.featured p,
+		.package-card.featured li {
+			color: #d5dbdb;
+		}
+
+		.package-card ul {
+			display: grid;
+			gap: 10px;
+			list-style: none;
+			margin: 22px 0;
+			padding: 0;
+		}
+
+		.package-card li {
+			color: var(--muted);
+			font-size: 14px;
+			font-weight: 700;
+			padding-left: 20px;
+			position: relative;
+		}
+
+		.package-card li::before {
+			color: var(--orange);
+			content: "•";
+			font-weight: 900;
+			left: 0;
+			position: absolute;
+		}
+
+		.process-section {
+			background:
+				radial-gradient(circle at 10% 20%, rgba(165,138,98,0.15), transparent 26%),
+				linear-gradient(135deg, #101923, #182536 46%, #0f1720);
+			color: #fff;
+		}
+
+		.process-grid {
+			display: grid;
+			gap: 18px;
+			grid-template-columns: repeat(4, minmax(0, 1fr));
+		}
+
+		.process-card {
+			background: rgba(255,255,255,0.08);
+			border: 1px solid rgba(255,255,255,0.14);
+			border-radius: 16px;
+			padding: 22px;
+		}
+
+		.process-card b {
+			background: linear-gradient(135deg, var(--orange), var(--orange-2));
+			border-radius: 999px;
+			color: #111;
+			display: grid;
+			height: 42px;
+			margin-bottom: 18px;
+			place-items: center;
+			width: 42px;
+		}
+
+		.process-card h3 {
+			margin: 0 0 10px;
+		}
+
+		.process-card p {
+			color: #d5dbdb;
+			font-size: 14px;
+			line-height: 1.6;
+			margin: 0;
+		}
+
+		.contact-section {
+			background:
+				linear-gradient(135deg, rgba(15, 23, 32, 0.94), rgba(35, 47, 62, 0.9)),
+				url("https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=1600&auto=format&fit=crop") center / cover;
+			color: #fff;
+		}
+
+		.contact-layout {
+			display: grid;
+			gap: 28px;
+			grid-template-columns: minmax(0, 0.9fr) minmax(360px, 0.7fr);
+		}
+
+		.contact-panel {
+			background: rgba(255, 255, 255, 0.09);
+			border: 1px solid rgba(255, 255, 255, 0.14);
+			border-radius: 16px;
+			padding: 28px;
+		}
+
+		.contact-panel h2 {
+			color: #fff;
+			margin-top: 0;
+		}
+
+		.contact-panel p {
+			color: #d5dbdb;
+			line-height: 1.7;
+		}
+
+		.lead-form {
+			background: #fff;
+			border-radius: 16px;
+			color: var(--ink);
+			display: grid;
+			gap: 14px;
+			padding: 24px;
+		}
+
+		.lead-form input,
+		.lead-form select,
+		.lead-form textarea {
+			border: 1px solid var(--line);
+			border-radius: 999px;
+			font: inherit;
+			min-height: 46px;
+			padding: 0 16px;
+			width: 100%;
+		}
+
+		.lead-form textarea {
+			border-radius: 16px;
+			min-height: 104px;
+			padding-top: 12px;
+			resize: vertical;
+		}
+
+		.lead-form button {
+			border: 0;
+			cursor: pointer;
+		}
+
+		.footer {
+			background: var(--nav);
+			color: #d5dbdb;
+			font-size: 13px;
+			padding: 24px 38px;
+		}
+
+		.footer-inner {
+			display: flex;
+			gap: 16px;
+			justify-content: space-between;
+			margin: 0 auto;
+			max-width: 1240px;
+		}
+
+		.reveal {
+			opacity: 0;
+			transform: translateY(22px);
+			transition: opacity 700ms ease, transform 700ms ease;
+		}
+
+		.reveal.visible {
+			opacity: 1;
+			transform: translateY(0);
+		}
+
+		@media (max-width: 980px) {
+			.top-nav {
+				align-items: flex-start;
+				flex-direction: column;
+				padding: 18px;
+			}
+
+			.main-links,
+			.utility-links {
+				flex-wrap: wrap;
+			}
+
+			.hero-inner,
+			.diagnostic-grid,
+			.service-tabs,
+			.tab-panel,
+			.contact-layout {
+				grid-template-columns: 1fr;
+			}
+
+			.advisory-board,
+			.package-grid,
+			.process-grid {
+				grid-template-columns: repeat(2, minmax(0, 1fr));
+			}
+
+			.board-card.large {
+				grid-column: span 2;
+			}
+		}
+
+		@media (max-width: 620px) {
+			.hero,
+			.section {
+				padding-left: 20px;
+				padding-right: 20px;
+			}
+
+			h1 { font-size: 38px; }
+
+			.hero p { font-size: 16px; }
+
+			.advisory-board,
+			.package-grid,
+			.process-grid {
+				grid-template-columns: 1fr;
+			}
+
+			.board-card.large {
+				grid-column: span 1;
+			}
+
+			.feature-list {
+				grid-template-columns: 1fr;
+			}
+
+			.package-card.featured {
+				transform: none;
+			}
+
+			.footer-inner {
+				flex-direction: column;
+			}
+		}
+	</style>
+</head>
+
+<body>
+	<header>
+		<div class="top-nav">
+			<a class="logo" href="#">Verity<span>Core</span></a>
+
+			<nav class="main-links">
+				<a href="#diagnostic">Diagnostic</a>
+				<a href="#services">Consulting Areas</a>
+				<a href="#packages">Packages</a>
+				<a href="#process">Process</a>
+				<a href="#contact">Contact</a>
+			</nav>
+
+			<div class="utility-links">
+				<a href="tel:+263710778538">0710 778 538</a>
+				<a href="mailto:sales@veritycore.co.zw">sales@veritycore.co.zw</a>
+				<a class="console-btn" href="#contact">Book Consultation</a>
+			</div>
+		</div>
+
+		<nav class="sub-nav">
+			<a href="#services">Digital Strategy</a>
+			<a href="#services">ERP Advisory</a>
+			<a href="#services">Zoho Consulting</a>
+			<a href="#services">Automation</a>
+			<a href="#services">Cloud</a>
+			<a href="#services">Cybersecurity</a>
+			<a href="#services">Dashboards</a>
+		</nav>
+	</header>
+
+	<main>
+		<section class="hero">
+			<div class="hero-inner">
+				<div class="reveal">
+					<div class="eyebrow">Consultancy for business systems and digital growth</div>
+					<h1>Before you buy software, <span>get the right strategy.</span></h1>
+					<p>
+						We help businesses assess operations, choose the right systems, clean up processes,
+						plan automation, improve reporting and implement technology with clarity instead of guesswork.
+					</p>
+
+					<div class="hero-actions">
+						<a class="primary" href="#contact">Book a consultation</a>
+						<a class="secondary" href="#diagnostic">Start with a diagnostic</a>
+					</div>
+				</div>
+
+				<div class="advisory-board reveal" aria-label="Consultancy readiness dashboard">
+					<div class="board-card large">
+						<strong>Digital Readiness Review</strong>
+						<span>We assess your current workflows, tools, people, data and reporting gaps before recommending systems.</span>
+
+						<div class="score-row">
+							<small>Processes</small>
+							<div class="bar"><i style="width: 72%;"></i></div>
+							<b>Map</b>
+						</div>
+						<div class="score-row">
+							<small>Systems</small>
+							<div class="bar"><i style="width: 58%;"></i></div>
+							<b>Align</b>
+						</div>
+						<div class="score-row">
+							<small>Reports</small>
+							<div class="bar"><i style="width: 84%;"></i></div>
+							<b>Improve</b>
+						</div>
+					</div>
+
+					<div class="board-card">
+						<strong>Less Guesswork</strong>
+						<span>Know what to implement and why.</span>
+					</div>
+
+					<div class="board-card">
+						<strong>Better Adoption</strong>
+						<span>Prepare users and workflows before rollout.</span>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<section class="diagnostic" id="diagnostic">
+			<div class="section diagnostic-grid">
+				<div class="sticky-note reveal">
+					<h2>Start with a business systems diagnostic.</h2>
+					<p>
+						Most system failures start before implementation. The business has unclear processes, poor data, weak reporting needs, wrong tools or no adoption plan. We help you diagnose the real issue first.
+					</p>
+					<a class="secondary" href="#contact">Request diagnostic</a>
+				</div>
+
+				<div class="checklist">
+					<div class="check-item reveal">
+						<b>01</b>
+						<div>
+							<h3>What is slowing the business down?</h3>
+							<p>We identify manual work, duplicated effort, missing approvals, scattered records and bottlenecks.</p>
+						</div>
+					</div>
+
+					<div class="check-item reveal">
+						<b>02</b>
+						<div>
+							<h3>Which system actually fits?</h3>
+							<p>We help you decide whether you need ERP, CRM, Zoho, a web app, automation, dashboards or integrations.</p>
+						</div>
+					</div>
+
+					<div class="check-item reveal">
+						<b>03</b>
+						<div>
+							<h3>What data and reports matter?</h3>
+							<p>We define the dashboards, KPIs and reports management needs before the build starts.</p>
+						</div>
+					</div>
+
+					<div class="check-item reveal">
+						<b>04</b>
+						<div>
+							<h3>How should implementation happen?</h3>
+							<p>We create a practical roadmap for rollout, training, security, migration, adoption and improvement.</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<section class="consulting-services" id="services">
+			<div class="section">
+				<h2>Consulting areas</h2>
+				<p class="section-lead">
+					Each consulting area is designed to help you make practical technology decisions and avoid wasting money on systems that do not solve the real business problem.
+				</p>
+
+				<div class="service-tabs">
+					<div class="tab-list">
+						<button class="tab-btn active" type="button" data-tab="strategy">Digital Strategy</button>
+						<button class="tab-btn" type="button" data-tab="erp">ERP Advisory</button>
+						<button class="tab-btn" type="button" data-tab="zoho">Zoho Consulting</button>
+						<button class="tab-btn" type="button" data-tab="automation">Workflow Automation</button>
+						<button class="tab-btn" type="button" data-tab="reporting">Reporting & Dashboards</button>
+						<button class="tab-btn" type="button" data-tab="security">Cloud & Cybersecurity</button>
+					</div>
+
+					<div class="tab-panel">
+						<div>
+							<h3 id="tabTitle">Digital Strategy</h3>
+							<p id="tabCopy">
+								We help you define the right digital direction for your business, including systems, platforms, integrations, automation opportunities and implementation priorities.
+							</p>
+
+							<ul class="feature-list" id="tabFeatures">
+								<li>Business goals review</li>
+								<li>Current tools assessment</li>
+								<li>Technology roadmap</li>
+								<li>Priority planning</li>
+								<li>Implementation guidance</li>
+								<li>Risk and adoption planning</li>
+							</ul>
+						</div>
+
+						<div class="output-box">
+							<h4>Typical outputs</h4>
+							<ul id="tabOutputs">
+								<li>Digital roadmap</li>
+								<li>Systems recommendation</li>
+								<li>Implementation priorities</li>
+								<li>Risk and adoption notes</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<section class="packages" id="packages">
+			<div class="section">
+				<h2>Consultancy packages</h2>
+				<p class="section-lead">
+					Choose the level of support based on whether you need quick clarity, a detailed roadmap, or hands-on implementation guidance.
+				</p>
+
+				<div class="package-grid">
+					<article class="package-card reveal">
+						<h3>Diagnostic Session</h3>
+						<p>For businesses that need clarity on what is wrong and what to fix first.</p>
+						<ul>
+							<li>Business problem discussion</li>
+							<li>Current systems review</li>
+							<li>High-level recommendations</li>
+							<li>Next-step action plan</li>
+						</ul>
+						<a class="primary" href="#contact">Book Diagnostic</a>
+					</article>
+
+					<article class="package-card featured reveal">
+						<h3>Systems Roadmap</h3>
+						<p>For businesses planning ERP, Zoho, automation, dashboards or digital transformation.</p>
+						<ul>
+							<li>Workflow mapping</li>
+							<li>System requirements</li>
+							<li>Implementation roadmap</li>
+							<li>Roles, reports and risks</li>
+						</ul>
+						<a class="primary" href="#contact">Plan Roadmap</a>
+					</article>
+
+					<article class="package-card reveal">
+						<h3>Implementation Advisory</h3>
+						<p>For teams that need ongoing support during rollout and improvement.</p>
+						<ul>
+							<li>Implementation guidance</li>
+							<li>User adoption support</li>
+							<li>Testing and feedback review</li>
+							<li>Continuous improvement</li>
+						</ul>
+						<a class="primary" href="#contact">Get Advisory</a>
+					</article>
+				</div>
+			</div>
+		</section>
+
+		<section class="process-section" id="process">
+			<div class="section">
+				<div class="eyebrow">Consulting process</div>
+				<h2>How we move from confusion to clarity</h2>
+				<p class="section-lead" style="color:#d5dbdb;">
+					We use a practical consulting process that connects business pain, workflows, technology choices and implementation.
+				</p>
+
+				<div class="process-grid">
+					<div class="process-card reveal">
+						<b>1</b>
+						<h3>Discover</h3>
+						<p>Understand the business goal, current tools, pain points and operational challenges.</p>
+					</div>
+
+					<div class="process-card reveal">
+						<b>2</b>
+						<h3>Map</h3>
+						<p>Document workflows, users, data, reports, approvals, risks and integration needs.</p>
+					</div>
+
+					<div class="process-card reveal">
+						<b>3</b>
+						<h3>Recommend</h3>
+						<p>Define the best-fit systems, automation opportunities, priorities and implementation plan.</p>
+					</div>
+
+					<div class="process-card reveal">
+						<b>4</b>
+						<h3>Guide</h3>
+						<p>Support rollout, testing, training, adoption and continuous improvement.</p>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<section class="contact-section" id="contact">
+			<div class="section contact-layout">
+				<div class="contact-panel reveal">
+					<div class="eyebrow">Start the conversation</div>
+					<h2>Need help choosing or improving your business systems?</h2>
+					<p>
+						Talk to VerityCore Consultancy about your current challenges. We will help you map the problem, identify the right digital path and plan a practical implementation.
+					</p>
+					<p>
+						<strong>Phone:</strong> 0710 778 538<br>
+						<strong>Email:</strong> sales@veritycore.co.zw<br>
+						<strong>Website:</strong> www.veritycore.co.zw
+					</p>
+				</div>
+
+				<form class="lead-form reveal" action="mailto:sales@veritycore.co.zw" method="post" enctype="text/plain">
+					<input type="text" name="name" placeholder="Your name" required>
+					<input type="email" name="email" placeholder="Email address" required>
+					<input type="tel" name="phone" placeholder="Phone number">
+					<select name="consulting_need">
+						<option value="">What do you need help with?</option>
+						<option>Digital strategy</option>
+						<option>ERP advisory</option>
+						<option>Zoho setup</option>
+						<option>Workflow automation</option>
+						<option>Reporting and dashboards</option>
+						<option>Cybersecurity or cloud review</option>
+					</select>
+					<textarea name="message" placeholder="Briefly describe your business challenge or system goal"></textarea>
+					<button class="primary" type="submit">Send enquiry</button>
+				</form>
+			</div>
+		</section>
+	</main>
+
+	<footer class="footer">
+		<div class="footer-inner">
+			<span>VerityCore Consultancy (Pvt) Ltd — Consultancy Services</span>
+			<span>Strategy • ERP Advisory • Zoho • Automation • Cloud • Cybersecurity</span>
+		</div>
+	</footer>
+
+	<script>
+		const tabData = {
+			strategy: {
+				title: "Digital Strategy",
+				copy: "We help you define the right digital direction for your business, including systems, platforms, integrations, automation opportunities and implementation priorities.",
+				features: ["Business goals review", "Current tools assessment", "Technology roadmap", "Priority planning", "Implementation guidance", "Risk and adoption planning"],
+				outputs: ["Digital roadmap", "Systems recommendation", "Implementation priorities", "Risk and adoption notes"]
+			},
+			erp: {
+				title: "ERP Advisory",
+				copy: "We help you prepare for ERP implementation by mapping workflows, choosing modules, defining user roles, planning reports and reducing implementation risk.",
+				features: ["Process mapping", "Module selection", "User role planning", "Report requirements", "Data structure review", "Implementation roadmap"],
+				outputs: ["ERP readiness report", "Module roadmap", "Workflow map", "Implementation plan"]
+			},
+			zoho: {
+				title: "Zoho Consulting",
+				copy: "We help you structure Zoho CRM, Zoho Desk, Forms and automation flows around real sales, customer support and service delivery processes.",
+				features: ["CRM setup planning", "Desk ticket structure", "Customer and account planning", "Knowledge base planning", "Automation flows", "Roles and access guidance"],
+				outputs: ["Zoho setup plan", "CRM pipeline structure", "Desk support model", "Automation recommendations"]
+			},
+			automation: {
+				title: "Workflow Automation",
+				copy: "We identify repetitive admin work and design automations for approvals, notifications, customer updates, internal workflows and reporting triggers.",
+				features: ["Manual task review", "Automation opportunity map", "Approval flow design", "Notification planning", "Form automation", "Escalation logic"],
+				outputs: ["Automation map", "Workflow diagrams", "Trigger rules", "Implementation priorities"]
+			},
+			reporting: {
+				title: "Reporting & Dashboards",
+				copy: "We define the reports and dashboards management needs to see sales, stock, finance, support, customer activity and operational performance.",
+				features: ["KPI definition", "Dashboard planning", "Report structure", "Data source mapping", "Management views", "Performance tracking"],
+				outputs: ["Dashboard blueprint", "KPI list", "Report structure", "Data source map"]
+			},
+			security: {
+				title: "Cloud & Cybersecurity",
+				copy: "We review hosting, access, backups, user roles, exposure points and basic security controls around your business systems.",
+				features: ["Access review", "Backup planning", "Cloud environment review", "Domain and email guidance", "Security checklist", "Operational risk notes"],
+				outputs: ["Security review notes", "Cloud recommendations", "Backup plan", "Risk improvement checklist"]
+			}
+		};
+
+		function initRevealAnimations() {
+			const revealItems = document.querySelectorAll(".reveal");
+			if (!("IntersectionObserver" in window)) {
+				revealItems.forEach((item) => item.classList.add("visible"));
+				return;
+			}
+
+			const observer = new IntersectionObserver((entries) => {
+				entries.forEach((entry) => {
+					if (entry.isIntersecting) {
+						entry.target.classList.add("visible");
+						observer.unobserve(entry.target);
+					}
+				});
+			}, { threshold: 0.18 });
+
+			revealItems.forEach((item) => observer.observe(item));
+		}
+
+		function initTabs() {
+			const buttons = document.querySelectorAll(".tab-btn");
+			const title = document.getElementById("tabTitle");
+			const copy = document.getElementById("tabCopy");
+			const features = document.getElementById("tabFeatures");
+			const outputs = document.getElementById("tabOutputs");
+
+			function renderList(element, items) {
+				element.innerHTML = items.map((item) => `<li>${item}</li>`).join("");
+			}
+
+			buttons.forEach((button) => {
+				button.addEventListener("click", () => {
+					buttons.forEach((btn) => btn.classList.remove("active"));
+					button.classList.add("active");
+
+					const data = tabData[button.dataset.tab];
+					title.textContent = data.title;
+					copy.textContent = data.copy;
+					renderList(features, data.features);
+					renderList(outputs, data.outputs);
+				});
+			});
+		}
+
+		document.addEventListener("DOMContentLoaded", () => {
+			initRevealAnimations();
+			initTabs();
+		});
+	</script>
+</body>
+</html>

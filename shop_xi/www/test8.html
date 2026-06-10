@@ -1,0 +1,1019 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Pricing & Packages | ObsidianXi</title>
+	<meta name="description" content="ObsidianXi pricing and packages for websites, business websites, e-commerce, ERP, accounting systems, web apps, cybersecurity and technology services.">
+
+	<style>
+		:root {
+			--nav:#131a22;
+			--nav-2:#232f3e;
+			--ink:#0f1720;
+			--muted:#5f6b7a;
+			--line:#d5dbdb;
+			--soft:#f6f7f8;
+			--orange:#a58a62;
+			--orange-2:#ffb84d;
+			--blue:#146eb4;
+			--cyan:#2dd4bf;
+			--green:#067d62;
+			--purple:#7c3aed;
+			--red:#e11d48;
+		}
+
+		* { box-sizing:border-box; }
+		html { scroll-behavior:smooth; }
+
+		body {
+			margin:0;
+			background:#fff;
+			color:var(--ink);
+			font-family:Arial, Helvetica, sans-serif;
+		}
+
+		a { color:inherit; text-decoration:none; }
+
+		.top-nav {
+			align-items:center;
+			background:var(--nav);
+			color:#fff;
+			display:flex;
+			gap:26px;
+			min-height:62px;
+			padding:0 38px;
+			position:sticky;
+			top:0;
+			z-index:20;
+		}
+
+		.logo {
+			display:flex;
+			font-size:26px;
+			font-weight:900;
+			gap:4px;
+			white-space:nowrap;
+		}
+
+		.logo span { color:var(--orange); }
+
+		.main-links,
+		.utility-links {
+			align-items:center;
+			display:flex;
+			gap:22px;
+		}
+
+		.main-links {
+			flex:1;
+			font-size:14px;
+			font-weight:700;
+		}
+
+		.utility-links {
+			color:#d5dbdb;
+			font-size:13px;
+		}
+
+		.console-btn {
+			background:var(--orange);
+			border-radius:3px;
+			color:#111;
+			font-weight:800;
+			padding:10px 15px;
+		}
+
+		.sub-nav {
+			background:var(--nav-2);
+			color:#f2f3f3;
+			display:flex;
+			font-size:14px;
+			gap:24px;
+			overflow-x:auto;
+			padding:12px 38px;
+			white-space:nowrap;
+		}
+
+		.hero {
+			background:
+				radial-gradient(circle at 12% 18%, rgba(255,184,77,.18), transparent 26%),
+				radial-gradient(circle at 88% 20%, rgba(20,110,180,.22), transparent 30%),
+				radial-gradient(circle at 78% 86%, rgba(45,212,191,.12), transparent 24%),
+				linear-gradient(135deg,#101923 0%,#172231 55%,#0f1720 100%);
+			color:#fff;
+			overflow:hidden;
+			padding:78px 38px 68px;
+			position:relative;
+		}
+
+		.hero::before {
+			background:
+				linear-gradient(rgba(255,255,255,.045) 1px, transparent 1px),
+				linear-gradient(90deg, rgba(255,255,255,.045) 1px, transparent 1px);
+			background-size:44px 44px;
+			content:"";
+			inset:0;
+			opacity:.36;
+			position:absolute;
+		}
+
+		.hero-inner {
+			align-items:center;
+			display:grid;
+			gap:48px;
+			grid-template-columns:minmax(0,.95fr) minmax(420px,1.05fr);
+			margin:0 auto;
+			max-width:1240px;
+			position:relative;
+			z-index:1;
+		}
+
+		.eyebrow {
+			align-items:center;
+			background:rgba(255,255,255,.08);
+			border:1px solid rgba(255,255,255,.14);
+			border-radius:999px;
+			color:var(--orange-2);
+			display:inline-flex;
+			font-size:12px;
+			font-weight:900;
+			gap:8px;
+			letter-spacing:.4px;
+			margin-bottom:18px;
+			padding:8px 12px;
+			text-transform:uppercase;
+		}
+
+		.eyebrow::before {
+			background:linear-gradient(135deg,var(--orange),var(--orange-2));
+			border-radius:50%;
+			content:"";
+			height:8px;
+			width:8px;
+		}
+
+		h1 {
+			font-size:clamp(42px,5.6vw,72px);
+			font-weight:900;
+			letter-spacing:-1.9px;
+			line-height:1.02;
+			margin:0;
+		}
+
+		.hero h1 span { color:var(--orange-2); }
+
+		.hero p {
+			color:#d5dbdb;
+			font-size:19px;
+			line-height:1.65;
+			margin:24px 0 0;
+			max-width:780px;
+		}
+
+		.hero-actions {
+			display:flex;
+			flex-wrap:wrap;
+			gap:12px;
+			margin-top:32px;
+		}
+
+		.primary,
+		.secondary {
+			align-items:center;
+			border-radius:999px;
+			display:inline-flex;
+			font-size:15px;
+			font-weight:900;
+			justify-content:center;
+			min-height:48px;
+			padding:13px 22px;
+			transition:transform .16s ease, box-shadow .16s ease;
+		}
+
+		.primary {
+			background:linear-gradient(135deg,var(--orange),var(--orange-2));
+			box-shadow:0 16px 32px rgba(255,153,0,.26);
+			color:#111;
+		}
+
+		.secondary {
+			background:transparent;
+			border:1px solid rgba(255,255,255,.32);
+			color:#fff;
+		}
+
+		.primary:hover,
+		.secondary:hover { transform:translateY(-2px); }
+
+		.price-snapshot {
+			background:rgba(255,255,255,.08);
+			backdrop-filter:blur(12px);
+			border:1px solid rgba(255,255,255,.14);
+			border-radius:24px;
+			box-shadow:0 30px 80px rgba(0,0,0,.3);
+			overflow:hidden;
+		}
+
+		.snapshot-head {
+			background:rgba(0,0,0,.22);
+			border-bottom:1px solid rgba(255,255,255,.12);
+			display:flex;
+			justify-content:space-between;
+			padding:16px 18px;
+		}
+
+		.snapshot-head span {
+			background:rgba(45,212,191,.14);
+			border:1px solid rgba(45,212,191,.32);
+			border-radius:999px;
+			color:#b7fff3;
+			font-size:11px;
+			font-weight:900;
+			padding:6px 9px;
+			text-transform:uppercase;
+		}
+
+		.snapshot-body {
+			display:grid;
+			gap:12px;
+			padding:18px;
+		}
+
+		.snapshot-row {
+			align-items:center;
+			background:rgba(255,255,255,.09);
+			border:1px solid rgba(255,255,255,.13);
+			border-radius:16px;
+			display:grid;
+			gap:12px;
+			grid-template-columns:1fr auto;
+			padding:15px;
+		}
+
+		.snapshot-row strong {
+			display:block;
+			margin-bottom:4px;
+		}
+
+		.snapshot-row small {
+			color:#d5dbdb;
+			font-weight:700;
+		}
+
+		.snapshot-row b {
+			color:var(--orange-2);
+			font-size:22px;
+			white-space:nowrap;
+		}
+
+		.section {
+			margin:0 auto;
+			max-width:1240px;
+			padding:72px 38px;
+		}
+
+		.section h2 {
+			font-size:42px;
+			font-weight:900;
+			letter-spacing:-.9px;
+			line-height:1.08;
+			margin:0 0 12px;
+		}
+
+		.section-lead {
+			color:var(--muted);
+			font-size:17px;
+			line-height:1.65;
+			margin:0 0 32px;
+			max-width:880px;
+		}
+
+		.pricing {
+			background:#f6f7f8;
+			border-bottom:1px solid var(--line);
+			border-top:1px solid var(--line);
+		}
+
+		.pricing-grid {
+			display:grid;
+			gap:22px;
+			grid-template-columns:repeat(3,minmax(0,1fr));
+		}
+
+		.price-card {
+			background:#fff;
+			border:1px solid rgba(213,219,219,.85);
+			border-radius:22px;
+			box-shadow:
+				0 12px 28px rgba(15,23,32,.06),
+				0 24px 60px rgba(15,23,32,.07);
+			overflow:hidden;
+			padding:30px;
+			position:relative;
+			transition:transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+		}
+
+		.price-card:hover {
+			border-color:rgba(165,138,98,.55);
+			box-shadow:
+				0 20px 42px rgba(15,23,32,.11),
+				0 34px 88px rgba(15,23,32,.14);
+			transform:translateY(-8px);
+		}
+
+		.price-card::before {
+			content:"";
+			height:6px;
+			left:0;
+			position:absolute;
+			right:0;
+			top:0;
+		}
+
+		.price-card:nth-child(1)::before { background:linear-gradient(90deg,#146eb4,#4ea8ff); }
+		.price-card:nth-child(2)::before { background:linear-gradient(90deg,#a58a62,#ffb84d); }
+		.price-card:nth-child(3)::before { background:linear-gradient(90deg,#067d62,#2dd4bf); }
+		.price-card:nth-child(4)::before { background:linear-gradient(90deg,#7c3aed,#a855f7); }
+		.price-card:nth-child(5)::before { background:linear-gradient(90deg,#e11d48,#fb7185); }
+		.price-card:nth-child(6)::before { background:linear-gradient(90deg,#f97316,#fdba74); }
+		.price-card:nth-child(7)::before { background:linear-gradient(90deg,#0891b2,#67e8f9); }
+		.price-card:nth-child(8)::before { background:linear-gradient(90deg,#16a34a,#86efac); }
+		.price-card:nth-child(9)::before { background:linear-gradient(90deg,#6366f1,#a5b4fc); }
+
+		.package-tag {
+			border-radius:999px;
+			display:inline-flex;
+			font-size:11px;
+			font-weight:900;
+			margin-bottom:18px;
+			padding:7px 10px;
+			text-transform:uppercase;
+		}
+
+		.price-card:nth-child(1) .package-tag { background:#eaf4ff; color:#146eb4; }
+		.price-card:nth-child(2) .package-tag { background:#fff7e6; color:#8a5200; }
+		.price-card:nth-child(3) .package-tag { background:#e6f7f2; color:#067d62; }
+		.price-card:nth-child(4) .package-tag { background:#f3e8ff; color:#7c3aed; }
+		.price-card:nth-child(5) .package-tag { background:#ffe4ec; color:#e11d48; }
+		.price-card:nth-child(6) .package-tag { background:#fff0df; color:#c2410c; }
+		.price-card:nth-child(7) .package-tag { background:#e6fbff; color:#0891b2; }
+		.price-card:nth-child(8) .package-tag { background:#e8fbea; color:#15803d; }
+		.price-card:nth-child(9) .package-tag { background:#eef0ff; color:#4f46e5; }
+
+		.price-card h3 {
+			font-size:25px;
+			margin:0 0 10px;
+		}
+
+		.price-card p {
+			color:var(--muted);
+			font-size:14px;
+			line-height:1.6;
+			margin:0 0 20px;
+		}
+
+		.price {
+			align-items:flex-end;
+			display:flex;
+			gap:8px;
+			margin:18px 0 18px;
+		}
+
+		.price strong {
+			font-size:44px;
+			letter-spacing:-1.5px;
+		}
+
+		.price span {
+			color:var(--muted);
+			font-size:13px;
+			font-weight:800;
+			padding-bottom:8px;
+		}
+
+		.includes {
+			border-top:1px solid var(--line);
+			display:grid;
+			gap:11px;
+			list-style:none;
+			margin:20px 0 0;
+			padding:20px 0 0;
+		}
+
+		.includes li {
+			color:var(--muted);
+			font-size:14px;
+			font-weight:700;
+			line-height:1.45;
+			padding-left:22px;
+			position:relative;
+		}
+
+		.includes li::before {
+			color:var(--orange);
+			content:"✓";
+			font-weight:900;
+			left:0;
+			position:absolute;
+		}
+
+		.card-cta {
+			align-items:center;
+			background:#fff;
+			border:1px solid var(--line);
+			border-radius:999px;
+			color:var(--ink);
+			display:inline-flex;
+			font-size:13px;
+			font-weight:900;
+			gap:8px;
+			margin-top:22px;
+			padding:11px 16px;
+			transition:background .18s ease, color .18s ease, transform .18s ease;
+		}
+
+		.price-card:hover .card-cta {
+			background:var(--nav);
+			color:#fff;
+			transform:translateX(4px);
+		}
+
+		.note-section {
+			background:#fff;
+		}
+
+		.note-grid {
+			display:grid;
+			gap:18px;
+			grid-template-columns:repeat(3,minmax(0,1fr));
+		}
+
+		.note-card {
+			background:#fff;
+			border:1px solid var(--line);
+			border-radius:18px;
+			box-shadow:0 12px 28px rgba(15,23,32,.05);
+			padding:24px;
+		}
+
+		.note-card b {
+			background:#fff7e6;
+			border:1px solid #ffd28a;
+			border-radius:999px;
+			color:#8a5200;
+			display:grid;
+			height:42px;
+			margin-bottom:16px;
+			place-items:center;
+			width:42px;
+		}
+
+		.note-card h3 {
+			font-size:21px;
+			margin:0 0 8px;
+		}
+
+		.note-card p {
+			color:var(--muted);
+			font-size:14px;
+			line-height:1.65;
+			margin:0;
+		}
+
+		.custom {
+			background:
+				radial-gradient(circle at 10% 20%, rgba(165,138,98,.15), transparent 26%),
+				linear-gradient(135deg,#101923,#182536 46%,#0f1720);
+			color:#fff;
+		}
+
+		.custom-grid {
+			display:grid;
+			gap:18px;
+			grid-template-columns:repeat(4,minmax(0,1fr));
+		}
+
+		.custom-card {
+			background:rgba(255,255,255,.08);
+			border:1px solid rgba(255,255,255,.14);
+			border-radius:18px;
+			padding:24px;
+		}
+
+		.custom-card h3 {
+			margin:0 0 10px;
+		}
+
+		.custom-card p {
+			color:#d5dbdb;
+			font-size:14px;
+			line-height:1.65;
+			margin:0;
+		}
+
+		.contact-section {
+			background:
+				linear-gradient(135deg, rgba(15,23,32,.94), rgba(35,47,62,.9)),
+				url("https://images.unsplash.com/photo-1554224155-6726b3ff858f?q=80&w=1600&auto=format&fit=crop") center / cover;
+			color:#fff;
+		}
+
+		.contact-layout {
+			display:grid;
+			gap:28px;
+			grid-template-columns:minmax(0,.9fr) minmax(360px,.7fr);
+		}
+
+		.contact-panel {
+			background:rgba(255,255,255,.09);
+			border:1px solid rgba(255,255,255,.14);
+			border-radius:16px;
+			padding:28px;
+		}
+
+		.contact-panel h2 {
+			color:#fff;
+			margin-top:0;
+		}
+
+		.contact-panel p {
+			color:#d5dbdb;
+			line-height:1.7;
+		}
+
+		.lead-form {
+			background:#fff;
+			border-radius:16px;
+			color:var(--ink);
+			display:grid;
+			gap:14px;
+			padding:24px;
+		}
+
+		.lead-form input,
+		.lead-form select,
+		.lead-form textarea {
+			border:1px solid var(--line);
+			border-radius:999px;
+			font:inherit;
+			min-height:46px;
+			padding:0 16px;
+			width:100%;
+		}
+
+		.lead-form textarea {
+			border-radius:16px;
+			min-height:104px;
+			padding-top:12px;
+			resize:vertical;
+		}
+
+		.lead-form button {
+			border:0;
+			cursor:pointer;
+		}
+
+		.footer {
+			background:var(--nav);
+			color:#d5dbdb;
+			font-size:13px;
+			padding:24px 38px;
+		}
+
+		.footer-inner {
+			display:flex;
+			gap:16px;
+			justify-content:space-between;
+			margin:0 auto;
+			max-width:1240px;
+		}
+
+		.reveal {
+			opacity:0;
+			transform:translateY(22px);
+			transition:opacity .7s ease, transform .7s ease;
+		}
+
+		.reveal.visible {
+			opacity:1;
+			transform:translateY(0);
+		}
+
+		@media (max-width:980px) {
+			.top-nav {
+				align-items:flex-start;
+				flex-direction:column;
+				padding:18px;
+			}
+
+			.main-links,
+			.utility-links { flex-wrap:wrap; }
+
+			.hero-inner,
+			.contact-layout {
+				grid-template-columns:1fr;
+			}
+
+			.pricing-grid,
+			.note-grid,
+			.custom-grid {
+				grid-template-columns:repeat(2,minmax(0,1fr));
+			}
+		}
+
+		@media (max-width:620px) {
+			.hero,
+			.section {
+				padding-left:20px;
+				padding-right:20px;
+			}
+
+			h1 { font-size:38px; }
+			.hero p { font-size:16px; }
+
+			.snapshot-row {
+				grid-template-columns:1fr;
+			}
+
+			.pricing-grid,
+			.note-grid,
+			.custom-grid {
+				grid-template-columns:1fr;
+			}
+
+			.footer-inner {
+				flex-direction:column;
+			}
+		}
+	</style>
+</head>
+
+<body>
+	<header>
+		<div class="top-nav">
+			<a class="logo" href="#">Obsidian<span>Xi</span></a>
+
+			<nav class="main-links">
+				<a href="#packages">Packages</a>
+				<a href="#custom">Custom Services</a>
+				<a href="#notes">What to Know</a>
+				<a href="#contact">Get Quote</a>
+			</nav>
+
+			<div class="utility-links">
+				<a href="tel:+263710778538">0710 778 538</a>
+				<a href="mailto:sales@obsidianxi.com">sales@obsidianxi.com</a>
+				<a class="console-btn" href="#contact">Request Quote</a>
+			</div>
+		</div>
+
+		<nav class="sub-nav">
+			<a href="#packages">Portfolio Websites</a>
+			<a href="#packages">Business Websites</a>
+			<a href="#packages">E-commerce</a>
+			<a href="#packages">ERP & Accounting</a>
+			<a href="#custom">Web Apps</a>
+			<a href="#custom">Cybersecurity</a>
+			<a href="#contact">Get Started</a>
+		</nav>
+	</header>
+
+	<main>
+		<section class="hero">
+			<div class="hero-inner">
+				<div class="reveal">
+					<div class="eyebrow">Pricing and packages</div>
+					<h1>Clear starting prices for <span>digital systems that help you grow.</span></h1>
+					<p>
+						Choose a package that fits where your business is today. From simple portfolio websites to business platforms,
+						e-commerce, ERP, accounting systems and custom web applications.
+					</p>
+
+					<div class="hero-actions">
+						<a class="primary" href="#packages">View packages</a>
+						<a class="secondary" href="#contact">Request custom quote</a>
+					</div>
+				</div>
+
+				<div class="price-snapshot reveal" aria-label="Pricing snapshot">
+					<div class="snapshot-head">
+						<strong>Starting Price Snapshot</strong>
+						<span>USD Pricing</span>
+					</div>
+
+					<div class="snapshot-body">
+						<div class="snapshot-row">
+							<div><strong>Small Portfolio Website</strong><small>Free SSL, domain and hosting included</small></div>
+							<b>$49</b>
+						</div>
+
+						<div class="snapshot-row">
+							<div><strong>Enterprise Business Website</strong><small>Free domain and hosting for 1 year</small></div>
+							<b>$99</b>
+						</div>
+
+						<div class="snapshot-row">
+							<div><strong>E-commerce Website</strong><small>Paynow integration + 3 months free hosting</small></div>
+							<b>$250</b>
+						</div>
+
+						<div class="snapshot-row">
+							<div><strong>Accounting & ERP</strong><small>Business systems starting package</small></div>
+							<b>$300</b>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<section class="pricing" id="packages">
+			<div class="section">
+				<h2>Website, e-commerce and business system packages</h2>
+				<p class="section-lead">
+					These are starting packages. Final pricing depends on pages, features, content, integrations, products, workflows and support requirements.
+				</p>
+
+				<div class="pricing-grid">
+					<article class="price-card reveal">
+						<span class="package-tag">Starter</span>
+						<h3>Small Portfolio Website</h3>
+						<p>Perfect for individuals, startups, freelancers and small brands that need a professional online presence.</p>
+						<div class="price"><strong>$49</strong><span>starting from</span></div>
+						<ul class="includes">
+							<li>Simple portfolio website</li>
+							<li>Basic responsive design</li>
+							<li>Free SSL certificate</li>
+							<li>Free domain included</li>
+							<li>Free hosting included</li>
+							<li>Contact section or enquiry button</li>
+						</ul>
+						<a href="#contact" class="card-cta">Start this package →</a>
+					</article>
+
+					<article class="price-card reveal">
+						<span class="package-tag">Business</span>
+						<h3>Enterprise Business Website</h3>
+						<p>For businesses that need a stronger company website with service pages, credibility and lead generation.</p>
+						<div class="price"><strong>$99</strong><span>starting from</span></div>
+						<ul class="includes">
+							<li>Professional business website</li>
+							<li>Service or company pages</li>
+							<li>Mobile responsive layout</li>
+							<li>Free domain for 1 year</li>
+							<li>Free hosting for 1 year</li>
+							<li>SSL certificate included</li>
+							<li>Lead capture or contact form</li>
+						</ul>
+						<a href="#contact" class="card-cta">Build business site →</a>
+					</article>
+
+					<article class="price-card reveal">
+						<span class="package-tag">Online Store</span>
+						<h3>E-commerce Website</h3>
+						<p>For businesses that want to sell products or services online with checkout and payment collection.</p>
+						<div class="price"><strong>$250</strong><span>starting from</span></div>
+						<ul class="includes">
+							<li>Online store setup</li>
+							<li>Product catalogue</li>
+							<li>Cart and checkout flow</li>
+							<li>Paynow integration</li>
+							<li>3 months free hosting</li>
+							<li>Order enquiry or confirmation flow</li>
+							<li>Basic store admin guidance</li>
+						</ul>
+						<a href="#contact" class="card-cta">Launch store →</a>
+					</article>
+
+					<article class="price-card reveal">
+						<span class="package-tag">Systems</span>
+						<h3>Accounting & ERP System</h3>
+						<p>For businesses that want structured operations, accounting, stock, sales, procurement and reporting.</p>
+						<div class="price"><strong>$300</strong><span>starting from</span></div>
+						<ul class="includes">
+							<li>Accounting system starting setup</li>
+							<li>Basic ERP configuration</li>
+							<li>Sales and customer records</li>
+							<li>Inventory or service setup options</li>
+							<li>Basic reports and dashboards</li>
+							<li>User setup and initial guidance</li>
+							<li>Scope confirmed after consultation</li>
+						</ul>
+						<a href="#contact" class="card-cta">Discuss ERP setup →</a>
+					</article>
+
+					<article class="price-card reveal">
+						<span class="package-tag">Custom Scope</span>
+						<h3>Custom Web Applications</h3>
+						<p>For portals, dashboards, workflow systems, client platforms, booking apps and custom digital tools.</p>
+						<div class="price"><strong>Scope</strong><span>based quote</span></div>
+						<ul class="includes">
+							<li>Business process review</li>
+							<li>Feature and workflow planning</li>
+							<li>User roles and access planning</li>
+							<li>Database and dashboard design</li>
+							<li>Custom development quotation</li>
+							<li>Testing and deployment plan</li>
+						</ul>
+						<a href="#contact" class="card-cta">Request scope quote →</a>
+					</article>
+
+					<article class="price-card reveal">
+						<span class="package-tag">Security</span>
+						<h3>Cybersecurity Services</h3>
+						<p>For businesses that need security reviews, access control, backup checks and incident readiness.</p>
+						<div class="price"><strong>Let’s</strong><span>talk</span></div>
+						<ul class="includes">
+							<li>Security review</li>
+							<li>Access control assessment</li>
+							<li>Backup and recovery readiness</li>
+							<li>System hardening guidance</li>
+							<li>Incident response planning</li>
+							<li>Pricing based on environment</li>
+						</ul>
+						<a href="#contact" class="card-cta">Talk security →</a>
+					</article>
+
+					<article class="price-card reveal">
+						<span class="package-tag">Automation</span>
+						<h3>AI & Automation</h3>
+						<p>For businesses that want to automate repetitive tasks, documents, support workflows and reporting.</p>
+						<div class="price"><strong>Custom</strong><span>quote</span></div>
+						<ul class="includes">
+							<li>Workflow automation review</li>
+							<li>AI assistant planning</li>
+							<li>Chatbot or support automation</li>
+							<li>Document automation</li>
+							<li>Dashboard and reporting flows</li>
+							<li>Integration options</li>
+						</ul>
+						<a href="#contact" class="card-cta">Automate work →</a>
+					</article>
+
+					<article class="price-card reveal">
+						<span class="package-tag">Cloud</span>
+						<h3>Cloud & Hosting Services</h3>
+						<p>For businesses that need hosting, domains, email, backups, deployments and infrastructure support.</p>
+						<div class="price"><strong>Custom</strong><span>quote</span></div>
+						<ul class="includes">
+							<li>Hosting setup</li>
+							<li>Domain and DNS support</li>
+							<li>Email setup options</li>
+							<li>SSL configuration</li>
+							<li>Backup planning</li>
+							<li>Infrastructure support</li>
+						</ul>
+						<a href="#contact" class="card-cta">Plan cloud setup →</a>
+					</article>
+
+					<article class="price-card reveal">
+						<span class="package-tag">Advisory</span>
+						<h3>Consultancy Services</h3>
+						<p>For businesses that need guidance before investing in systems, automation or digital transformation.</p>
+						<div class="price"><strong>Let’s</strong><span>talk</span></div>
+						<ul class="includes">
+							<li>Digital strategy consultation</li>
+							<li>Process mapping</li>
+							<li>System selection guidance</li>
+							<li>Implementation roadmap</li>
+							<li>Operational improvement advice</li>
+							<li>Pricing based on engagement</li>
+						</ul>
+						<a href="#contact" class="card-cta">Book consultation →</a>
+					</article>
+				</div>
+			</div>
+		</section>
+
+		<section class="note-section" id="notes">
+			<div class="section">
+				<h2>What to know before choosing a package</h2>
+				<p class="section-lead">
+					We keep entry pricing simple, but every serious project still needs a quick scope discussion so the final delivery matches your business goals.
+				</p>
+
+				<div class="note-grid">
+					<div class="note-card reveal">
+						<b>1</b>
+						<h3>Starting price means basic scope</h3>
+						<p>Extra pages, products, complex integrations, custom designs, advanced forms or dashboards may increase the final quote.</p>
+					</div>
+
+					<div class="note-card reveal">
+						<b>2</b>
+						<h3>Hosting offers have limits</h3>
+						<p>Free hosting applies to standard website packages. Heavy apps, ERP systems, e-commerce traffic or custom servers may need separate hosting.</p>
+					</div>
+
+					<div class="note-card reveal">
+						<b>3</b>
+						<h3>Systems need proper scoping</h3>
+						<p>ERP, accounting, web apps, automation and cybersecurity depend on workflows, users, data, integrations and support needs.</p>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<section class="custom" id="custom">
+			<div class="section">
+				<div class="eyebrow">Other services</div>
+				<h2>Need something outside these packages?</h2>
+				<p class="section-lead" style="color:#d5dbdb;">
+					Some services require discovery before pricing. We can still help you scope and estimate the right solution.
+				</p>
+
+				<div class="custom-grid">
+					<div class="custom-card reveal">
+						<h3>Custom Portals</h3>
+						<p>Client portals, school portals, customer dashboards, membership systems and internal platforms.</p>
+					</div>
+
+					<div class="custom-card reveal">
+						<h3>Integrations</h3>
+						<p>Connect ERP, CRM, websites, Paynow, email, WhatsApp, dashboards and third-party APIs.</p>
+					</div>
+
+					<div class="custom-card reveal">
+						<h3>Support Retainers</h3>
+						<p>Ongoing website, ERP, cloud, cybersecurity, automation or system support on a monthly plan.</p>
+					</div>
+
+					<div class="custom-card reveal">
+						<h3>Training</h3>
+						<p>User training, admin training, documentation, knowledge base setup and system adoption support.</p>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<section class="contact-section" id="contact">
+			<div class="section contact-layout">
+				<div class="contact-panel reveal">
+					<div class="eyebrow">Get a quote</div>
+					<h2>Tell us what you want to build.</h2>
+					<p>
+						Choose a package or describe your project. We will help you confirm scope, timeline, hosting needs, integrations and final price.
+					</p>
+					<p>
+						<strong>Phone:</strong> 0710 778 538<br>
+						<strong>Email:</strong> sales@obsidianxi.com<br>
+						<strong>Website:</strong> www.obsidianxi.com
+					</p>
+				</div>
+
+				<form class="lead-form reveal" action="mailto:sales@obsidianxi.com" method="post" enctype="text/plain">
+					<input type="text" name="name" placeholder="Your name / business name" required>
+					<input type="email" name="email" placeholder="Email address" required>
+					<input type="tel" name="phone" placeholder="Phone number">
+
+					<select name="package_interest">
+						<option value="">Select package/service</option>
+						<option>Small Portfolio Website - $49</option>
+						<option>Enterprise Business Website - from $99</option>
+						<option>E-commerce Website - from $250</option>
+						<option>Accounting & ERP - from $300</option>
+						<option>Custom Web Application</option>
+						<option>Cybersecurity Services</option>
+						<option>AI & Automation</option>
+						<option>Cloud & Hosting</option>
+						<option>Consultancy</option>
+					</select>
+
+					<textarea name="message" placeholder="Briefly describe what you need, number of pages/products/users, integrations or business goals"></textarea>
+					<button class="primary" type="submit">Request quote</button>
+				</form>
+			</div>
+		</section>
+	</main>
+
+	<footer class="footer">
+		<div class="footer-inner">
+			<span>ObsidianXi — Pricing & Packages</span>
+			<span>Websites • E-commerce • ERP • Web Apps • Cybersecurity • AI • Cloud</span>
+		</div>
+	</footer>
+
+	<script>
+		function initRevealAnimations() {
+			const revealItems = document.querySelectorAll(".reveal");
+			if (!("IntersectionObserver" in window)) {
+				revealItems.forEach((item) => item.classList.add("visible"));
+				return;
+			}
+
+			const observer = new IntersectionObserver((entries) => {
+				entries.forEach((entry) => {
+					if (entry.isIntersecting) {
+						entry.target.classList.add("visible");
+						observer.unobserve(entry.target);
+					}
+				});
+			}, { threshold: 0.18 });
+
+			revealItems.forEach((item) => observer.observe(item));
+		}
+
+		document.addEventListener("DOMContentLoaded", initRevealAnimations);
+	</script>
+</body>
+</html>

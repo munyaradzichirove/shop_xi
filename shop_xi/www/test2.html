@@ -1,0 +1,1150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>VerityPack ERP | VerityCore Consultancy</title>
+	<meta name="description" content="VerityPack ERP by VerityCore Consultancy helps businesses manage sales, CRM, procurement, inventory, accounting, fixed assets, e-commerce, online payments and reporting from one platform.">
+
+	<style>
+		:root {
+			--nav: #131a22;
+			--nav-2: #232f3e;
+			--ink: #0f1720;
+			--muted: #5f6b7a;
+			--line: #d5dbdb;
+			--soft: #f3f4f6;
+			--orange: #a58a62;
+			--orange-2: #ffb84d;
+			--blue: #146eb4;
+			--cyan: #2dd4bf;
+			--panel: #ffffff;
+		}
+
+		* {
+			box-sizing: border-box;
+		}
+
+		html {
+			scroll-behavior: smooth;
+		}
+
+		body {
+			background: #fff;
+			color: var(--ink);
+			font-family: Arial, Helvetica, sans-serif;
+			margin: 0;
+		}
+
+		a {
+			color: inherit;
+			text-decoration: none;
+		}
+
+		.top-nav {
+			align-items: center;
+			background: var(--nav);
+			color: #fff;
+			display: flex;
+			gap: 26px;
+			min-height: 62px;
+			padding: 0 38px;
+			position: sticky;
+			top: 0;
+			z-index: 20;
+		}
+
+		.logo {
+			align-items: baseline;
+			display: flex;
+			font-size: 26px;
+			font-weight: 900;
+			gap: 4px;
+			white-space: nowrap;
+		}
+
+		.logo span {
+			color: var(--orange);
+		}
+
+		.main-links,
+		.utility-links {
+			align-items: center;
+			display: flex;
+			gap: 22px;
+		}
+
+		.main-links {
+			flex: 1;
+			font-size: 14px;
+			font-weight: 700;
+		}
+
+		.utility-links {
+			color: #d5dbdb;
+			font-size: 13px;
+		}
+
+		.console-btn {
+			background: var(--orange);
+			border-radius: 3px;
+			color: #111;
+			font-weight: 800;
+			padding: 10px 15px;
+		}
+
+		.sub-nav {
+			background: var(--nav-2);
+			color: #f2f3f3;
+			display: flex;
+			font-size: 14px;
+			gap: 24px;
+			overflow-x: auto;
+			padding: 12px 38px;
+			white-space: nowrap;
+		}
+
+		/* ERP-specific hero: different from the main VerityCore homepage */
+		.hero {
+			background:
+				radial-gradient(circle at 10% 12%, rgba(255, 184, 77, 0.18), transparent 26%),
+				radial-gradient(circle at 85% 20%, rgba(20, 110, 180, 0.2), transparent 28%),
+				linear-gradient(135deg, #0f1720 0%, #172231 46%, #101923 100%);
+			color: #fff;
+			overflow: hidden;
+			padding: 78px 38px 66px;
+			position: relative;
+		}
+
+		.hero::before {
+			background:
+				linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px),
+				linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px);
+			background-size: 44px 44px;
+			content: "";
+			inset: 0;
+			opacity: 0.28;
+			pointer-events: none;
+			position: absolute;
+		}
+
+		.hero-inner {
+			align-items: center;
+			display: grid;
+			gap: 46px;
+			grid-template-columns: minmax(0, 0.94fr) minmax(430px, 1.06fr);
+			margin: 0 auto;
+			max-width: 1240px;
+			position: relative;
+			z-index: 1;
+		}
+
+		.eyebrow {
+			color: var(--orange-2);
+			font-size: 14px;
+			font-weight: 900;
+			letter-spacing: 0.4px;
+			margin-bottom: 18px;
+			text-transform: uppercase;
+		}
+
+		h1 {
+			font-size: clamp(42px, 5.5vw, 72px);
+			font-weight: 900;
+			letter-spacing: -1.7px;
+			line-height: 1.03;
+			margin: 0;
+			max-width: 820px;
+		}
+
+		.hero p {
+			color: #e6e9ec;
+			font-size: 20px;
+			line-height: 1.58;
+			margin: 24px 0 0;
+			max-width: 720px;
+		}
+
+		.hero-proof {
+			display: flex;
+			flex-wrap: wrap;
+			gap: 10px;
+			margin-top: 26px;
+		}
+
+		.hero-proof span {
+			background: rgba(255,255,255,0.08);
+			border: 1px solid rgba(255,255,255,0.13);
+			border-left: 3px solid var(--orange);
+			border-radius: 4px;
+			color: #f8fafc;
+			font-size: 13px;
+			font-weight: 800;
+			padding: 10px 12px;
+		}
+
+		.hero-actions {
+			display: flex;
+			flex-wrap: wrap;
+			gap: 14px;
+			margin-top: 32px;
+		}
+
+		.primary,
+		.secondary {
+			border-radius: 3px;
+			display: inline-flex;
+			font-size: 16px;
+			font-weight: 900;
+			min-height: 48px;
+			padding: 13px 20px;
+			transition: transform 160ms ease, box-shadow 160ms ease, background 160ms ease;
+		}
+
+		.primary {
+			background: linear-gradient(135deg, var(--orange), var(--orange-2));
+			box-shadow: 0 16px 34px rgba(255, 153, 0, 0.25);
+			color: #111;
+		}
+
+		.secondary {
+			background: transparent;
+			border: 1px solid #fff;
+			color: #fff;
+		}
+
+		.primary:hover,
+		.secondary:hover {
+			transform: translateY(-2px);
+		}
+
+		.ops-board {
+			display: grid;
+			gap: 16px;
+			position: relative;
+		}
+
+		.manual-panel,
+		.system-panel {
+			border-radius: 8px;
+			box-shadow: 0 24px 70px rgba(0,0,0,0.28);
+			overflow: hidden;
+		}
+
+		.manual-panel {
+			background: rgba(255,255,255,0.08);
+			border: 1px solid rgba(255,255,255,0.14);
+			transform: rotate(-1.2deg);
+		}
+
+		.system-panel {
+			background: rgba(255,255,255,0.98);
+			border: 1px solid rgba(255,255,255,0.2);
+			color: var(--ink);
+			margin-left: 44px;
+			transform: rotate(1deg);
+		}
+
+		.panel-head {
+			align-items: center;
+			display: flex;
+			justify-content: space-between;
+			padding: 14px 16px;
+		}
+
+		.manual-panel .panel-head {
+			background: rgba(255,255,255,0.07);
+			border-bottom: 1px solid rgba(255,255,255,0.12);
+			color: #fff;
+		}
+
+		.system-panel .panel-head {
+			background: #f2f3f3;
+			border-bottom: 1px solid var(--line);
+		}
+
+		.badge-danger,
+		.badge-live {
+			border-radius: 999px;
+			font-size: 11px;
+			font-weight: 900;
+			padding: 6px 9px;
+			text-transform: uppercase;
+		}
+
+		.badge-danger {
+			background: rgba(255, 184, 77, 0.16);
+			color: #ffd28a;
+		}
+
+		.badge-live {
+			background: #e6f7f2;
+			color: #067d62;
+		}
+
+		.paper-stack,
+		.erp-flow {
+			display: grid;
+			gap: 10px;
+			padding: 18px;
+		}
+
+		.paper-row {
+			background: rgba(255,255,255,0.08);
+			border: 1px solid rgba(255,255,255,0.12);
+			border-left: 4px solid rgba(255,184,77,0.75);
+			border-radius: 4px;
+			color: #e5e7eb;
+			display: flex;
+			font-size: 13px;
+			font-weight: 700;
+			justify-content: space-between;
+			padding: 12px;
+		}
+
+		.flow-row {
+			align-items: center;
+			border: 1px solid var(--line);
+			border-radius: 5px;
+			display: grid;
+			gap: 12px;
+			grid-template-columns: 48px 1fr auto;
+			padding: 12px;
+		}
+
+		.flow-icon {
+			background: #fff7e6;
+			border: 1px solid #ffd28a;
+			border-radius: 4px;
+			color: #8a5200;
+			display: grid;
+			font-size: 12px;
+			font-weight: 900;
+			height: 42px;
+			place-items: center;
+			width: 42px;
+		}
+
+		.flow-row strong {
+			display: block;
+			font-size: 14px;
+			margin-bottom: 3px;
+		}
+
+		.flow-row small {
+			color: var(--muted);
+			font-size: 12px;
+			font-weight: 700;
+		}
+
+		.flow-value {
+			color: #067d62;
+			font-weight: 900;
+			white-space: nowrap;
+		}
+
+		.connector-note {
+			background: linear-gradient(135deg, var(--orange), var(--orange-2));
+			border-radius: 6px;
+			box-shadow: 0 18px 40px rgba(0,0,0,0.24);
+			color: #111;
+			font-size: 13px;
+			font-weight: 900;
+			left: 8px;
+			padding: 12px 14px;
+			position: absolute;
+			top: 44%;
+			transform: rotate(-2deg);
+			z-index: 3;
+		}
+
+
+		.section {
+			margin: 0 auto;
+			max-width: 1240px;
+			padding: 68px 38px;
+		}
+
+		.section h2 {
+			font-size: 40px;
+			font-weight: 900;
+			margin: 0 0 12px;
+		}
+
+		.section-lead {
+			color: var(--muted);
+			font-size: 17px;
+			line-height: 1.6;
+			margin: 0 0 28px;
+			max-width: 800px;
+		}
+
+		.trust-strip {
+			background: #fff;
+			border-bottom: 1px solid var(--line);
+			border-top: 1px solid var(--line);
+		}
+
+		.trust-grid {
+			display: grid;
+			gap: 16px;
+			grid-template-columns: repeat(4, minmax(0, 1fr));
+		}
+
+		.trust-item {
+			background: #f7f8fa;
+			border: 1px solid var(--line);
+			border-radius: 6px;
+			padding: 18px;
+		}
+
+		.trust-item strong {
+			display: block;
+			font-size: 28px;
+			font-weight: 900;
+			margin-bottom: 5px;
+		}
+
+		.trust-item span {
+			color: var(--muted);
+			font-size: 13px;
+			font-weight: 700;
+		}
+
+		.service-grid {
+			display: grid;
+			gap: 18px;
+			grid-template-columns: repeat(4, minmax(0, 1fr));
+		}
+
+		.service-card {
+			background: var(--panel);
+			border: 1px solid var(--line);
+			border-radius: 4px;
+			min-height: 230px;
+			padding: 22px;
+			position: relative;
+			transition: border-color 160ms ease, box-shadow 160ms ease, transform 160ms ease;
+		}
+
+		.service-card::before {
+			background: linear-gradient(90deg, var(--orange), var(--blue));
+			content: "";
+			height: 4px;
+			left: -1px;
+			position: absolute;
+			right: -1px;
+			top: -1px;
+		}
+
+		.service-card:hover {
+			border-color: var(--orange);
+			box-shadow: 0 16px 34px rgba(15, 23, 32, 0.12);
+			transform: translateY(-3px);
+		}
+
+		.service-icon {
+			background: #fff7e6;
+			border: 1px solid #ffd28a;
+			border-radius: 4px;
+			color: #8a5200;
+			display: grid;
+			font-size: 13px;
+			font-weight: 900;
+			height: 46px;
+			place-items: center;
+			width: 52px;
+		}
+
+		.service-card h3 {
+			font-size: 21px;
+			margin: 20px 0 10px;
+		}
+
+		.service-card p {
+			color: var(--muted);
+			font-size: 14px;
+			line-height: 1.55;
+			margin: 0;
+		}
+
+		.service-meta {
+			align-items: center;
+			border-top: 1px solid var(--line);
+			color: var(--blue);
+			display: flex;
+			font-size: 12px;
+			font-weight: 700;
+			justify-content: space-between;
+			margin-top: 18px;
+			padding-top: 14px;
+		}
+
+		.pain-section {
+			background:
+				radial-gradient(circle at 12% 10%, rgba(20, 110, 180, 0.12), transparent 24%),
+				#f6f7f8;
+			border-top: 1px solid var(--line);
+			border-bottom: 1px solid var(--line);
+		}
+
+		.pain-grid {
+			display: grid;
+			gap: 18px;
+			grid-template-columns: repeat(3, minmax(0, 1fr));
+		}
+
+		.pain-card {
+			background: #fff;
+			border: 1px solid var(--line);
+			border-radius: 7px;
+			box-shadow: 0 16px 40px rgba(15, 23, 32, 0.07);
+			padding: 24px;
+		}
+
+		.pain-card b {
+			background: #fff7e6;
+			border: 1px solid #ffd28a;
+			border-radius: 999px;
+			color: #8a5200;
+			display: inline-grid;
+			height: 38px;
+			margin-bottom: 18px;
+			place-items: center;
+			width: 38px;
+		}
+
+		.pain-card h3 {
+			font-size: 22px;
+			margin: 0 0 10px;
+		}
+
+		.pain-card p {
+			color: var(--muted);
+			font-size: 14px;
+			line-height: 1.65;
+			margin: 0;
+		}
+
+		.solution-section {
+			background:
+				radial-gradient(circle at 72% 45%, rgba(255, 153, 0, 0.14), transparent 26%),
+				linear-gradient(135deg, #101923, #182536 46%, #0f1720);
+			color: #fff;
+		}
+
+		.solution-wrap {
+			display: grid;
+			gap: 34px;
+			grid-template-columns: minmax(0, 0.9fr) minmax(380px, 1.1fr);
+			align-items: center;
+		}
+
+		.solution-copy h2 {
+			color: #fff;
+		}
+
+		.solution-copy p {
+			color: #d5dbdb;
+			font-size: 16px;
+			line-height: 1.7;
+			max-width: 620px;
+		}
+
+		.workflow-panel {
+			background:
+				linear-gradient(#334155 1px, transparent 1px),
+				linear-gradient(90deg, #334155 1px, transparent 1px),
+				#111827;
+			background-size: 28px 28px;
+			border-radius: 6px;
+			box-shadow: 0 24px 70px rgba(0,0,0,0.28);
+			min-height: 360px;
+			padding: 24px;
+			position: relative;
+			overflow: hidden;
+		}
+
+		.workflow-panel::after {
+			background: radial-gradient(circle, rgba(255, 153, 0, 0.42), transparent 55%);
+			content: "";
+			height: 240px;
+			position: absolute;
+			right: -90px;
+			top: -70px;
+			width: 240px;
+		}
+
+		.flow-node {
+			background: #232f3e;
+			border: 1px solid rgba(255, 255, 255, 0.16);
+			border-left: 4px solid var(--orange);
+			border-radius: 4px;
+			color: #fff;
+			font-size: 14px;
+			font-weight: 900;
+			margin-bottom: 14px;
+			padding: 14px;
+			position: relative;
+			z-index: 1;
+		}
+
+		.industry-grid {
+			display: grid;
+			gap: 14px;
+			grid-template-columns: repeat(4, minmax(0, 1fr));
+		}
+
+		.industry-item {
+			background: #f7f8fa;
+			border: 1px solid var(--line);
+			border-left: 4px solid var(--orange);
+			border-radius: 6px;
+			padding: 18px;
+		}
+
+		.industry-item strong {
+			display: block;
+			font-size: 18px;
+			margin-bottom: 6px;
+		}
+
+		.industry-item span {
+			color: var(--muted);
+			font-size: 13px;
+			font-weight: 700;
+		}
+
+		.contact-section {
+			background:
+				linear-gradient(135deg, rgba(15, 23, 32, 0.95), rgba(35, 47, 62, 0.9)),
+				url("https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=1600&auto=format&fit=crop") center / cover;
+			color: #fff;
+		}
+
+		.contact-layout {
+			display: grid;
+			gap: 28px;
+			grid-template-columns: minmax(0, 0.9fr) minmax(360px, 0.7fr);
+		}
+
+		.contact-panel {
+			background: rgba(255, 255, 255, 0.09);
+			border: 1px solid rgba(255, 255, 255, 0.14);
+			border-radius: 7px;
+			padding: 28px;
+		}
+
+		.contact-panel h2 {
+			color: #fff;
+			margin-top: 0;
+		}
+
+		.contact-panel p {
+			color: #d5dbdb;
+			line-height: 1.7;
+		}
+
+		.lead-form {
+			background: #fff;
+			border-radius: 7px;
+			color: var(--ink);
+			display: grid;
+			gap: 14px;
+			padding: 24px;
+		}
+
+		.lead-form input,
+		.lead-form select,
+		.lead-form textarea {
+			border: 1px solid var(--line);
+			border-radius: 5px;
+			font: inherit;
+			min-height: 46px;
+			padding: 0 12px;
+			width: 100%;
+		}
+
+		.lead-form textarea {
+			min-height: 104px;
+			padding-top: 12px;
+			resize: vertical;
+		}
+
+		.lead-form button {
+			border: 0;
+			cursor: pointer;
+			justify-content: center;
+		}
+
+		.footer {
+			background: var(--nav);
+			color: #d5dbdb;
+			font-size: 13px;
+			padding: 24px 38px;
+		}
+
+		.footer-inner {
+			display: flex;
+			gap: 16px;
+			justify-content: space-between;
+			margin: 0 auto;
+			max-width: 1240px;
+		}
+
+		.reveal {
+			opacity: 0;
+			transform: translateY(22px);
+			transition: opacity 700ms ease, transform 700ms ease;
+		}
+
+		.reveal.visible {
+			opacity: 1;
+			transform: translateY(0);
+		}
+
+		@media (max-width: 980px) {
+			.top-nav {
+				align-items: flex-start;
+				flex-direction: column;
+				padding: 18px;
+			}
+
+			.main-links,
+			.utility-links {
+				flex-wrap: wrap;
+			}
+
+			.hero-inner,
+			.solution-wrap,
+			.contact-layout {
+				grid-template-columns: 1fr;
+			}
+
+			.system-panel {
+				margin-left: 0;
+			}
+
+			.connector-note {
+				position: static;
+				transform: none;
+				width: max-content;
+			}
+
+			.service-grid,
+			.trust-grid,
+			.industry-grid {
+				grid-template-columns: repeat(2, minmax(0, 1fr));
+			}
+
+			.pain-grid {
+				grid-template-columns: 1fr;
+			}
+		}
+
+		@media (max-width: 620px) {
+			.hero,
+			.section {
+				padding-left: 20px;
+				padding-right: 20px;
+			}
+
+			h1 {
+				font-size: 42px;
+			}
+
+			.hero p {
+				font-size: 17px;
+			}
+
+			.service-grid,
+			.trust-grid,
+			.industry-grid {
+				grid-template-columns: 1fr;
+			}
+
+			.flow-row {
+				grid-template-columns: 42px 1fr;
+			}
+
+			.flow-value {
+				grid-column: 2;
+			}
+
+			.footer-inner {
+				flex-direction: column;
+			}
+		}
+	</style>
+</head>
+
+<body>
+	<header>
+		<div class="top-nav">
+			<a class="logo" href="#">Verity<span>Pack</span></a>
+
+			<nav class="main-links">
+				<a href="#modules">ERP Modules</a>
+				<a href="#pain">Pain Points</a>
+				<a href="#industries">Industries</a>
+				<a href="#contact">Contact</a>
+			</nav>
+
+			<div class="utility-links">
+				<a href="tel:+263710778538">0710 778 538</a>
+				<a href="mailto:sales@veritycore.co.zw">sales@veritycore.co.zw</a>
+				<a class="console-btn" href="#contact">Request Demo</a>
+			</div>
+		</div>
+
+		<nav class="sub-nav">
+			<a href="#modules">CRM</a>
+			<a href="#modules">Selling</a>
+			<a href="#modules">Procurement</a>
+			<a href="#modules">Accounting</a>
+			<a href="#modules">Inventory</a>
+			<a href="#modules">E-commerce</a>
+			<a href="#modules">Online Payments</a>
+			<a href="#modules">Reporting</a>
+		</nav>
+	</header>
+
+	<main>
+		<section class="hero">
+			<div class="hero-inner">
+				<div class="reveal">
+					<div class="eyebrow">VerityCore Consultancy presents VerityPack ERP</div>
+					<h1>Stop managing your business from paper books and scattered spreadsheets.</h1>
+					<p>
+						VerityPack ERP gives you one connected system for CRM, selling, procurement, inventory, accounting,
+						fixed assets, e-commerce, online payments and real-time management reporting.
+					</p>
+
+					<div class="hero-proof">
+						<span>Multi-branch visibility</span>
+						<span>Stock control</span>
+						<span>Sales reports</span>
+						<span>Accounting clarity</span>
+					</div>
+
+					<div class="hero-actions">
+						<a class="primary" href="#contact">Book a consultation</a>
+						<a class="secondary" href="#modules">Explore modules</a>
+					</div>
+				</div>
+
+				<div class="ops-board reveal" aria-label="Manual operations transformed into ERP workflow">
+					<div class="manual-panel">
+						<div class="panel-head">
+							<strong>Manual Operations</strong>
+							<span class="badge-danger">Delayed</span>
+						</div>
+						<div class="paper-stack">
+							<div class="paper-row"><span>Branch sales book</span><strong>Pending</strong></div>
+							<div class="paper-row"><span>Stock count sheet</span><strong>Manual</strong></div>
+							<div class="paper-row"><span>Customer balances</span><strong>Unclear</strong></div>
+						</div>
+					</div>
+
+					<div class="connector-note">Converted into live control</div>
+
+					<div class="system-panel">
+						<div class="panel-head">
+							<strong>VerityPack ERP Live View</strong>
+							<span class="badge-live">Live</span>
+						</div>
+
+						<div class="erp-flow">
+							<div class="flow-row">
+								<div class="flow-icon">SAL</div>
+								<div>
+									<strong>Sales captured instantly</strong>
+									<small>Invoices, orders and customer statements</small>
+								</div>
+								<div class="flow-value">Live</div>
+							</div>
+
+							<div class="flow-row">
+								<div class="flow-icon">STK</div>
+								<div>
+									<strong>Inventory updates automatically</strong>
+									<small>Branches, warehouses and reorder levels</small>
+								</div>
+								<div class="flow-value">Tracked</div>
+							</div>
+
+							<div class="flow-row">
+								<div class="flow-icon">ACC</div>
+								<div>
+									<strong>Finance stays connected</strong>
+									<small>Payments, receivables and reports</small>
+								</div>
+								<div class="flow-value">Clear</div>
+							</div>
+
+							<div class="flow-row">
+								<div class="flow-icon">REP</div>
+								<div>
+									<strong>Management reports ready</strong>
+									<small>Sales, stock, profit and performance</small>
+								</div>
+								<div class="flow-value">Now</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<section class="trust-strip">
+			<div class="section trust-grid">
+				<div class="trust-item reveal">
+					<strong>CRM</strong>
+					<span>Leads, customers, follow-ups and sales pipelines</span>
+				</div>
+				<div class="trust-item reveal">
+					<strong>Stock</strong>
+					<span>Inventory visibility across shops and warehouses</span>
+				</div>
+				<div class="trust-item reveal">
+					<strong>Finance</strong>
+					<span>Invoices, payments, expenses and accounting reports</span>
+				</div>
+				<div class="trust-item reveal">
+					<strong>Reports</strong>
+					<span>Real-time dashboards instead of manual paper summaries</span>
+				</div>
+			</div>
+		</section>
+
+		<section class="section" id="modules">
+			<h2>Complete ERP modules for growing businesses</h2>
+			<p class="section-lead">
+				VerityPack ERP gives business owners clear visibility and control. Your team works from one connected system while management gets accurate reports without chasing books, pages or spreadsheets.
+			</p>
+
+			<div class="service-grid">
+				<article class="service-card reveal">
+					<div class="service-icon">CRM</div>
+					<h3>CRM & Customers</h3>
+					<p>Capture leads, manage customers, track communication, schedule follow-ups and improve sales conversion.</p>
+					<div class="service-meta"><span>Leads</span><span>Customers</span></div>
+				</article>
+
+				<article class="service-card reveal">
+					<div class="service-icon">SAL</div>
+					<h3>Selling & Invoicing</h3>
+					<p>Create quotations, sales orders, invoices, delivery notes, payment records and customer statements.</p>
+					<div class="service-meta"><span>Orders</span><span>Invoices</span></div>
+				</article>
+
+				<article class="service-card reveal">
+					<div class="service-icon">BUY</div>
+					<h3>Procurement</h3>
+					<p>Control supplier quotations, purchase orders, goods received, supplier bills and purchasing approvals.</p>
+					<div class="service-meta"><span>Suppliers</span><span>Purchasing</span></div>
+				</article>
+
+				<article class="service-card reveal">
+					<div class="service-icon">INV</div>
+					<h3>Inventory Management</h3>
+					<p>Track stock levels, warehouses, transfers, batches, pricing, reorder levels and movement history.</p>
+					<div class="service-meta"><span>Stock</span><span>Branches</span></div>
+				</article>
+
+				<article class="service-card reveal">
+					<div class="service-icon">ACC</div>
+					<h3>Financial Accounting</h3>
+					<p>Manage journals, payments, receivables, payables, expenses, profit and loss, and balance sheet reports.</p>
+					<div class="service-meta"><span>Finance</span><span>Reports</span></div>
+				</article>
+
+				<article class="service-card reveal">
+					<div class="service-icon">AST</div>
+					<h3>Fixed Assets</h3>
+					<p>Record company assets, depreciation, transfers, disposal, maintenance records and asset valuation.</p>
+					<div class="service-meta"><span>Assets</span><span>Depreciation</span></div>
+				</article>
+
+				<article class="service-card reveal">
+					<div class="service-icon">WEB</div>
+					<h3>E-commerce</h3>
+					<p>Connect products, customers, orders and checkout flows directly into your ERP operations.</p>
+					<div class="service-meta"><span>Online Store</span><span>Orders</span></div>
+				</article>
+
+				<article class="service-card reveal">
+					<div class="service-icon">PAY</div>
+					<h3>Online Payments</h3>
+					<p>Accept digital payments and reduce manual reconciliation through payment gateway integration.</p>
+					<div class="service-meta"><span>Payments</span><span>Reconciliation</span></div>
+				</article>
+
+				<article class="service-card reveal">
+					<div class="service-icon">REP</div>
+					<h3>Reporting & Management</h3>
+					<p>Use dashboards and management reports to see sales, stock, finance, costs, profit and team performance.</p>
+					<div class="service-meta"><span>Dashboards</span><span>KPIs</span></div>
+				</article>
+
+				<article class="service-card reveal">
+					<div class="service-icon">HR</div>
+					<h3>Human Resources</h3>
+					<p>Manage employees, attendance, leave, payroll inputs, staff records and operational accountability.</p>
+					<div class="service-meta"><span>Staff</span><span>Attendance</span></div>
+				</article>
+
+				<article class="service-card reveal">
+					<div class="service-icon">AUT</div>
+					<h3>Workflow Automation</h3>
+					<p>Automate approvals, notifications, reminders and repeated admin tasks that slow your business down.</p>
+					<div class="service-meta"><span>Approvals</span><span>Efficiency</span></div>
+				</article>
+
+				<article class="service-card reveal">
+					<div class="service-icon">SUP</div>
+					<h3>Support & Customization</h3>
+					<p>Adapt forms, reports, workflows, user roles and dashboards to match your real business processes.</p>
+					<div class="service-meta"><span>Custom</span><span>Training</span></div>
+				</article>
+			</div>
+		</section>
+
+		<section class="pain-section" id="pain">
+			<div class="section">
+				<h2>Built for the pain business owners face every day</h2>
+				<p class="section-lead">
+					Many SMEs think systems are only for big companies. In reality, a good ERP helps smaller businesses grow with structure, visibility and control from an early stage.
+				</p>
+
+				<div class="pain-grid">
+					<article class="pain-card reveal">
+						<b>1</b>
+						<h3>No more collecting paper books</h3>
+						<p>Business owners with multiple shops should not have to collect books from each branch and go through pages manually just to understand sales, stock and cash position.</p>
+					</article>
+
+					<article class="pain-card reveal">
+						<b>2</b>
+						<h3>No more blind decisions</h3>
+						<p>With live dashboards, management can see what is selling, what is running out, who owes money, which branch is performing and where costs are rising.</p>
+					</article>
+
+					<article class="pain-card reveal">
+						<b>3</b>
+						<h3>No more disconnected departments</h3>
+						<p>Sales, stock, procurement, accounting, online orders and payments work together so your business operates as one connected unit.</p>
+					</article>
+				</div>
+			</div>
+		</section>
+
+		<section class="solution-section">
+			<div class="section solution-wrap">
+				<div class="solution-copy">
+					<div class="eyebrow">Operational clarity</div>
+					<h2>From transaction to report, everything connects.</h2>
+					<p>
+						When a sale is made, stock moves. When payment is received, finance updates. When stock is low, procurement knows. When management needs reports, the system is already collecting the data.
+					</p>
+					<p>
+						That is the power of moving from manual operations to a proper business management system.
+					</p>
+					<div class="hero-actions">
+						<a class="primary" href="#contact">Plan your ERP setup</a>
+					</div>
+				</div>
+
+				<div class="workflow-panel" aria-label="ERP workflow diagram">
+					<div class="flow-node">Lead captured in CRM</div>
+					<div class="flow-node">Quotation converted to sales order</div>
+					<div class="flow-node">Invoice issued and stock reserved</div>
+					<div class="flow-node">Payment received and reconciled</div>
+					<div class="flow-node">Management dashboard updates live</div>
+				</div>
+			</div>
+		</section>
+
+		<section class="section" id="industries">
+			<h2>Useful for different types of businesses</h2>
+			<p class="section-lead">
+				VerityPack ERP can be configured for your industry, team size, branches, approval levels and reporting needs.
+			</p>
+
+			<div class="industry-grid">
+				<div class="industry-item reveal"><strong>Retail Shops</strong><span>POS, stock, sales and branch visibility</span></div>
+				<div class="industry-item reveal"><strong>Wholesalers</strong><span>Bulk orders, customers and warehouse control</span></div>
+				<div class="industry-item reveal"><strong>Manufacturing</strong><span>Materials, production, costing and inventory</span></div>
+				<div class="industry-item reveal"><strong>Schools</strong><span>Billing, payments, records and reporting</span></div>
+				<div class="industry-item reveal"><strong>Clinics</strong><span>Operations, billing, stock and finance control</span></div>
+				<div class="industry-item reveal"><strong>Service Firms</strong><span>Projects, billing, expenses and clients</span></div>
+				<div class="industry-item reveal"><strong>Hardware Stores</strong><span>Inventory, suppliers, sales and payments</span></div>
+				<div class="industry-item reveal"><strong>Multi-Branch Businesses</strong><span>Central reporting across all locations</span></div>
+			</div>
+		</section>
+
+		<section class="contact-section" id="contact">
+			<div class="section contact-layout">
+				<div class="contact-panel reveal">
+					<div class="eyebrow">Start the conversation</div>
+					<h2>Ready to stop managing your business manually?</h2>
+					<p>
+						Talk to VerityCore Consultancy about implementing VerityPack ERP for your business. We will help you map your workflows, choose the right modules and build a system that gives you control.
+					</p>
+					<p>
+						<strong>Phone:</strong> 0710 778 538<br>
+						<strong>Email:</strong> sales@veritycore.co.zw<br>
+						<strong>Website:</strong> www.veritycore.co.zw
+					</p>
+				</div>
+
+				<form class="lead-form reveal" action="mailto:sales@veritycore.co.zw" method="post" enctype="text/plain">
+					<input type="text" name="name" placeholder="Your name" required>
+					<input type="email" name="email" placeholder="Email address" required>
+					<input type="tel" name="phone" placeholder="Phone number">
+					<select name="business_need">
+						<option value="">What do you need?</option>
+						<option>ERP for a small business</option>
+						<option>ERP for multiple branches</option>
+						<option>Inventory and accounting system</option>
+						<option>E-commerce and online payments</option>
+						<option>Custom ERP implementation</option>
+					</select>
+					<textarea name="message" placeholder="Briefly describe your business and what you want to manage better"></textarea>
+					<button class="primary" type="submit">Send enquiry</button>
+				</form>
+			</div>
+		</section>
+	</main>
+
+	<footer class="footer">
+		<div class="footer-inner">
+			<span>VerityCore Consultancy (Pvt) Ltd — VerityPack ERP</span>
+			<span>ERP • E-commerce • Online Payments • Reporting • Automation</span>
+		</div>
+	</footer>
+
+	<script>
+		function initRevealAnimations() {
+			const revealItems = document.querySelectorAll(".reveal");
+			if (!("IntersectionObserver" in window)) {
+				revealItems.forEach((item) => item.classList.add("visible"));
+				return;
+			}
+
+			const observer = new IntersectionObserver((entries) => {
+				entries.forEach((entry) => {
+					if (entry.isIntersecting) {
+						entry.target.classList.add("visible");
+						observer.unobserve(entry.target);
+					}
+				});
+			}, { threshold: 0.18 });
+
+			revealItems.forEach((item) => observer.observe(item));
+		}
+
+		document.addEventListener("DOMContentLoaded", initRevealAnimations);
+	</script>
+</body>
+</html>

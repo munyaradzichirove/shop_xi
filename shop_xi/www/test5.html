@@ -1,0 +1,1029 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Cybersecurity Services | VerityCore Consultancy</title>
+	<meta name="description" content="Cybersecurity reviews, access control, backup readiness, hardening and incident response preparation by VerityCore Consultancy.">
+
+	<style>
+		:root {
+			--nav:#131a22;
+			--nav-2:#232f3e;
+			--ink:#0f1720;
+			--muted:#5f6b7a;
+			--line:#d5dbdb;
+			--soft:#f6f7f8;
+			--orange:#a58a62;
+			--orange-2:#ffb84d;
+			--blue:#146eb4;
+			--cyan:#2dd4bf;
+			--green:#067d62;
+			--danger:#e11d48;
+		}
+
+		* { box-sizing:border-box; }
+		html { scroll-behavior:smooth; }
+
+		body {
+			margin:0;
+			background:#fff;
+			color:var(--ink);
+			font-family:Arial, Helvetica, sans-serif;
+		}
+
+		a { color:inherit; text-decoration:none; }
+
+		.top-nav {
+			align-items:center;
+			background:var(--nav);
+			color:#fff;
+			display:flex;
+			gap:26px;
+			min-height:62px;
+			padding:0 38px;
+			position:sticky;
+			top:0;
+			z-index:20;
+		}
+
+		.logo {
+			display:flex;
+			font-size:26px;
+			font-weight:900;
+			gap:4px;
+			white-space:nowrap;
+		}
+
+		.logo span { color:var(--orange); }
+
+		.main-links,
+		.utility-links {
+			align-items:center;
+			display:flex;
+			gap:22px;
+		}
+
+		.main-links {
+			flex:1;
+			font-size:14px;
+			font-weight:700;
+		}
+
+		.utility-links {
+			color:#d5dbdb;
+			font-size:13px;
+		}
+
+		.console-btn {
+			background:var(--orange);
+			border-radius:3px;
+			color:#111;
+			font-weight:800;
+			padding:10px 15px;
+		}
+
+		.sub-nav {
+			background:var(--nav-2);
+			color:#f2f3f3;
+			display:flex;
+			font-size:14px;
+			gap:24px;
+			overflow-x:auto;
+			padding:12px 38px;
+			white-space:nowrap;
+		}
+
+		.hero {
+			background:
+				radial-gradient(circle at 12% 18%, rgba(255,184,77,.16), transparent 26%),
+				radial-gradient(circle at 86% 18%, rgba(45,212,191,.14), transparent 30%),
+				linear-gradient(135deg,#07111c 0%,#101923 48%,#172231 100%);
+			color:#fff;
+			overflow:hidden;
+			padding:78px 38px 68px;
+			position:relative;
+		}
+
+		.hero::before {
+			background:
+				linear-gradient(rgba(45,212,191,.055) 1px, transparent 1px),
+				linear-gradient(90deg, rgba(45,212,191,.055) 1px, transparent 1px);
+			background-size:46px 46px;
+			content:"";
+			inset:0;
+			opacity:.42;
+			position:absolute;
+		}
+
+		.hero-inner {
+			align-items:center;
+			display:grid;
+			gap:48px;
+			grid-template-columns:minmax(0,.94fr) minmax(430px,1.06fr);
+			margin:0 auto;
+			max-width:1240px;
+			position:relative;
+			z-index:1;
+		}
+
+		.eyebrow {
+			align-items:center;
+			background:rgba(255,255,255,.08);
+			border:1px solid rgba(255,255,255,.14);
+			border-radius:999px;
+			color:var(--orange-2);
+			display:inline-flex;
+			font-size:12px;
+			font-weight:900;
+			gap:8px;
+			letter-spacing:.4px;
+			margin-bottom:18px;
+			padding:8px 12px;
+			text-transform:uppercase;
+		}
+
+		.eyebrow::before {
+			background:linear-gradient(135deg,var(--orange),var(--orange-2));
+			border-radius:50%;
+			content:"";
+			height:8px;
+			width:8px;
+		}
+
+		h1 {
+			font-size:clamp(42px,5.6vw,72px);
+			font-weight:900;
+			letter-spacing:-1.9px;
+			line-height:1.02;
+			margin:0;
+		}
+
+		.hero h1 span { color:var(--orange-2); }
+
+		.hero p {
+			color:#d5dbdb;
+			font-size:19px;
+			line-height:1.65;
+			margin:24px 0 0;
+			max-width:760px;
+		}
+
+		.hero-actions {
+			display:flex;
+			flex-wrap:wrap;
+			gap:12px;
+			margin-top:32px;
+		}
+
+		.primary,
+		.secondary {
+			align-items:center;
+			border-radius:999px;
+			display:inline-flex;
+			font-size:15px;
+			font-weight:900;
+			justify-content:center;
+			min-height:48px;
+			padding:13px 22px;
+			transition:transform .16s ease;
+		}
+
+		.primary {
+			background:linear-gradient(135deg,var(--orange),var(--orange-2));
+			box-shadow:0 16px 32px rgba(255,153,0,.26);
+			color:#111;
+		}
+
+		.secondary {
+			background:transparent;
+			border:1px solid rgba(255,255,255,.32);
+			color:#fff;
+		}
+
+		.primary:hover,
+		.secondary:hover { transform:translateY(-2px); }
+
+		.security-console {
+			background:rgba(255,255,255,.08);
+			backdrop-filter:blur(12px);
+			border:1px solid rgba(255,255,255,.14);
+			border-radius:24px;
+			box-shadow:0 30px 80px rgba(0,0,0,.3);
+			overflow:hidden;
+		}
+
+		.console-head {
+			align-items:center;
+			background:rgba(0,0,0,.22);
+			border-bottom:1px solid rgba(255,255,255,.12);
+			display:flex;
+			justify-content:space-between;
+			padding:15px 18px;
+		}
+
+		.live-pill {
+			background:rgba(45,212,191,.14);
+			border:1px solid rgba(45,212,191,.32);
+			border-radius:999px;
+			color:#b7fff3;
+			font-size:11px;
+			font-weight:900;
+			padding:6px 9px;
+			text-transform:uppercase;
+		}
+
+		.console-body {
+			display:grid;
+			gap:16px;
+			grid-template-columns:1fr 1fr;
+			padding:18px;
+		}
+
+		.threat-panel {
+			background:rgba(0,0,0,.18);
+			border:1px solid rgba(255,255,255,.12);
+			border-radius:16px;
+			padding:16px;
+		}
+
+		.threat-panel.wide { grid-column:span 2; }
+
+		.threat-panel h3 {
+			font-size:15px;
+			margin:0 0 12px;
+		}
+
+		.signal {
+			align-items:center;
+			border-top:1px solid rgba(255,255,255,.1);
+			display:grid;
+			gap:10px;
+			grid-template-columns:1fr auto;
+			padding:9px 0;
+		}
+
+		.signal:first-of-type { border-top:0; }
+
+		.signal span {
+			color:#d5dbdb;
+			font-size:12px;
+			font-weight:700;
+		}
+
+		.signal strong {
+			border-radius:999px;
+			font-size:11px;
+			padding:5px 8px;
+			text-transform:uppercase;
+		}
+
+		.ok { background:rgba(45,212,191,.14); color:#b7fff3; }
+		.warn { background:rgba(255,184,77,.14); color:#ffd28a; }
+		.risk { background:rgba(225,29,72,.16); color:#ffb3c0; }
+
+		.scan-bars {
+			display:grid;
+			gap:8px;
+			margin-top:14px;
+		}
+
+		.scan-bars div {
+			background:rgba(255,255,255,.09);
+			border-radius:999px;
+			height:9px;
+			overflow:hidden;
+		}
+
+		.scan-bars i {
+			background:linear-gradient(90deg,var(--cyan),var(--orange-2));
+			display:block;
+			height:100%;
+		}
+
+		.section {
+			margin:0 auto;
+			max-width:1240px;
+			padding:72px 38px;
+		}
+
+		.section h2 {
+			font-size:42px;
+			font-weight:900;
+			letter-spacing:-.9px;
+			line-height:1.08;
+			margin:0 0 12px;
+		}
+
+		.section-lead {
+			color:var(--muted);
+			font-size:17px;
+			line-height:1.65;
+			margin:0 0 32px;
+			max-width:840px;
+		}
+
+		.risk-strip {
+			background:#fff;
+			border-bottom:1px solid var(--line);
+		}
+
+		.risk-grid {
+			display:grid;
+			gap:16px;
+			grid-template-columns:repeat(4,minmax(0,1fr));
+		}
+
+		.risk-card {
+			border:1px solid var(--line);
+			border-radius:18px;
+			overflow:hidden;
+			padding:24px 20px 20px;
+			position:relative;
+		}
+
+		.risk-card::before {
+			content:"";
+			height:5px;
+			left:0;
+			position:absolute;
+			right:0;
+			top:0;
+		}
+
+		.risk-card:nth-child(1)::before { background:linear-gradient(90deg,#e11d48,#fb7185); }
+		.risk-card:nth-child(2)::before { background:linear-gradient(90deg,#f97316,#fdba74); }
+		.risk-card:nth-child(3)::before { background:linear-gradient(90deg,#146eb4,#4ea8ff); }
+		.risk-card:nth-child(4)::before { background:linear-gradient(90deg,#067d62,#2dd4bf); }
+
+		.risk-card strong {
+			display:block;
+			font-size:24px;
+			margin-bottom:7px;
+		}
+
+		.risk-card span {
+			color:var(--muted);
+			font-size:13px;
+			font-weight:700;
+			line-height:1.5;
+		}
+
+		.assessment {
+			background:#f6f7f8;
+			border-bottom:1px solid var(--line);
+			border-top:1px solid var(--line);
+		}
+
+		.assessment-layout {
+			align-items:start;
+			display:grid;
+			gap:28px;
+			grid-template-columns:.9fr 1.1fr;
+		}
+
+		.assessment-note {
+			background:linear-gradient(135deg,#101923,#172231);
+			border-radius:20px;
+			color:#fff;
+			padding:30px;
+			position:sticky;
+			top:96px;
+		}
+
+		.assessment-note p {
+			color:#d5dbdb;
+			line-height:1.7;
+		}
+
+		.scorecard {
+			display:grid;
+			gap:14px;
+		}
+
+		.score-item {
+			background:#fff;
+			border:1px solid var(--line);
+			border-radius:16px;
+			padding:18px;
+		}
+
+		.score-top {
+			display:flex;
+			gap:16px;
+			justify-content:space-between;
+			margin-bottom:11px;
+		}
+
+		.score-top strong { font-size:17px; }
+
+		.score-top span {
+			color:var(--muted);
+			font-size:13px;
+			font-weight:800;
+		}
+
+		.score-bar {
+			background:#edf0f3;
+			border-radius:999px;
+			height:10px;
+			overflow:hidden;
+		}
+
+		.score-bar i {
+			display:block;
+			height:100%;
+		}
+
+		.score-item:nth-child(1) i { background:linear-gradient(90deg,#e11d48,#fb7185); width:42%; }
+		.score-item:nth-child(2) i { background:linear-gradient(90deg,#f97316,#fdba74); width:55%; }
+		.score-item:nth-child(3) i { background:linear-gradient(90deg,#146eb4,#4ea8ff); width:68%; }
+		.score-item:nth-child(4) i { background:linear-gradient(90deg,#067d62,#2dd4bf); width:72%; }
+
+		.layers {
+			display:grid;
+			gap:16px;
+		}
+
+		.layer-row {
+			align-items:center;
+			background:#fff;
+			border:1px solid var(--line);
+			border-radius:18px;
+			box-shadow:0 12px 28px rgba(15,23,32,.05);
+			display:grid;
+			gap:24px;
+			grid-template-columns:90px 1fr 220px;
+			padding:22px;
+		}
+
+		.layer-icon {
+			background:#fff7e6;
+			border:1px solid #ffd28a;
+			border-radius:18px;
+			color:#8a5200;
+			display:grid;
+			font-size:15px;
+			font-weight:900;
+			height:70px;
+			place-items:center;
+			width:70px;
+		}
+
+		.layer-row h3 {
+			font-size:23px;
+			margin:0 0 8px;
+		}
+
+		.layer-row p {
+			color:var(--muted);
+			font-size:14px;
+			line-height:1.6;
+			margin:0;
+		}
+
+		.layer-tags {
+			display:flex;
+			flex-wrap:wrap;
+			gap:8px;
+			justify-content:flex-end;
+		}
+
+		.layer-tags span {
+			background:#f7f8fa;
+			border:1px solid var(--line);
+			border-radius:999px;
+			color:var(--muted);
+			font-size:12px;
+			font-weight:800;
+			padding:7px 10px;
+		}
+
+		.incident-section {
+			background:
+				radial-gradient(circle at 10% 20%, rgba(165,138,98,.15), transparent 26%),
+				linear-gradient(135deg,#101923,#182536 46%,#0f1720);
+			color:#fff;
+		}
+
+		.incident-grid {
+			display:grid;
+			gap:18px;
+			grid-template-columns:repeat(4,minmax(0,1fr));
+		}
+
+		.incident-card {
+			background:rgba(255,255,255,.08);
+			border:1px solid rgba(255,255,255,.14);
+			border-radius:16px;
+			padding:22px;
+		}
+
+		.incident-card b {
+			background:linear-gradient(135deg,var(--orange),var(--orange-2));
+			border-radius:999px;
+			color:#111;
+			display:grid;
+			height:42px;
+			margin-bottom:18px;
+			place-items:center;
+			width:42px;
+		}
+
+		.incident-card h3 { margin:0 0 10px; }
+
+		.incident-card p {
+			color:#d5dbdb;
+			font-size:14px;
+			line-height:1.6;
+			margin:0;
+		}
+
+		.packages {
+			background:#f6f7f8;
+			border-bottom:1px solid var(--line);
+		}
+
+		.package-grid {
+			display:grid;
+			gap:20px;
+			grid-template-columns:repeat(3,minmax(0,1fr));
+		}
+
+		.package-card {
+			background:#fff;
+			border:1px solid var(--line);
+			border-radius:18px;
+			box-shadow:0 14px 34px rgba(15,23,32,.07);
+			padding:26px;
+		}
+
+		.package-card.featured {
+			background:linear-gradient(135deg,#101923,#172231);
+			border-color:rgba(255,184,77,.45);
+			color:#fff;
+			transform:translateY(-8px);
+		}
+
+		.package-card h3 {
+			font-size:24px;
+			margin:0 0 10px;
+		}
+
+		.package-card p {
+			color:var(--muted);
+			font-size:14px;
+			line-height:1.6;
+		}
+
+		.package-card.featured p,
+		.package-card.featured li { color:#d5dbdb; }
+
+		.package-card ul {
+			display:grid;
+			gap:10px;
+			list-style:none;
+			margin:22px 0;
+			padding:0;
+		}
+
+		.package-card li {
+			color:var(--muted);
+			font-size:14px;
+			font-weight:700;
+			padding-left:20px;
+			position:relative;
+		}
+
+		.package-card li::before {
+			color:var(--orange);
+			content:"•";
+			font-weight:900;
+			left:0;
+			position:absolute;
+		}
+
+		.contact-section {
+			background:
+				linear-gradient(135deg, rgba(15,23,32,.94), rgba(35,47,62,.9)),
+				url("https://images.unsplash.com/photo-1558494949-ef010cbdcc31?q=80&w=1600&auto=format&fit=crop") center / cover;
+			color:#fff;
+		}
+
+		.contact-layout {
+			display:grid;
+			gap:28px;
+			grid-template-columns:minmax(0,.9fr) minmax(360px,.7fr);
+		}
+
+		.contact-panel {
+			background:rgba(255,255,255,.09);
+			border:1px solid rgba(255,255,255,.14);
+			border-radius:16px;
+			padding:28px;
+		}
+
+		.contact-panel h2 {
+			color:#fff;
+			margin-top:0;
+		}
+
+		.contact-panel p {
+			color:#d5dbdb;
+			line-height:1.7;
+		}
+
+		.lead-form {
+			background:#fff;
+			border-radius:16px;
+			color:var(--ink);
+			display:grid;
+			gap:14px;
+			padding:24px;
+		}
+
+		.lead-form input,
+		.lead-form select,
+		.lead-form textarea {
+			border:1px solid var(--line);
+			border-radius:999px;
+			font:inherit;
+			min-height:46px;
+			padding:0 16px;
+			width:100%;
+		}
+
+		.lead-form textarea {
+			border-radius:16px;
+			min-height:104px;
+			padding-top:12px;
+			resize:vertical;
+		}
+
+		.lead-form button {
+			border:0;
+			cursor:pointer;
+		}
+
+		.footer {
+			background:var(--nav);
+			color:#d5dbdb;
+			font-size:13px;
+			padding:24px 38px;
+		}
+
+		.footer-inner {
+			display:flex;
+			gap:16px;
+			justify-content:space-between;
+			margin:0 auto;
+			max-width:1240px;
+		}
+
+		.reveal {
+			opacity:0;
+			transform:translateY(22px);
+			transition:opacity .7s ease, transform .7s ease;
+		}
+
+		.reveal.visible {
+			opacity:1;
+			transform:translateY(0);
+		}
+
+		@media (max-width:980px) {
+			.top-nav {
+				align-items:flex-start;
+				flex-direction:column;
+				padding:18px;
+			}
+
+			.main-links,
+			.utility-links { flex-wrap:wrap; }
+
+			.hero-inner,
+			.assessment-layout,
+			.contact-layout {
+				grid-template-columns:1fr;
+			}
+
+			.risk-grid,
+			.incident-grid,
+			.package-grid {
+				grid-template-columns:repeat(2,minmax(0,1fr));
+			}
+
+			.layer-row {
+				grid-template-columns:80px 1fr;
+			}
+
+			.layer-tags {
+				grid-column:2;
+				justify-content:flex-start;
+			}
+		}
+
+		@media (max-width:620px) {
+			.hero,
+			.section {
+				padding-left:20px;
+				padding-right:20px;
+			}
+
+			h1 { font-size:38px; }
+			.hero p { font-size:16px; }
+
+			.console-body,
+			.risk-grid,
+			.incident-grid,
+			.package-grid {
+				grid-template-columns:1fr;
+			}
+
+			.threat-panel.wide { grid-column:span 1; }
+
+			.layer-row {
+				grid-template-columns:1fr;
+			}
+
+			.layer-tags { grid-column:auto; }
+
+			.package-card.featured { transform:none; }
+
+			.footer-inner { flex-direction:column; }
+		}
+	</style>
+</head>
+
+<body>
+	<header>
+		<div class="top-nav">
+			<a class="logo" href="#">Verity<span>Core</span></a>
+			<nav class="main-links">
+				<a href="#assessment">Assessment</a>
+				<a href="#layers">Protection Layers</a>
+				<a href="#incident">Incident Readiness</a>
+				<a href="#packages">Packages</a>
+				<a href="#contact">Contact</a>
+			</nav>
+			<div class="utility-links">
+				<a href="tel:+263710778538">0710 778 538</a>
+				<a href="mailto:sales@veritycore.co.zw">sales@veritycore.co.zw</a>
+				<a class="console-btn" href="#contact">Security Review</a>
+			</div>
+		</div>
+
+		<nav class="sub-nav">
+			<a href="#assessment">Security Review</a>
+			<a href="#layers">Access Control</a>
+			<a href="#layers">Backups</a>
+			<a href="#layers">Hardening</a>
+			<a href="#incident">Incident Readiness</a>
+			<a href="#packages">Security Packages</a>
+		</nav>
+	</header>
+
+	<main>
+		<section class="hero">
+			<div class="hero-inner">
+				<div class="reveal">
+					<div class="eyebrow">Cybersecurity advisory and resilience services</div>
+					<h1>Protect the systems your business <span>depends on every day.</span></h1>
+					<p>
+						VerityCore helps businesses reduce avoidable cyber risk through security reviews,
+						access control, backups, hardening, vulnerability awareness and incident readiness.
+					</p>
+					<div class="hero-actions">
+						<a class="primary" href="#contact">Request security review</a>
+						<a class="secondary" href="#assessment">View assessment areas</a>
+					</div>
+				</div>
+
+				<div class="security-console reveal" aria-label="Security console preview">
+					<div class="console-head">
+						<strong>Security Operations Snapshot</strong>
+						<span class="live-pill">Monitoring View</span>
+					</div>
+					<div class="console-body">
+						<div class="threat-panel">
+							<h3>Access Controls</h3>
+							<div class="signal"><span>Admin accounts</span><strong class="warn">Review</strong></div>
+							<div class="signal"><span>Staff permissions</span><strong class="ok">Mapped</strong></div>
+							<div class="signal"><span>MFA readiness</span><strong class="warn">Improve</strong></div>
+						</div>
+						<div class="threat-panel">
+							<h3>Business Continuity</h3>
+							<div class="signal"><span>Backups</span><strong class="ok">Active</strong></div>
+							<div class="signal"><span>Restore testing</span><strong class="risk">Missing</strong></div>
+							<div class="signal"><span>Incident plan</span><strong class="warn">Draft</strong></div>
+						</div>
+						<div class="threat-panel wide">
+							<h3>Risk Reduction Progress</h3>
+							<div class="scan-bars">
+								<div><i style="width:72%;"></i></div>
+								<div><i style="width:48%;"></i></div>
+								<div><i style="width:86%;"></i></div>
+								<div><i style="width:61%;"></i></div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<section class="risk-strip">
+			<div class="section risk-grid">
+				<div class="risk-card reveal"><strong>Access</strong><span>Control who can access systems, data, admin tools and sensitive operations.</span></div>
+				<div class="risk-card reveal"><strong>Backups</strong><span>Prepare for recovery before data loss, ransomware or system failure happens.</span></div>
+				<div class="risk-card reveal"><strong>Hardening</strong><span>Reduce weak configurations, exposed services and avoidable technical risks.</span></div>
+				<div class="risk-card reveal"><strong>Response</strong><span>Create incident routines so your team knows what to do when something goes wrong.</span></div>
+			</div>
+		</section>
+
+		<section class="assessment" id="assessment">
+			<div class="section assessment-layout">
+				<div class="assessment-note reveal">
+					<div class="eyebrow">Security assessment</div>
+					<h2>Most businesses are not breached because they are targeted. They are exposed because basics are missing.</h2>
+					<p>
+						We assess practical security areas that matter to SMEs: access, backups, user behavior, system exposure, cloud setup, patch awareness and response readiness.
+					</p>
+					<a class="primary" href="#contact">Book assessment</a>
+				</div>
+
+				<div class="scorecard">
+					<div class="score-item reveal"><div class="score-top"><strong>User Access & Permissions</strong><span>Common risk</span></div><div class="score-bar"><i></i></div></div>
+					<div class="score-item reveal"><div class="score-top"><strong>Backup & Restore Readiness</strong><span>Needs testing</span></div><div class="score-bar"><i></i></div></div>
+					<div class="score-item reveal"><div class="score-top"><strong>System Hardening</strong><span>Improve controls</span></div><div class="score-bar"><i></i></div></div>
+					<div class="score-item reveal"><div class="score-top"><strong>Incident Response Preparation</strong><span>Plan required</span></div><div class="score-bar"><i></i></div></div>
+				</div>
+			</div>
+		</section>
+
+		<section class="layers-section" id="layers">
+			<div class="section">
+				<h2>Protection layers we help you strengthen</h2>
+				<p class="section-lead">
+					Cybersecurity is not one product. It is a set of practical controls, habits and recovery plans that protect your people, systems and data.
+				</p>
+
+				<div class="layers">
+					<div class="layer-row reveal">
+						<div class="layer-icon">ID</div>
+						<div><h3>Identity & Access Control</h3><p>Review users, roles, admin accounts, password habits, MFA readiness and who can access sensitive systems.</p></div>
+						<div class="layer-tags"><span>Users</span><span>Roles</span><span>MFA</span></div>
+					</div>
+					<div class="layer-row reveal">
+						<div class="layer-icon">BK</div>
+						<div><h3>Backup & Recovery Readiness</h3><p>Assess backup routines, restore testing, critical data coverage and recovery steps before disaster happens.</p></div>
+						<div class="layer-tags"><span>Backups</span><span>Restore</span><span>Continuity</span></div>
+					</div>
+					<div class="layer-row reveal">
+						<div class="layer-icon">HD</div>
+						<div><h3>System Hardening</h3><p>Identify weak configurations, exposed services, unnecessary access, missing security settings and avoidable risks.</p></div>
+						<div class="layer-tags"><span>Config</span><span>Patch</span><span>Exposure</span></div>
+					</div>
+					<div class="layer-row reveal">
+						<div class="layer-icon">AW</div>
+						<div><h3>Staff Awareness & Safe Habits</h3><p>Help teams understand phishing, suspicious links, password safety, device habits and basic incident reporting.</p></div>
+						<div class="layer-tags"><span>Phishing</span><span>Training</span><span>Policy</span></div>
+					</div>
+					<div class="layer-row reveal">
+						<div class="layer-icon">MON</div>
+						<div><h3>Monitoring & Review</h3><p>Create routines for checking system health, access changes, alerts, logs and recurring security improvements.</p></div>
+						<div class="layer-tags"><span>Logs</span><span>Alerts</span><span>Review</span></div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<section class="incident-section" id="incident">
+			<div class="section">
+				<div class="eyebrow">Incident readiness</div>
+				<h2>When something goes wrong, your team needs a plan.</h2>
+				<p class="section-lead" style="color:#d5dbdb;">
+					We help businesses prepare practical response routines so incidents are handled faster, calmer and with less damage.
+				</p>
+
+				<div class="incident-grid">
+					<div class="incident-card reveal"><b>1</b><h3>Detect</h3><p>Know how to notice suspicious activity, login issues, unusual changes or service disruptions.</p></div>
+					<div class="incident-card reveal"><b>2</b><h3>Contain</h3><p>Limit damage by isolating affected accounts, systems, devices or access paths.</p></div>
+					<div class="incident-card reveal"><b>3</b><h3>Recover</h3><p>Restore services, validate backups, reset access and bring critical operations back safely.</p></div>
+					<div class="incident-card reveal"><b>4</b><h3>Improve</h3><p>Review what happened and strengthen controls to prevent the same issue from repeating.</p></div>
+				</div>
+			</div>
+		</section>
+
+		<section class="packages" id="packages">
+			<div class="section">
+				<h2>Cybersecurity service packages</h2>
+				<p class="section-lead">
+					Start with a focused review or build an ongoing security improvement routine for your business.
+				</p>
+
+				<div class="package-grid">
+					<article class="package-card reveal">
+						<h3>Security Review</h3>
+						<p>For businesses that need a practical snapshot of their current security posture.</p>
+						<ul>
+							<li>Access and user review</li>
+							<li>Backup readiness check</li>
+							<li>Basic risk checklist</li>
+							<li>Improvement recommendations</li>
+						</ul>
+						<a class="primary" href="#contact">Request Review</a>
+					</article>
+
+					<article class="package-card featured reveal">
+						<h3>Secure Operations</h3>
+						<p>For businesses that want stronger controls around daily systems and users.</p>
+						<ul>
+							<li>Access control improvement</li>
+							<li>Backup and recovery planning</li>
+							<li>Hardening checklist</li>
+							<li>Staff awareness guidance</li>
+						</ul>
+						<a class="primary" href="#contact">Plan Security</a>
+					</article>
+
+					<article class="package-card reveal">
+						<h3>Incident Readiness</h3>
+						<p>For teams that need a clear response plan before an incident happens.</p>
+						<ul>
+							<li>Incident response workflow</li>
+							<li>Contact and escalation plan</li>
+							<li>Recovery checklist</li>
+							<li>Post-incident review process</li>
+						</ul>
+						<a class="primary" href="#contact">Prepare Response</a>
+					</article>
+				</div>
+			</div>
+		</section>
+
+		<section class="contact-section" id="contact">
+			<div class="section contact-layout">
+				<div class="contact-panel reveal">
+					<div class="eyebrow">Start the conversation</div>
+					<h2>Ready to strengthen your security posture?</h2>
+					<p>
+						Talk to VerityCore Consultancy about a cybersecurity review, access control improvement, backup readiness check or incident response preparation.
+					</p>
+					<p>
+						<strong>Phone:</strong> 0710 778 538<br>
+						<strong>Email:</strong> sales@veritycore.co.zw<br>
+						<strong>Website:</strong> www.veritycore.co.zw
+					</p>
+				</div>
+
+				<form class="lead-form reveal" action="mailto:sales@veritycore.co.zw" method="post" enctype="text/plain">
+					<input type="text" name="name" placeholder="Your name" required>
+					<input type="email" name="email" placeholder="Email address" required>
+					<input type="tel" name="phone" placeholder="Phone number">
+					<select name="security_need">
+						<option value="">What do you need help with?</option>
+						<option>Security review</option>
+						<option>Access control review</option>
+						<option>Backup and recovery readiness</option>
+						<option>System hardening</option>
+						<option>Incident response planning</option>
+						<option>Staff cybersecurity awareness</option>
+					</select>
+					<textarea name="message" placeholder="Briefly describe your security concern or business systems"></textarea>
+					<button class="primary" type="submit">Send enquiry</button>
+				</form>
+			</div>
+		</section>
+	</main>
+
+	<footer class="footer">
+		<div class="footer-inner">
+			<span>VerityCore Consultancy (Pvt) Ltd — Cybersecurity Services</span>
+			<span>Security Review • Access Control • Backups • Hardening • Incident Readiness</span>
+		</div>
+	</footer>
+
+	<script>
+		function initRevealAnimations() {
+			const revealItems = document.querySelectorAll(".reveal");
+			if (!("IntersectionObserver" in window)) {
+				revealItems.forEach((item) => item.classList.add("visible"));
+				return;
+			}
+
+			const observer = new IntersectionObserver((entries) => {
+				entries.forEach((entry) => {
+					if (entry.isIntersecting) {
+						entry.target.classList.add("visible");
+						observer.unobserve(entry.target);
+					}
+				});
+			}, { threshold: 0.18 });
+
+			revealItems.forEach((item) => observer.observe(item));
+		}
+
+		document.addEventListener("DOMContentLoaded", initRevealAnimations);
+	</script>
+</body>
+</html>

@@ -1,0 +1,995 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Careers & Collaborations | VerityCore Consultancy</title>
+	<meta name="description" content="Join, collaborate or partner with VerityCore Consultancy. Explore career opportunities, internships, partnerships, referrals and technology collaborations.">
+
+	<style>
+		:root {
+			--nav:#131a22;
+			--nav-2:#232f3e;
+			--ink:#0f1720;
+			--muted:#5f6b7a;
+			--line:#d5dbdb;
+			--soft:#f6f7f8;
+			--orange:#a58a62;
+			--orange-2:#ffb84d;
+			--blue:#146eb4;
+			--cyan:#2dd4bf;
+			--green:#067d62;
+			--panel:#ffffff;
+		}
+
+		* { box-sizing:border-box; }
+		html { scroll-behavior:smooth; }
+
+		body {
+			margin:0;
+			background:#fff;
+			color:var(--ink);
+			font-family:Arial, Helvetica, sans-serif;
+		}
+
+		a { color:inherit; text-decoration:none; }
+
+		.top-nav {
+			align-items:center;
+			background:var(--nav);
+			color:#fff;
+			display:flex;
+			gap:26px;
+			min-height:62px;
+			padding:0 38px;
+			position:sticky;
+			top:0;
+			z-index:20;
+		}
+
+		.logo {
+			display:flex;
+			font-size:26px;
+			font-weight:900;
+			gap:4px;
+			white-space:nowrap;
+		}
+
+		.logo span { color:var(--orange); }
+
+		.main-links,
+		.utility-links {
+			align-items:center;
+			display:flex;
+			gap:22px;
+		}
+
+		.main-links {
+			flex:1;
+			font-size:14px;
+			font-weight:700;
+		}
+
+		.utility-links {
+			color:#d5dbdb;
+			font-size:13px;
+		}
+
+		.console-btn {
+			background:var(--orange);
+			border-radius:3px;
+			color:#111;
+			font-weight:800;
+			padding:10px 15px;
+		}
+
+		.sub-nav {
+			background:var(--nav-2);
+			color:#f2f3f3;
+			display:flex;
+			font-size:14px;
+			gap:24px;
+			overflow-x:auto;
+			padding:12px 38px;
+			white-space:nowrap;
+		}
+
+		.hero {
+			background:
+				radial-gradient(circle at 12% 16%, rgba(255,184,77,.18), transparent 26%),
+				radial-gradient(circle at 88% 18%, rgba(20,110,180,.2), transparent 28%),
+				linear-gradient(135deg,#101923 0%,#172231 55%,#0f1720 100%);
+			color:#fff;
+			overflow:hidden;
+			padding:76px 38px 68px;
+			position:relative;
+		}
+
+		.hero::before {
+			background:
+				linear-gradient(rgba(255,255,255,.045) 1px, transparent 1px),
+				linear-gradient(90deg, rgba(255,255,255,.045) 1px, transparent 1px);
+			background-size:44px 44px;
+			content:"";
+			inset:0;
+			opacity:.36;
+			position:absolute;
+		}
+
+		.hero-inner {
+			align-items:center;
+			display:grid;
+			gap:48px;
+			grid-template-columns:minmax(0,.92fr) minmax(430px,1.08fr);
+			margin:0 auto;
+			max-width:1240px;
+			position:relative;
+			z-index:1;
+		}
+
+		.eyebrow {
+			align-items:center;
+			background:rgba(255,255,255,.08);
+			border:1px solid rgba(255,255,255,.14);
+			border-radius:999px;
+			color:var(--orange-2);
+			display:inline-flex;
+			font-size:12px;
+			font-weight:900;
+			gap:8px;
+			letter-spacing:.4px;
+			margin-bottom:18px;
+			padding:8px 12px;
+			text-transform:uppercase;
+		}
+
+		.eyebrow::before {
+			background:linear-gradient(135deg,var(--orange),var(--orange-2));
+			border-radius:50%;
+			content:"";
+			height:8px;
+			width:8px;
+		}
+
+		h1 {
+			font-size:clamp(42px,5.6vw,72px);
+			font-weight:900;
+			letter-spacing:-1.9px;
+			line-height:1.02;
+			margin:0;
+		}
+
+		.hero h1 span { color:var(--orange-2); }
+
+		.hero p {
+			color:#d5dbdb;
+			font-size:19px;
+			line-height:1.65;
+			margin:24px 0 0;
+			max-width:760px;
+		}
+
+		.hero-actions {
+			display:flex;
+			flex-wrap:wrap;
+			gap:12px;
+			margin-top:32px;
+		}
+
+		.primary,
+		.secondary {
+			align-items:center;
+			border-radius:999px;
+			display:inline-flex;
+			font-size:15px;
+			font-weight:900;
+			justify-content:center;
+			min-height:48px;
+			padding:13px 22px;
+			transition:transform .16s ease;
+		}
+
+		.primary {
+			background:linear-gradient(135deg,var(--orange),var(--orange-2));
+			box-shadow:0 16px 32px rgba(255,153,0,.26);
+			color:#111;
+		}
+
+		.secondary {
+			background:transparent;
+			border:1px solid rgba(255,255,255,.32);
+			color:#fff;
+		}
+
+		.primary:hover,
+		.secondary:hover { transform:translateY(-2px); }
+
+		.join-board {
+			display:grid;
+			gap:16px;
+			grid-template-columns:1fr 1fr;
+		}
+
+		.join-card {
+			background:rgba(255,255,255,.09);
+			backdrop-filter:blur(12px);
+			border:1px solid rgba(255,255,255,.14);
+			border-radius:20px;
+			padding:22px;
+		}
+
+		.join-card.large {
+			background:#fff;
+			box-shadow:0 30px 80px rgba(0,0,0,.28);
+			color:var(--ink);
+			grid-column:span 2;
+		}
+
+		.join-card strong {
+			display:block;
+			font-size:22px;
+			margin-bottom:8px;
+		}
+
+		.join-card span {
+			color:#d5dbdb;
+			display:block;
+			font-size:13px;
+			font-weight:700;
+			line-height:1.55;
+		}
+
+		.join-card.large span { color:var(--muted); }
+
+		.pipeline {
+			display:grid;
+			gap:10px;
+			margin-top:18px;
+		}
+
+		.pipeline-row {
+			align-items:center;
+			border:1px solid var(--line);
+			border-radius:14px;
+			display:grid;
+			gap:12px;
+			grid-template-columns:44px 1fr auto;
+			padding:12px;
+		}
+
+		.pipeline-row b {
+			background:#fff7e6;
+			border:1px solid #ffd28a;
+			border-radius:12px;
+			color:#8a5200;
+			display:grid;
+			font-size:12px;
+			height:44px;
+			place-items:center;
+			width:44px;
+		}
+
+		.pipeline-row small {
+			color:var(--muted);
+			display:block;
+			font-weight:700;
+			margin-top:3px;
+		}
+
+		.pipeline-row em {
+			color:var(--green);
+			font-style:normal;
+			font-weight:900;
+		}
+
+		.section {
+			margin:0 auto;
+			max-width:1240px;
+			padding:72px 38px;
+		}
+
+		.section h2 {
+			font-size:42px;
+			font-weight:900;
+			letter-spacing:-.9px;
+			line-height:1.08;
+			margin:0 0 12px;
+		}
+
+		.section-lead {
+			color:var(--muted);
+			font-size:17px;
+			line-height:1.65;
+			margin:0 0 32px;
+			max-width:840px;
+		}
+
+		.paths {
+			background:#f6f7f8;
+			border-bottom:1px solid var(--line);
+			border-top:1px solid var(--line);
+		}
+
+		.path-grid {
+			display:grid;
+			gap:20px;
+			grid-template-columns:repeat(4,minmax(0,1fr));
+		}
+
+		.path-card {
+			background:#fff;
+			border:1px solid var(--line);
+			border-radius:20px;
+			box-shadow:0 14px 34px rgba(15,23,32,.07);
+			overflow:hidden;
+			padding:26px;
+			position:relative;
+		}
+
+		.path-card::before {
+			content:"";
+			height:6px;
+			left:0;
+			position:absolute;
+			right:0;
+			top:0;
+		}
+
+		.path-card:nth-child(1)::before { background:linear-gradient(90deg,#146eb4,#4ea8ff); }
+		.path-card:nth-child(2)::before { background:linear-gradient(90deg,#a58a62,#ffb84d); }
+		.path-card:nth-child(3)::before { background:linear-gradient(90deg,#067d62,#2dd4bf); }
+		.path-card:nth-child(4)::before { background:linear-gradient(90deg,#7c3aed,#a855f7); }
+
+		.path-icon {
+			border-radius:16px;
+			color:#fff;
+			display:grid;
+			font-weight:900;
+			height:58px;
+			margin-bottom:22px;
+			place-items:center;
+			width:64px;
+		}
+
+		.path-card:nth-child(1) .path-icon { background:linear-gradient(135deg,#146eb4,#4ea8ff); }
+		.path-card:nth-child(2) .path-icon { background:linear-gradient(135deg,#a58a62,#ffb84d); color:#111; }
+		.path-card:nth-child(3) .path-icon { background:linear-gradient(135deg,#067d62,#2dd4bf); }
+		.path-card:nth-child(4) .path-icon { background:linear-gradient(135deg,#7c3aed,#a855f7); }
+
+		.path-card h3 {
+			font-size:23px;
+			margin:0 0 10px;
+		}
+
+		.path-card p {
+			color:var(--muted);
+			font-size:14px;
+			line-height:1.6;
+			margin:0;
+		}
+
+		.roles-layout {
+			display:grid;
+			gap:26px;
+			grid-template-columns:360px 1fr;
+			align-items:start;
+		}
+
+		.roles-note {
+			background:linear-gradient(135deg,#101923,#172231);
+			border-radius:20px;
+			color:#fff;
+			padding:30px;
+			position:sticky;
+			top:96px;
+		}
+
+		.roles-note p {
+			color:#d5dbdb;
+			line-height:1.7;
+		}
+
+		.role-list {
+			display:grid;
+			gap:14px;
+		}
+
+		.role-item {
+			align-items:center;
+			background:#fff;
+			border:1px solid var(--line);
+			border-radius:18px;
+			box-shadow:0 12px 28px rgba(15,23,32,.05);
+			display:grid;
+			gap:20px;
+			grid-template-columns:1fr 180px;
+			padding:22px;
+		}
+
+		.role-item h3 {
+			font-size:22px;
+			margin:0 0 8px;
+		}
+
+		.role-item p {
+			color:var(--muted);
+			font-size:14px;
+			line-height:1.6;
+			margin:0;
+		}
+
+		.role-tags {
+			display:flex;
+			flex-wrap:wrap;
+			gap:8px;
+			justify-content:flex-end;
+		}
+
+		.role-tags span {
+			background:#f7f8fa;
+			border:1px solid var(--line);
+			border-radius:999px;
+			color:var(--muted);
+			font-size:12px;
+			font-weight:800;
+			padding:7px 10px;
+		}
+
+		.culture {
+			background:
+				radial-gradient(circle at 10% 20%, rgba(165,138,98,.15), transparent 26%),
+				linear-gradient(135deg,#101923,#182536 46%,#0f1720);
+			color:#fff;
+		}
+
+		.culture-grid {
+			display:grid;
+			gap:18px;
+			grid-template-columns:repeat(3,minmax(0,1fr));
+		}
+
+		.culture-card {
+			background:rgba(255,255,255,.08);
+			border:1px solid rgba(255,255,255,.14);
+			border-radius:18px;
+			padding:24px;
+		}
+
+		.culture-card b {
+			background:linear-gradient(135deg,var(--orange),var(--orange-2));
+			border-radius:999px;
+			color:#111;
+			display:grid;
+			height:42px;
+			margin-bottom:18px;
+			place-items:center;
+			width:42px;
+		}
+
+		.culture-card h3 { margin:0 0 10px; }
+
+		.culture-card p {
+			color:#d5dbdb;
+			font-size:14px;
+			line-height:1.65;
+			margin:0;
+		}
+
+		.process-grid {
+			display:grid;
+			gap:18px;
+			grid-template-columns:repeat(5,minmax(0,1fr));
+		}
+
+		.process-card {
+			background:#fff;
+			border:1px solid var(--line);
+			border-radius:18px;
+			box-shadow:0 12px 28px rgba(15,23,32,.05);
+			padding:22px;
+			position:relative;
+		}
+
+		.process-card b {
+			background:#fff7e6;
+			border:1px solid #ffd28a;
+			border-radius:999px;
+			color:#8a5200;
+			display:grid;
+			height:42px;
+			margin-bottom:16px;
+			place-items:center;
+			width:42px;
+		}
+
+		.process-card h3 {
+			font-size:18px;
+			margin:0 0 8px;
+		}
+
+		.process-card p {
+			color:var(--muted);
+			font-size:13px;
+			line-height:1.55;
+			margin:0;
+		}
+
+		.contact-section {
+			background:
+				linear-gradient(135deg, rgba(15,23,32,.94), rgba(35,47,62,.9)),
+				url("https://images.unsplash.com/photo-1556761175-b413da4baf72?q=80&w=1600&auto=format&fit=crop") center / cover;
+			color:#fff;
+		}
+
+		.contact-layout {
+			display:grid;
+			gap:28px;
+			grid-template-columns:minmax(0,.9fr) minmax(360px,.7fr);
+		}
+
+		.contact-panel {
+			background:rgba(255,255,255,.09);
+			border:1px solid rgba(255,255,255,.14);
+			border-radius:16px;
+			padding:28px;
+		}
+
+		.contact-panel h2 {
+			color:#fff;
+			margin-top:0;
+		}
+
+		.contact-panel p {
+			color:#d5dbdb;
+			line-height:1.7;
+		}
+
+		.lead-form {
+			background:#fff;
+			border-radius:16px;
+			color:var(--ink);
+			display:grid;
+			gap:14px;
+			padding:24px;
+		}
+
+		.lead-form input,
+		.lead-form select,
+		.lead-form textarea {
+			border:1px solid var(--line);
+			border-radius:999px;
+			font:inherit;
+			min-height:46px;
+			padding:0 16px;
+			width:100%;
+		}
+
+		.lead-form textarea {
+			border-radius:16px;
+			min-height:104px;
+			padding-top:12px;
+			resize:vertical;
+		}
+
+		.lead-form button {
+			border:0;
+			cursor:pointer;
+		}
+
+		.footer {
+			background:var(--nav);
+			color:#d5dbdb;
+			font-size:13px;
+			padding:24px 38px;
+		}
+
+		.footer-inner {
+			display:flex;
+			gap:16px;
+			justify-content:space-between;
+			margin:0 auto;
+			max-width:1240px;
+		}
+
+		.reveal {
+			opacity:0;
+			transform:translateY(22px);
+			transition:opacity .7s ease, transform .7s ease;
+		}
+
+		.reveal.visible {
+			opacity:1;
+			transform:translateY(0);
+		}
+
+		@media (max-width:980px) {
+			.top-nav {
+				align-items:flex-start;
+				flex-direction:column;
+				padding:18px;
+			}
+
+			.main-links,
+			.utility-links { flex-wrap:wrap; }
+
+			.hero-inner,
+			.roles-layout,
+			.contact-layout {
+				grid-template-columns:1fr;
+			}
+
+			.path-grid,
+			.culture-grid,
+			.process-grid {
+				grid-template-columns:repeat(2,minmax(0,1fr));
+			}
+
+			.role-item {
+				grid-template-columns:1fr;
+			}
+
+			.role-tags { justify-content:flex-start; }
+		}
+
+		@media (max-width:620px) {
+			.hero,
+			.section {
+				padding-left:20px;
+				padding-right:20px;
+			}
+
+			h1 { font-size:38px; }
+			.hero p { font-size:16px; }
+
+			.join-board,
+			.path-grid,
+			.culture-grid,
+			.process-grid {
+				grid-template-columns:1fr;
+			}
+
+			.join-card.large { grid-column:span 1; }
+
+			.pipeline-row {
+				grid-template-columns:44px 1fr;
+			}
+
+			.pipeline-row em { grid-column:2; }
+
+			.footer-inner { flex-direction:column; }
+		}
+	</style>
+</head>
+
+<body>
+	<header>
+		<div class="top-nav">
+			<a class="logo" href="#">Verity<span>Core</span></a>
+
+			<nav class="main-links">
+				<a href="#paths">Ways to Join</a>
+				<a href="#roles">Opportunities</a>
+				<a href="#culture">Culture</a>
+				<a href="#process">Process</a>
+				<a href="#contact">Apply</a>
+			</nav>
+
+			<div class="utility-links">
+				<a href="tel:+263710778538">0710 778 538</a>
+				<a href="mailto:sales@veritycore.co.zw">sales@veritycore.co.zw</a>
+				<a class="console-btn" href="#contact">Join / Collaborate</a>
+			</div>
+		</div>
+
+		<nav class="sub-nav">
+			<a href="#paths">Careers</a>
+			<a href="#paths">Internships</a>
+			<a href="#paths">Freelancers</a>
+			<a href="#paths">Partnerships</a>
+			<a href="#roles">Tech Roles</a>
+			<a href="#roles">Sales</a>
+			<a href="#roles">Consultants</a>
+			<a href="#contact">Apply</a>
+		</nav>
+	</header>
+
+	<main>
+		<section class="hero">
+			<div class="hero-inner">
+				<div class="reveal">
+					<div class="eyebrow">Careers, partnerships and collaborations</div>
+					<h1>Join us in building <span>useful digital systems</span> for growing businesses.</h1>
+					<p>
+						VerityCore works with developers, designers, consultants, sales professionals, interns,
+						freelancers and strategic partners who want to help businesses improve operations through technology.
+					</p>
+
+					<div class="hero-actions">
+						<a class="primary" href="#contact">Apply or collaborate</a>
+						<a class="secondary" href="#paths">View ways to join</a>
+					</div>
+				</div>
+
+				<div class="join-board reveal" aria-label="Careers and collaboration overview">
+					<div class="join-card large">
+						<strong>Build with VerityCore</strong>
+						<span>We are creating a network of people and partners who can deliver ERP, web apps, cybersecurity, automation and business technology solutions.</span>
+
+						<div class="pipeline">
+							<div class="pipeline-row">
+								<b>01</b>
+								<div><strong>Apply or introduce yourself</strong><small>Tell us your skill, interest or partnership idea</small></div>
+								<em>Start</em>
+							</div>
+							<div class="pipeline-row">
+								<b>02</b>
+								<div><strong>Align with opportunities</strong><small>We match skills to projects, roles or collaboration paths</small></div>
+								<em>Match</em>
+							</div>
+							<div class="pipeline-row">
+								<b>03</b>
+								<div><strong>Deliver value together</strong><small>Work on client projects, referrals, support or implementation</small></div>
+								<em>Grow</em>
+							</div>
+						</div>
+					</div>
+
+					<div class="join-card">
+						<strong>Talent</strong>
+						<span>Developers, designers, consultants, support agents, salespeople and interns.</span>
+					</div>
+
+					<div class="join-card">
+						<strong>Partners</strong>
+						<span>Businesses, agencies, freelancers and specialists who want to collaborate.</span>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<section class="paths" id="paths">
+			<div class="section">
+				<h2>Ways to join or collaborate</h2>
+				<p class="section-lead">
+					Whether you are looking for work, experience, project collaboration, referrals or strategic partnerships, there are different ways to work with VerityCore.
+				</p>
+
+				<div class="path-grid">
+					<article class="path-card reveal">
+						<div class="path-icon">JOB</div>
+						<h3>Careers</h3>
+						<p>For professionals who want to work on technology projects, client systems, implementation, support or business development.</p>
+					</article>
+
+					<article class="path-card reveal">
+						<div class="path-icon">INT</div>
+						<h3>Internships</h3>
+						<p>For learners and graduates who want practical exposure in web development, ERP, support, sales, design or digital operations.</p>
+					</article>
+
+					<article class="path-card reveal">
+						<div class="path-icon">FRL</div>
+						<h3>Freelancers</h3>
+						<p>For independent developers, designers, writers, consultants and specialists who can support projects when needed.</p>
+					</article>
+
+					<article class="path-card reveal">
+						<div class="path-icon">PAR</div>
+						<h3>Partnerships</h3>
+						<p>For businesses, agencies and specialists who want to collaborate on referrals, delivery, support or joint solutions.</p>
+					</article>
+				</div>
+			</div>
+		</section>
+
+		<section class="section" id="roles">
+			<div class="roles-layout">
+				<div class="roles-note reveal">
+					<div class="eyebrow">Opportunity areas</div>
+					<h2>We are interested in practical people who can deliver real value.</h2>
+					<p>
+						You do not need to fit into a perfect box. If you can solve problems, learn fast, communicate well and help clients succeed, we want to hear from you.
+					</p>
+					<a class="primary" href="#contact">Submit interest</a>
+				</div>
+
+				<div class="role-list">
+					<div class="role-item reveal">
+						<div>
+							<h3>Developers & Technical Implementers</h3>
+							<p>For people skilled in web apps, ERPNext/Frappe, integrations, APIs, automation, databases, hosting or system configuration.</p>
+						</div>
+						<div class="role-tags"><span>Web Apps</span><span>ERP</span><span>APIs</span></div>
+					</div>
+
+					<div class="role-item reveal">
+						<div>
+							<h3>UI/UX Designers & Creatives</h3>
+							<p>For designers who can create clean websites, landing pages, brand assets, user interfaces and conversion-focused visuals.</p>
+						</div>
+						<div class="role-tags"><span>Design</span><span>Web</span><span>Brand</span></div>
+					</div>
+
+					<div class="role-item reveal">
+						<div>
+							<h3>Sales & Business Development</h3>
+							<p>For people who can generate leads, explain value, pitch services, manage follow-ups and help close business opportunities.</p>
+						</div>
+						<div class="role-tags"><span>Leads</span><span>Sales</span><span>Growth</span></div>
+					</div>
+
+					<div class="role-item reveal">
+						<div>
+							<h3>Consultants & Business Analysts</h3>
+							<p>For people who can map business processes, understand operations, document requirements and guide system implementation.</p>
+						</div>
+						<div class="role-tags"><span>Process</span><span>ERP</span><span>Strategy</span></div>
+					</div>
+
+					<div class="role-item reveal">
+						<div>
+							<h3>Support & Customer Success</h3>
+							<p>For people who can help clients use systems, troubleshoot issues, write guides, manage tickets and improve customer experience.</p>
+						</div>
+						<div class="role-tags"><span>Support</span><span>Training</span><span>Desk</span></div>
+					</div>
+
+					<div class="role-item reveal">
+						<div>
+							<h3>Referral & Channel Partners</h3>
+							<p>For individuals or businesses that can refer clients, co-sell solutions or collaborate on delivery in specific industries.</p>
+						</div>
+						<div class="role-tags"><span>Partners</span><span>Referrals</span><span>Clients</span></div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<section class="culture" id="culture">
+			<div class="section">
+				<div class="eyebrow">How we work</div>
+				<h2>Our collaboration culture</h2>
+				<p class="section-lead" style="color:#d5dbdb;">
+					We want people and partners who care about outcomes, not just tasks. The goal is to build useful systems that help clients operate better.
+				</p>
+
+				<div class="culture-grid">
+					<div class="culture-card reveal">
+						<b>1</b>
+						<h3>Client value first</h3>
+						<p>We focus on practical results: better systems, clearer reporting, improved sales, automation and stronger operations.</p>
+					</div>
+
+					<div class="culture-card reveal">
+						<b>2</b>
+						<h3>Learn and improve</h3>
+						<p>Technology changes quickly. We value people who learn, test, improve and take responsibility for growth.</p>
+					</div>
+
+					<div class="culture-card reveal">
+						<b>3</b>
+						<h3>Professional delivery</h3>
+						<p>Good communication, deadlines, documentation, client respect and clean execution matter in every collaboration.</p>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<section class="section" id="process">
+			<h2>How the application or collaboration process works</h2>
+			<p class="section-lead">
+				We keep the process simple. Tell us who you are, what you can do and how you want to work with VerityCore.
+			</p>
+
+			<div class="process-grid">
+				<div class="process-card reveal">
+					<b>1</b>
+					<h3>Submit interest</h3>
+					<p>Use the form and tell us your skills, experience or collaboration idea.</p>
+				</div>
+
+				<div class="process-card reveal">
+					<b>2</b>
+					<h3>Profile review</h3>
+					<p>We review your fit for current roles, projects, partnerships or future opportunities.</p>
+				</div>
+
+				<div class="process-card reveal">
+					<b>3</b>
+					<h3>Conversation</h3>
+					<p>We discuss your experience, goals, availability and where you can contribute.</p>
+				</div>
+
+				<div class="process-card reveal">
+					<b>4</b>
+					<h3>Trial or alignment</h3>
+					<p>Where useful, we may start with a small task, project, referral or collaboration test.</p>
+				</div>
+
+				<div class="process-card reveal">
+					<b>5</b>
+					<h3>Work together</h3>
+					<p>If there is fit, we define expectations, communication and how we will deliver value together.</p>
+				</div>
+			</div>
+		</section>
+
+		<section class="contact-section" id="contact">
+			<div class="section contact-layout">
+				<div class="contact-panel reveal">
+					<div class="eyebrow">Join or collaborate</div>
+					<h2>Want to work with VerityCore?</h2>
+					<p>
+						Use the form to apply, introduce yourself, propose a partnership or tell us how you want to collaborate.
+					</p>
+					<p>
+						<strong>Phone:</strong> 0710 778 538<br>
+						<strong>Email:</strong> sales@veritycore.co.zw<br>
+						<strong>Website:</strong> www.veritycore.co.zw
+					</p>
+				</div>
+
+				<form class="lead-form reveal" action="mailto:sales@veritycore.co.zw" method="post" enctype="text/plain">
+					<input type="text" name="name" placeholder="Your name / company name" required>
+					<input type="email" name="email" placeholder="Email address" required>
+					<input type="tel" name="phone" placeholder="Phone number">
+
+					<select name="interest_type">
+						<option value="">I am interested in...</option>
+						<option>Career opportunity</option>
+						<option>Internship</option>
+						<option>Freelance work</option>
+						<option>Partnership</option>
+						<option>Referral collaboration</option>
+						<option>Project collaboration</option>
+					</select>
+
+					<select name="area">
+						<option value="">Area of skill / collaboration</option>
+						<option>Web development</option>
+						<option>ERP / Frappe / ERPNext</option>
+						<option>Cybersecurity</option>
+						<option>Sales and business development</option>
+						<option>UI/UX design</option>
+						<option>Consultancy / business analysis</option>
+						<option>Support / customer success</option>
+					</select>
+
+					<textarea name="message" placeholder="Briefly tell us about your skills, experience, availability or collaboration idea"></textarea>
+					<button class="primary" type="submit">Submit interest</button>
+				</form>
+			</div>
+		</section>
+	</main>
+
+	<footer class="footer">
+		<div class="footer-inner">
+			<span>VerityCore Consultancy (Pvt) Ltd — Careers & Collaborations</span>
+			<span>Careers • Internships • Freelancers • Partnerships • Referrals</span>
+		</div>
+	</footer>
+
+	<script>
+		function initRevealAnimations() {
+			const revealItems = document.querySelectorAll(".reveal");
+			if (!("IntersectionObserver" in window)) {
+				revealItems.forEach((item) => item.classList.add("visible"));
+				return;
+			}
+
+			const observer = new IntersectionObserver((entries) => {
+				entries.forEach((entry) => {
+					if (entry.isIntersecting) {
+						entry.target.classList.add("visible");
+						observer.unobserve(entry.target);
+					}
+				});
+			}, { threshold: 0.18 });
+
+			revealItems.forEach((item) => observer.observe(item));
+		}
+
+		document.addEventListener("DOMContentLoaded", initRevealAnimations);
+	</script>
+</body>
+</html>

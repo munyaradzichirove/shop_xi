@@ -1,0 +1,1028 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>About ObsidianXi | Digital Transformation & Technology Consultancy</title>
+	<meta name="description" content="ObsidianXi helps businesses scale through ERP systems, web apps, e-commerce, AI automation, cybersecurity, cloud infrastructure and digital transformation consulting.">
+
+	<style>
+		:root {
+			--nav:#131a22;
+			--nav-2:#232f3e;
+			--ink:#0f1720;
+			--muted:#5f6b7a;
+			--line:#d5dbdb;
+			--soft:#f6f7f8;
+			--orange:#a58a62;
+			--orange-2:#ffb84d;
+			--blue:#146eb4;
+			--cyan:#2dd4bf;
+			--green:#067d62;
+			--purple:#7c3aed;
+			--red:#e11d48;
+		}
+
+		* { box-sizing:border-box; }
+		html { scroll-behavior:smooth; }
+
+		body {
+			margin:0;
+			background:#fff;
+			color:var(--ink);
+			font-family:Arial, Helvetica, sans-serif;
+		}
+
+		a { color:inherit; text-decoration:none; }
+
+		.top-nav {
+			align-items:center;
+			background:var(--nav);
+			color:#fff;
+			display:flex;
+			gap:26px;
+			min-height:62px;
+			padding:0 38px;
+			position:sticky;
+			top:0;
+			z-index:20;
+		}
+
+		.logo {
+			display:flex;
+			font-size:26px;
+			font-weight:900;
+			gap:4px;
+			white-space:nowrap;
+		}
+
+		.logo span { color:var(--orange); }
+
+		.main-links,
+		.utility-links {
+			align-items:center;
+			display:flex;
+			gap:22px;
+		}
+
+		.main-links {
+			flex:1;
+			font-size:14px;
+			font-weight:700;
+		}
+
+		.utility-links {
+			color:#d5dbdb;
+			font-size:13px;
+		}
+
+		.console-btn {
+			background:var(--orange);
+			border-radius:3px;
+			color:#111;
+			font-weight:800;
+			padding:10px 15px;
+		}
+
+		.sub-nav {
+			background:var(--nav-2);
+			color:#f2f3f3;
+			display:flex;
+			font-size:14px;
+			gap:24px;
+			overflow-x:auto;
+			padding:12px 38px;
+			white-space:nowrap;
+		}
+
+		.hero {
+			background:
+				radial-gradient(circle at 12% 18%, rgba(255,184,77,.18), transparent 26%),
+				radial-gradient(circle at 88% 20%, rgba(20,110,180,.22), transparent 30%),
+				radial-gradient(circle at 78% 86%, rgba(45,212,191,.12), transparent 24%),
+				linear-gradient(135deg,#101923 0%,#172231 55%,#0f1720 100%);
+			color:#fff;
+			overflow:hidden;
+			padding:78px 38px 68px;
+			position:relative;
+		}
+
+		.hero::before {
+			background:
+				linear-gradient(rgba(255,255,255,.045) 1px, transparent 1px),
+				linear-gradient(90deg, rgba(255,255,255,.045) 1px, transparent 1px);
+			background-size:44px 44px;
+			content:"";
+			inset:0;
+			opacity:.36;
+			position:absolute;
+		}
+
+		.hero-inner {
+			align-items:center;
+			display:grid;
+			gap:48px;
+			grid-template-columns:minmax(0,.92fr) minmax(430px,1.08fr);
+			margin:0 auto;
+			max-width:1240px;
+			position:relative;
+			z-index:1;
+		}
+
+		.eyebrow {
+			align-items:center;
+			background:rgba(255,255,255,.08);
+			border:1px solid rgba(255,255,255,.14);
+			border-radius:999px;
+			color:var(--orange-2);
+			display:inline-flex;
+			font-size:12px;
+			font-weight:900;
+			gap:8px;
+			letter-spacing:.4px;
+			margin-bottom:18px;
+			padding:8px 12px;
+			text-transform:uppercase;
+		}
+
+		.eyebrow::before {
+			background:linear-gradient(135deg,var(--orange),var(--orange-2));
+			border-radius:50%;
+			content:"";
+			height:8px;
+			width:8px;
+		}
+
+		h1 {
+			font-size:clamp(42px,5.6vw,72px);
+			font-weight:900;
+			letter-spacing:-1.9px;
+			line-height:1.02;
+			margin:0;
+		}
+
+		.hero h1 span { color:var(--orange-2); }
+
+		.hero p {
+			color:#d5dbdb;
+			font-size:19px;
+			line-height:1.65;
+			margin:24px 0 0;
+			max-width:780px;
+		}
+
+		.hero-actions {
+			display:flex;
+			flex-wrap:wrap;
+			gap:12px;
+			margin-top:32px;
+		}
+
+		.primary,
+		.secondary {
+			align-items:center;
+			border-radius:999px;
+			display:inline-flex;
+			font-size:15px;
+			font-weight:900;
+			justify-content:center;
+			min-height:48px;
+			padding:13px 22px;
+			transition:transform .16s ease, box-shadow .16s ease;
+		}
+
+		.primary {
+			background:linear-gradient(135deg,var(--orange),var(--orange-2));
+			box-shadow:0 16px 32px rgba(255,153,0,.26);
+			color:#111;
+		}
+
+		.secondary {
+			background:transparent;
+			border:1px solid rgba(255,255,255,.32);
+			color:#fff;
+		}
+
+		.primary:hover,
+		.secondary:hover { transform:translateY(-2px); }
+
+		.brand-panel {
+			background:rgba(255,255,255,.08);
+			backdrop-filter:blur(12px);
+			border:1px solid rgba(255,255,255,.14);
+			border-radius:24px;
+			box-shadow:0 30px 80px rgba(0,0,0,.3);
+			overflow:hidden;
+		}
+
+		.brand-panel-head {
+			align-items:center;
+			background:rgba(0,0,0,.22);
+			border-bottom:1px solid rgba(255,255,255,.12);
+			display:flex;
+			justify-content:space-between;
+			padding:16px 18px;
+		}
+
+		.brand-panel-head span {
+			background:rgba(45,212,191,.14);
+			border:1px solid rgba(45,212,191,.32);
+			border-radius:999px;
+			color:#b7fff3;
+			font-size:11px;
+			font-weight:900;
+			padding:6px 9px;
+			text-transform:uppercase;
+		}
+
+		.brand-panel-body {
+			display:grid;
+			gap:14px;
+			grid-template-columns:1fr 1fr;
+			padding:18px;
+		}
+
+		.brand-box {
+			background:rgba(255,255,255,.09);
+			border:1px solid rgba(255,255,255,.13);
+			border-radius:18px;
+			padding:18px;
+		}
+
+		.brand-box.large { grid-column:span 2; }
+
+		.brand-box strong {
+			display:block;
+			font-size:22px;
+			margin-bottom:8px;
+		}
+
+		.brand-box p,
+		.brand-box span {
+			color:#d5dbdb;
+			font-size:13px;
+			font-weight:700;
+			line-height:1.55;
+			margin:0;
+		}
+
+		.section {
+			margin:0 auto;
+			max-width:1240px;
+			padding:72px 38px;
+		}
+
+		.section h2 {
+			font-size:42px;
+			font-weight:900;
+			letter-spacing:-.9px;
+			line-height:1.08;
+			margin:0 0 12px;
+		}
+
+		.section-lead {
+			color:var(--muted);
+			font-size:17px;
+			line-height:1.65;
+			margin:0 0 32px;
+			max-width:860px;
+		}
+
+		.story {
+			background:#f6f7f8;
+			border-bottom:1px solid var(--line);
+			border-top:1px solid var(--line);
+		}
+
+		.story-grid {
+			display:grid;
+			gap:28px;
+			grid-template-columns:1fr 1fr;
+			align-items:center;
+		}
+
+		.story-card {
+			background:#fff;
+			border:1px solid var(--line);
+			border-radius:22px;
+			box-shadow:0 16px 42px rgba(15,23,32,.07);
+			padding:34px;
+		}
+
+		.story-card h2 {
+			font-size:40px;
+		}
+
+		.story-card p {
+			color:var(--muted);
+			font-size:16px;
+			line-height:1.75;
+		}
+
+		.story-metrics {
+			display:grid;
+			gap:16px;
+			grid-template-columns:1fr 1fr;
+		}
+
+		.metric {
+			background:#fff;
+			border:1px solid var(--line);
+			border-radius:20px;
+			padding:26px;
+			box-shadow:0 12px 28px rgba(15,23,32,.05);
+		}
+
+		.metric strong {
+			color:var(--orange);
+			display:block;
+			font-size:42px;
+			font-weight:900;
+			margin-bottom:8px;
+		}
+
+		.metric span {
+			color:var(--muted);
+			font-size:13px;
+			font-weight:800;
+		}
+
+		.ecosystem {
+			background:#fff;
+		}
+
+		.ecosystem-grid {
+			display:grid;
+			gap:20px;
+			grid-template-columns:repeat(3,minmax(0,1fr));
+		}
+
+		.service-card {
+			background:#fff;
+			border:1px solid rgba(213,219,219,.85);
+			border-radius:22px;
+			box-shadow:
+				0 12px 28px rgba(15,23,32,.06),
+				0 24px 60px rgba(15,23,32,.07);
+			cursor:pointer;
+			min-height:270px;
+			overflow:hidden;
+			padding:30px;
+			position:relative;
+			transition:transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+		}
+
+		.service-card:hover {
+			border-color:rgba(165,138,98,.55);
+			box-shadow:
+				0 20px 42px rgba(15,23,32,.11),
+				0 34px 88px rgba(15,23,32,.14);
+			transform:translateY(-8px);
+		}
+
+		.service-card::before {
+			content:"";
+			height:6px;
+			left:0;
+			position:absolute;
+			right:0;
+			top:0;
+		}
+
+		.service-card::after {
+			border-radius:999px;
+			content:"";
+			height:160px;
+			opacity:.1;
+			position:absolute;
+			right:-72px;
+			top:-72px;
+			width:160px;
+		}
+
+		.service-card:nth-child(1)::before { background:linear-gradient(90deg,#146eb4,#4ea8ff); }
+		.service-card:nth-child(2)::before { background:linear-gradient(90deg,#a58a62,#ffb84d); }
+		.service-card:nth-child(3)::before { background:linear-gradient(90deg,#067d62,#2dd4bf); }
+		.service-card:nth-child(4)::before { background:linear-gradient(90deg,#7c3aed,#a855f7); }
+		.service-card:nth-child(5)::before { background:linear-gradient(90deg,#e11d48,#fb7185); }
+		.service-card:nth-child(6)::before { background:linear-gradient(90deg,#f97316,#fdba74); }
+
+		.service-card:nth-child(1)::after { background:#146eb4; }
+		.service-card:nth-child(2)::after { background:#ffb84d; }
+		.service-card:nth-child(3)::after { background:#2dd4bf; }
+		.service-card:nth-child(4)::after { background:#a855f7; }
+		.service-card:nth-child(5)::after { background:#fb7185; }
+		.service-card:nth-child(6)::after { background:#fdba74; }
+
+		.service-icon {
+			border-radius:16px;
+			color:#fff;
+			display:grid;
+			font-weight:900;
+			height:60px;
+			margin-bottom:22px;
+			place-items:center;
+			position:relative;
+			width:66px;
+			z-index:1;
+		}
+
+		.service-card:nth-child(1) .service-icon { background:linear-gradient(135deg,#146eb4,#4ea8ff); }
+		.service-card:nth-child(2) .service-icon { background:linear-gradient(135deg,#a58a62,#ffb84d); color:#111; }
+		.service-card:nth-child(3) .service-icon { background:linear-gradient(135deg,#067d62,#2dd4bf); }
+		.service-card:nth-child(4) .service-icon { background:linear-gradient(135deg,#7c3aed,#a855f7); }
+		.service-card:nth-child(5) .service-icon { background:linear-gradient(135deg,#e11d48,#fb7185); }
+		.service-card:nth-child(6) .service-icon { background:linear-gradient(135deg,#f97316,#fdba74); color:#111; }
+
+		.service-card h3 {
+			font-size:23px;
+			margin:0 0 10px;
+			position:relative;
+			z-index:1;
+		}
+
+		.service-card p {
+			color:var(--muted);
+			font-size:14px;
+			line-height:1.6;
+			margin:0;
+			position:relative;
+			z-index:1;
+		}
+
+		.learn-more {
+			align-items:center;
+			background:#fff;
+			border:1px solid var(--line);
+			border-radius:999px;
+			color:var(--ink);
+			display:inline-flex;
+			font-size:13px;
+			font-weight:900;
+			gap:8px;
+			margin-top:22px;
+			padding:11px 16px;
+			position:relative;
+			transition:background .18s ease, color .18s ease, transform .18s ease;
+			z-index:1;
+		}
+
+		.service-card:hover .learn-more {
+			background:var(--nav);
+			color:#fff;
+			transform:translateX(4px);
+		}
+
+		.values {
+			background:
+				radial-gradient(circle at 10% 20%, rgba(165,138,98,.15), transparent 26%),
+				linear-gradient(135deg,#101923,#182536 46%,#0f1720);
+			color:#fff;
+		}
+
+		.values-grid {
+			display:grid;
+			gap:18px;
+			grid-template-columns:repeat(4,minmax(0,1fr));
+		}
+
+		.value-card {
+			background:rgba(255,255,255,.08);
+			border:1px solid rgba(255,255,255,.14);
+			border-radius:18px;
+			padding:24px;
+		}
+
+		.value-card b {
+			background:linear-gradient(135deg,var(--orange),var(--orange-2));
+			border-radius:999px;
+			color:#111;
+			display:grid;
+			height:42px;
+			margin-bottom:18px;
+			place-items:center;
+			width:42px;
+		}
+
+		.value-card h3 { margin:0 0 10px; }
+
+		.value-card p {
+			color:#d5dbdb;
+			font-size:14px;
+			line-height:1.65;
+			margin:0;
+		}
+
+		.approach {
+			background:#f6f7f8;
+			border-bottom:1px solid var(--line);
+			border-top:1px solid var(--line);
+		}
+
+		.timeline {
+			display:grid;
+			gap:16px;
+			grid-template-columns:repeat(5,minmax(0,1fr));
+		}
+
+		.timeline-card {
+			background:#fff;
+			border:1px solid var(--line);
+			border-radius:18px;
+			box-shadow:0 12px 28px rgba(15,23,32,.05);
+			padding:24px;
+		}
+
+		.timeline-card b {
+			background:#fff7e6;
+			border:1px solid #ffd28a;
+			border-radius:999px;
+			color:#8a5200;
+			display:grid;
+			height:42px;
+			margin-bottom:16px;
+			place-items:center;
+			width:42px;
+		}
+
+		.timeline-card h3 {
+			font-size:18px;
+			margin:0 0 8px;
+		}
+
+		.timeline-card p {
+			color:var(--muted);
+			font-size:13px;
+			line-height:1.55;
+			margin:0;
+		}
+
+		.contact-section {
+			background:
+				linear-gradient(135deg, rgba(15,23,32,.94), rgba(35,47,62,.9)),
+				url("https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=1600&auto=format&fit=crop") center / cover;
+			color:#fff;
+		}
+
+		.contact-layout {
+			display:grid;
+			gap:28px;
+			grid-template-columns:minmax(0,.9fr) minmax(360px,.7fr);
+		}
+
+		.contact-panel {
+			background:rgba(255,255,255,.09);
+			border:1px solid rgba(255,255,255,.14);
+			border-radius:16px;
+			padding:28px;
+		}
+
+		.contact-panel h2 {
+			color:#fff;
+			margin-top:0;
+		}
+
+		.contact-panel p {
+			color:#d5dbdb;
+			line-height:1.7;
+		}
+
+		.contact-card {
+			background:#fff;
+			border-radius:16px;
+			color:var(--ink);
+			padding:24px;
+		}
+
+		.contact-card h3 {
+			font-size:24px;
+			margin:0 0 12px;
+		}
+
+		.contact-card p {
+			color:var(--muted);
+			line-height:1.65;
+		}
+
+		.contact-details {
+			display:grid;
+			gap:12px;
+			margin-top:20px;
+		}
+
+		.contact-detail {
+			background:#f7f8fa;
+			border:1px solid var(--line);
+			border-radius:14px;
+			padding:14px;
+		}
+
+		.contact-detail strong {
+			color:var(--orange);
+			display:block;
+			font-size:12px;
+			margin-bottom:5px;
+			text-transform:uppercase;
+		}
+
+		.footer {
+			background:var(--nav);
+			color:#d5dbdb;
+			font-size:13px;
+			padding:24px 38px;
+		}
+
+		.footer-inner {
+			display:flex;
+			gap:16px;
+			justify-content:space-between;
+			margin:0 auto;
+			max-width:1240px;
+		}
+
+		.reveal {
+			opacity:0;
+			transform:translateY(22px);
+			transition:opacity .7s ease, transform .7s ease;
+		}
+
+		.reveal.visible {
+			opacity:1;
+			transform:translateY(0);
+		}
+
+		@media (max-width:980px) {
+			.top-nav {
+				align-items:flex-start;
+				flex-direction:column;
+				padding:18px;
+			}
+
+			.main-links,
+			.utility-links { flex-wrap:wrap; }
+
+			.hero-inner,
+			.story-grid,
+			.contact-layout {
+				grid-template-columns:1fr;
+			}
+
+			.ecosystem-grid,
+			.values-grid,
+			.timeline {
+				grid-template-columns:repeat(2,minmax(0,1fr));
+			}
+		}
+
+		@media (max-width:620px) {
+			.hero,
+			.section {
+				padding-left:20px;
+				padding-right:20px;
+			}
+
+			h1 { font-size:38px; }
+			.hero p { font-size:16px; }
+
+			.brand-panel-body,
+			.story-metrics,
+			.ecosystem-grid,
+			.values-grid,
+			.timeline {
+				grid-template-columns:1fr;
+			}
+
+			.brand-box.large { grid-column:span 1; }
+
+			.footer-inner {
+				flex-direction:column;
+			}
+		}
+	</style>
+</head>
+
+<body>
+	<header>
+		<div class="top-nav">
+			<a class="logo" href="#">Obsidian<span>Xi</span></a>
+
+			<nav class="main-links">
+				<a href="#story">Our Story</a>
+				<a href="#ecosystem">Services</a>
+				<a href="#values">Values</a>
+				<a href="#approach">Approach</a>
+				<a href="#contact">Contact</a>
+			</nav>
+
+			<div class="utility-links">
+				<a href="tel:+263710778538">0710 778 538</a>
+				<a href="mailto:sales@obsidianxi.com">sales@obsidianxi.com</a>
+				<a class="console-btn" href="#contact">Start a Project</a>
+			</div>
+		</div>
+
+		<nav class="sub-nav">
+			<a href="#ecosystem">ERP</a>
+			<a href="#ecosystem">Web & E-commerce</a>
+			<a href="#ecosystem">AI Automation</a>
+			<a href="#ecosystem">Cybersecurity</a>
+			<a href="#ecosystem">Cloud</a>
+			<a href="#ecosystem">Consultancy</a>
+			<a href="#contact">Contact</a>
+		</nav>
+	</header>
+
+	<main>
+		<section class="hero">
+			<div class="hero-inner">
+				<div class="reveal">
+					<div class="eyebrow">About ObsidianXi</div>
+					<h1>We help businesses move from manual work to <span>scalable digital systems.</span></h1>
+					<p>
+						ObsidianXi is a technology consultancy helping businesses improve operations through ERP systems,
+						web applications, e-commerce, AI automation, cybersecurity, cloud infrastructure and digital strategy.
+					</p>
+
+					<div class="hero-actions">
+						<a class="primary" href="#ecosystem">Explore our services</a>
+						<a class="secondary" href="#contact">Start a conversation</a>
+					</div>
+				</div>
+
+				<div class="brand-panel reveal" aria-label="ObsidianXi operating model">
+					<div class="brand-panel-head">
+						<strong>ObsidianXi Operating Model</strong>
+						<span>Build • Secure • Scale</span>
+					</div>
+
+					<div class="brand-panel-body">
+						<div class="brand-box large">
+							<strong>Technology that creates business clarity</strong>
+							<p>We connect strategy, systems, automation and support so businesses can reduce manual work, improve visibility and operate with better control.</p>
+						</div>
+
+						<div class="brand-box">
+							<strong>Strategy</strong>
+							<span>Understand the business before choosing the technology.</span>
+						</div>
+
+						<div class="brand-box">
+							<strong>Systems</strong>
+							<span>Build connected tools that support daily operations.</span>
+						</div>
+
+						<div class="brand-box">
+							<strong>Security</strong>
+							<span>Protect access, data, backups and digital operations.</span>
+						</div>
+
+						<div class="brand-box">
+							<strong>Growth</strong>
+							<span>Automate, measure and improve as the business scales.</span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<section class="story" id="story">
+			<div class="section story-grid">
+				<div class="story-card reveal">
+					<div class="eyebrow">Our story</div>
+					<h2>We exist because growing businesses need better systems, not more confusion.</h2>
+					<p>
+						Many businesses start with paper records, spreadsheets, WhatsApp messages and disconnected apps.
+						That works for a while, but growth exposes the gaps: poor reporting, duplicated work, stock issues,
+						manual follow-ups, weak controls and limited visibility.
+					</p>
+					<p>
+						ObsidianXi helps businesses replace that chaos with practical digital systems that connect people,
+						processes, data and decision-making.
+					</p>
+				</div>
+
+				<div class="story-metrics">
+					<div class="metric reveal">
+						<strong>360°</strong>
+						<span>Business systems thinking</span>
+					</div>
+					<div class="metric reveal">
+						<strong>1</strong>
+						<span>Partner for strategy and implementation</span>
+					</div>
+					<div class="metric reveal">
+						<strong>24/7</strong>
+						<span>Digital access and online operations</span>
+					</div>
+					<div class="metric reveal">
+						<strong>∞</strong>
+						<span>Scalable growth mindset</span>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<section class="ecosystem" id="ecosystem">
+			<div class="section">
+				<h2>Explore the ObsidianXi service ecosystem</h2>
+				<p class="section-lead">
+					This About page is your gateway into our core services. Each area has a dedicated page with deeper information, use cases and service details.
+				</p>
+
+				<div class="ecosystem-grid">
+					<article class="service-card reveal" onclick="window.location.href='/erp'">
+						<div class="service-icon">ERP</div>
+						<h3>ERP & Business Systems</h3>
+						<p>Integrate finance, sales, inventory, procurement, operations and reporting into one business platform.</p>
+						<a class="learn-more" href="/erp">Explore ERP Solutions →</a>
+					</article>
+
+					<article class="service-card reveal" onclick="window.location.href='/web-ecommerce'">
+						<div class="service-icon">WEB</div>
+						<h3>Web Apps & E-commerce</h3>
+						<p>Build websites, online stores, customer portals, payment flows and custom web applications.</p>
+						<a class="learn-more" href="/web-ecommerce">View Web Solutions →</a>
+					</article>
+
+					<article class="service-card reveal" onclick="window.location.href='/ai-automation'">
+						<div class="service-icon">AI</div>
+						<h3>AI & Automation</h3>
+						<p>Automate repetitive work using AI assistants, chatbots, workflows, dashboards and integrations.</p>
+						<a class="learn-more" href="/ai-automation">Explore AI Automation →</a>
+					</article>
+
+					<article class="service-card reveal" onclick="window.location.href='/cybersecurity'">
+						<div class="service-icon">SEC</div>
+						<h3>Cybersecurity</h3>
+						<p>Strengthen security through reviews, access control, backups, hardening and incident readiness.</p>
+						<a class="learn-more" href="/cybersecurity">Explore Cybersecurity →</a>
+					</article>
+
+					<article class="service-card reveal" onclick="window.location.href='/cloud-infrastructure'">
+						<div class="service-icon">CLD</div>
+						<h3>Cloud & Infrastructure</h3>
+						<p>Plan hosting, deployments, backups, domains, email, cloud environments and reliable operations.</p>
+						<a class="learn-more" href="/cloud-infrastructure">Explore Cloud Services →</a>
+					</article>
+
+					<article class="service-card reveal" onclick="window.location.href='/consultancy'">
+						<div class="service-icon">CON</div>
+						<h3>Consultancy</h3>
+						<p>Get digital strategy, process mapping, system selection, implementation roadmaps and advisory support.</p>
+						<a class="learn-more" href="/consultancy">Learn About Consulting →</a>
+					</article>
+				</div>
+			</div>
+		</section>
+
+		<section class="values" id="values">
+			<div class="section">
+				<div class="eyebrow">Our values</div>
+				<h2>How we approach every project</h2>
+				<p class="section-lead" style="color:#d5dbdb;">
+					Our work is guided by practical business outcomes, clean execution and long-term value.
+				</p>
+
+				<div class="values-grid">
+					<div class="value-card reveal">
+						<b>1</b>
+						<h3>Practical impact</h3>
+						<p>We focus on solutions that solve real operational problems, not technology for show.</p>
+					</div>
+
+					<div class="value-card reveal">
+						<b>2</b>
+						<h3>Clarity</h3>
+						<p>We help businesses understand workflows, data, systems, reporting and decisions clearly.</p>
+					</div>
+
+					<div class="value-card reveal">
+						<b>3</b>
+						<h3>Scalability</h3>
+						<p>We design systems that can grow with the business instead of limiting it later.</p>
+					</div>
+
+					<div class="value-card reveal">
+						<b>4</b>
+						<h3>Reliability</h3>
+						<p>We care about stable delivery, documentation, support, security and operational confidence.</p>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<section class="approach" id="approach">
+			<div class="section">
+				<h2>Our delivery approach</h2>
+				<p class="section-lead">
+					We combine consulting and implementation so the work does not stop at advice. We help map, design, build, secure and improve.
+				</p>
+
+				<div class="timeline">
+					<div class="timeline-card reveal">
+						<b>1</b>
+						<h3>Discover</h3>
+						<p>Understand goals, pain points, operations, users, tools and constraints.</p>
+					</div>
+
+					<div class="timeline-card reveal">
+						<b>2</b>
+						<h3>Design</h3>
+						<p>Define workflows, architecture, modules, user journeys and implementation path.</p>
+					</div>
+
+					<div class="timeline-card reveal">
+						<b>3</b>
+						<h3>Build</h3>
+						<p>Develop, configure, integrate and test practical business systems.</p>
+					</div>
+
+					<div class="timeline-card reveal">
+						<b>4</b>
+						<h3>Secure</h3>
+						<p>Strengthen access, backups, controls, hosting and operational resilience.</p>
+					</div>
+
+					<div class="timeline-card reveal">
+						<b>5</b>
+						<h3>Scale</h3>
+						<p>Improve reporting, automation, adoption and performance over time.</p>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<section class="contact-section" id="contact">
+			<div class="section contact-layout">
+				<div class="contact-panel reveal">
+					<div class="eyebrow">Start the conversation</div>
+					<h2>Ready to build smarter systems with ObsidianXi?</h2>
+					<p>
+						Whether you need ERP, web apps, AI automation, cybersecurity, cloud infrastructure or digital strategy,
+						we can help you map the right path and build the right solution.
+					</p>
+
+					<div class="hero-actions">
+						<a class="primary" href="mailto:sales@obsidianxi.com">Contact ObsidianXi</a>
+						<a class="secondary" href="#ecosystem">Explore services</a>
+					</div>
+				</div>
+
+				<div class="contact-card reveal">
+					<h3>Mission</h3>
+					<p>
+						To empower businesses with practical, reliable and scalable digital solutions that improve operations,
+						enhance customer experiences and support sustainable growth.
+					</p>
+
+					<h3>Contact details</h3>
+					<div class="contact-details">
+						<div class="contact-detail">
+							<strong>Phone</strong>
+							0710 778 538
+						</div>
+						<div class="contact-detail">
+							<strong>Email</strong>
+							sales@obsidianxi.com
+						</div>
+						<div class="contact-detail">
+							<strong>Website</strong>
+							www.obsidianxi.com
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+	</main>
+
+	<footer class="footer">
+		<div class="footer-inner">
+			<span>ObsidianXi — Technology Consultancy & Digital Transformation</span>
+			<span>ERP • Web Apps • E-commerce • AI Automation • Cybersecurity • Cloud</span>
+		</div>
+	</footer>
+
+	<script>
+		function initRevealAnimations() {
+			const revealItems = document.querySelectorAll(".reveal");
+			if (!("IntersectionObserver" in window)) {
+				revealItems.forEach((item) => item.classList.add("visible"));
+				return;
+			}
+
+			const observer = new IntersectionObserver((entries) => {
+				entries.forEach((entry) => {
+					if (entry.isIntersecting) {
+						entry.target.classList.add("visible");
+						observer.unobserve(entry.target);
+					}
+				});
+			}, { threshold: 0.18 });
+
+			revealItems.forEach((item) => observer.observe(item));
+		}
+
+		document.addEventListener("DOMContentLoaded", initRevealAnimations);
+	</script>
+</body>
+</html>

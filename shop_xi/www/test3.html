@@ -1,0 +1,1804 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>E-commerce & Web Apps | VerityCore Consultancy</title>
+	<meta name="description" content="VerityCore Consultancy builds websites, e-commerce platforms, online payment systems, customer portals and custom web applications for growing businesses.">
+
+	<style>
+		:root {
+			--nav: #131a22;
+			--nav-2: #232f3e;
+			--ink: #0f1720;
+			--muted: #5f6b7a;
+			--line: #d5dbdb;
+			--soft: #f6f7f8;
+			--orange: #a58a62;
+			--orange-2: #ffb84d;
+			--blue: #146eb4;
+			--cyan: #2dd4bf;
+			--green: #067d62;
+			--panel: #ffffff;
+		}
+
+		* {
+			box-sizing: border-box;
+		}
+
+		html {
+			scroll-behavior: smooth;
+		}
+
+		body {
+			background: #fff;
+			color: var(--ink);
+			font-family: Arial, Helvetica, sans-serif;
+			margin: 0;
+		}
+
+		a {
+			color: inherit;
+			text-decoration: none;
+		}
+
+		.top-nav {
+			align-items: center;
+			background: var(--nav);
+			color: #fff;
+			display: flex;
+			gap: 26px;
+			min-height: 62px;
+			padding: 0 38px;
+			position: sticky;
+			top: 0;
+			z-index: 20;
+		}
+
+		.logo {
+			align-items: baseline;
+			display: flex;
+			font-size: 26px;
+			font-weight: 900;
+			gap: 4px;
+			white-space: nowrap;
+		}
+
+		.logo span {
+			color: var(--orange);
+		}
+
+		.main-links,
+		.utility-links {
+			align-items: center;
+			display: flex;
+			gap: 22px;
+		}
+
+		.main-links {
+			flex: 1;
+			font-size: 14px;
+			font-weight: 700;
+		}
+
+		.utility-links {
+			color: #d5dbdb;
+			font-size: 13px;
+		}
+
+		.console-btn {
+			background: var(--orange);
+			border-radius: 3px;
+			color: #111;
+			font-weight: 800;
+			padding: 10px 15px;
+		}
+
+		.sub-nav {
+			background: var(--nav-2);
+			color: #f2f3f3;
+			display: flex;
+			font-size: 14px;
+			gap: 24px;
+			overflow-x: auto;
+			padding: 12px 38px;
+			white-space: nowrap;
+		}
+
+
+		.hero {
+			background:
+				radial-gradient(circle at 8% 12%, rgba(255, 184, 77, 0.18), transparent 25%),
+				radial-gradient(circle at 88% 18%, rgba(20, 110, 180, 0.22), transparent 28%),
+				radial-gradient(circle at 78% 88%, rgba(45, 212, 191, 0.12), transparent 24%),
+				linear-gradient(135deg, #101923 0%, #172231 58%, #0f1720 100%);
+			border-bottom: 1px solid rgba(255,255,255,0.08);
+			color: #fff;
+			overflow: hidden;
+			padding: 74px 38px 68px;
+			position: relative;
+		}
+
+		.hero::before {
+			background:
+				linear-gradient(rgba(255,255,255,0.045) 1px, transparent 1px),
+				linear-gradient(90deg, rgba(255,255,255,0.045) 1px, transparent 1px);
+			background-size: 44px 44px;
+			content: "";
+			inset: 0;
+			opacity: 0.38;
+			pointer-events: none;
+			position: absolute;
+		}
+
+		.hero::after {
+			background: linear-gradient(135deg, rgba(255,255,255,0.08), rgba(255,255,255,0));
+			border: 1px solid rgba(255,255,255,0.08);
+			border-radius: 999px;
+			content: "";
+			height: 520px;
+			position: absolute;
+			right: -180px;
+			top: -190px;
+			width: 520px;
+		}
+
+		.hero-inner {
+			align-items: center;
+			display: grid;
+			gap: 54px;
+			grid-template-columns: minmax(0, 0.92fr) minmax(460px, 1.08fr);
+			margin: 0 auto;
+			max-width: 1240px;
+			position: relative;
+			z-index: 1;
+		}
+
+		.eyebrow {
+			align-items: center;
+			background: rgba(255,255,255,0.08);
+			border: 1px solid rgba(255,255,255,0.14);
+			border-radius: 999px;
+			box-shadow: 0 10px 24px rgba(15,23,32,0.16);
+			color: var(--orange-2);
+			display: inline-flex;
+			font-size: 12px;
+			font-weight: 900;
+			gap: 8px;
+			letter-spacing: 0.4px;
+			margin-bottom: 18px;
+			padding: 8px 12px;
+			text-transform: uppercase;
+		}
+
+		.eyebrow::before {
+			background: linear-gradient(135deg, var(--orange), var(--orange-2));
+			border-radius: 999px;
+			box-shadow: 0 0 0 5px rgba(255,184,77,0.16);
+			content: "";
+			height: 8px;
+			width: 8px;
+		}
+
+		h1 {
+			font-size: clamp(40px, 5.4vw, 68px);
+			font-weight: 900;
+			letter-spacing: -1.8px;
+			line-height: 1.02;
+			margin: 0;
+			max-width: 860px;
+		}
+
+		.hero h1 span {
+			color: var(--orange-2);
+		}
+
+		.hero p {
+			color: #d5dbdb;
+			font-size: 19px;
+			line-height: 1.65;
+			margin: 24px 0 0;
+			max-width: 760px;
+		}
+
+		.hero-actions {
+			display: flex;
+			flex-wrap: wrap;
+			gap: 12px;
+			margin-top: 32px;
+		}
+
+		.primary,
+		.secondary {
+			align-items: center;
+			border-radius: 999px;
+			display: inline-flex;
+			font-size: 15px;
+			font-weight: 900;
+			justify-content: center;
+			min-height: 48px;
+			padding: 13px 22px;
+			transition: transform 160ms ease, box-shadow 160ms ease;
+		}
+
+		.primary {
+			background: linear-gradient(135deg, var(--orange), var(--orange-2));
+			box-shadow: 0 16px 32px rgba(255, 153, 0, 0.26);
+			color: #111;
+		}
+
+		.secondary {
+			background: transparent;
+			border: 1px solid rgba(255,255,255,0.32);
+			color: #fff;
+			box-shadow: 0 10px 22px rgba(15,23,32,0.08);
+		}
+
+		.primary:hover,
+		.secondary:hover {
+			transform: translateY(-2px);
+		}
+
+		.hero-tags {
+			display: flex;
+			flex-wrap: wrap;
+			gap: 9px;
+			margin-top: 26px;
+		}
+
+		.hero-tags span {
+			background: rgba(255,255,255,0.08);
+			backdrop-filter: blur(10px);
+			border: 1px solid rgba(255,255,255,0.15);
+			border-left: 3px solid var(--orange);
+			border-radius: 999px;
+			color: #fff;
+			font-size: 12px;
+			font-weight: 800;
+			padding: 9px 12px;
+		}
+
+		.commerce-showcase {
+			min-height: 520px;
+			position: relative;
+		}
+
+		.device-frame {
+			background: #101923;
+			border: 1px solid rgba(19,26,34,0.18);
+			border-radius: 28px;
+			box-shadow: 0 34px 84px rgba(15,23,32,0.28);
+			padding: 14px;
+			position: absolute;
+			right: 0;
+			top: 18px;
+			width: 460px;
+			z-index: 2;
+		}
+
+		.browser-window {
+			background: #fff;
+			border-radius: 18px;
+			overflow: hidden;
+		}
+
+		.browser-head {
+			align-items: center;
+			background: #f2f3f3;
+			border-bottom: 1px solid var(--line);
+			display: flex;
+			gap: 7px;
+			padding: 12px 14px;
+		}
+
+		.browser-dot {
+			border-radius: 999px;
+			height: 10px;
+			width: 10px;
+		}
+
+		.browser-dot.one { background: #ff6b6b; }
+		.browser-dot.two { background: #ffb84d; }
+		.browser-dot.three { background: #2dd4bf; }
+
+		.store-hero-mini {
+			background:
+				linear-gradient(135deg, rgba(19,26,34,0.92), rgba(35,47,62,0.9)),
+				url("https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?q=80&w=1200&auto=format&fit=crop") center / cover;
+			color: #fff;
+			padding: 24px;
+		}
+
+		.store-hero-mini small {
+			color: var(--orange-2);
+			font-size: 11px;
+			font-weight: 900;
+			text-transform: uppercase;
+		}
+
+		.store-hero-mini h3 {
+			font-size: 28px;
+			line-height: 1.1;
+			margin: 8px 0 10px;
+			max-width: 290px;
+		}
+
+		.store-hero-mini p {
+			color: #d5dbdb;
+			font-size: 13px;
+			line-height: 1.5;
+			margin: 0;
+			max-width: 310px;
+		}
+
+		.product-grid {
+			background: #fff;
+			display: grid;
+			gap: 12px;
+			grid-template-columns: repeat(3, 1fr);
+			padding: 16px;
+		}
+
+		.product-tile {
+			background: #f7f8fa;
+			border: 1px solid var(--line);
+			border-radius: 14px;
+			padding: 10px;
+		}
+
+		.product-img {
+			background:
+				linear-gradient(135deg, rgba(165,138,98,0.2), rgba(20,110,180,0.15));
+			border-radius: 10px;
+			height: 66px;
+			margin-bottom: 9px;
+		}
+
+		.product-tile strong {
+			display: block;
+			font-size: 12px;
+			margin-bottom: 4px;
+		}
+
+		.product-tile span {
+			color: var(--muted);
+			font-size: 11px;
+			font-weight: 700;
+		}
+
+		.checkout-card,
+		.portal-card,
+		.float-card {
+			background: rgba(255,255,255,0.96);
+			backdrop-filter: blur(14px);
+			border: 1px solid rgba(213,219,219,0.9);
+			border-radius: 18px;
+			box-shadow: 0 22px 48px rgba(15,23,32,0.14);
+			padding: 18px;
+			position: absolute;
+			z-index: 3;
+		}
+
+		.checkout-card {
+			left: 0;
+			top: 62px;
+			width: 220px;
+		}
+
+		.portal-card {
+			bottom: 34px;
+			left: 42px;
+			width: 250px;
+		}
+
+		.float-card {
+			bottom: 78px;
+			right: 22px;
+			width: 190px;
+		}
+
+		.checkout-card h3,
+		.portal-card h3,
+		.float-card h3 {
+			font-size: 17px;
+			margin: 0 0 12px;
+		}
+
+		.mini-row {
+			align-items: center;
+			border-top: 1px solid var(--line);
+			display: flex;
+			justify-content: space-between;
+			padding: 10px 0;
+		}
+
+		.mini-row:first-of-type {
+			border-top: 0;
+		}
+
+		.mini-row span {
+			color: var(--muted);
+			font-size: 12px;
+			font-weight: 700;
+		}
+
+		.mini-row strong {
+			color: var(--green);
+			font-size: 13px;
+		}
+
+		.spark-line {
+			align-items: end;
+			display: grid;
+			gap: 5px;
+			grid-template-columns: repeat(8, 1fr);
+			height: 54px;
+			margin-top: 10px;
+		}
+
+		.spark-line span {
+			background: linear-gradient(180deg, var(--orange), var(--orange-2));
+			border-radius: 999px 999px 0 0;
+			display: block;
+			min-height: 12px;
+		}
+
+		.orb {
+			border-radius: 999px;
+			position: absolute;
+			z-index: 1;
+		}
+
+		.orb.one {
+			background: rgba(255,184,77,0.38);
+			height: 150px;
+			right: 330px;
+			top: 0;
+			width: 150px;
+		}
+
+		.orb.two {
+			background: rgba(20,110,180,0.18);
+			bottom: 24px;
+			height: 210px;
+			right: 120px;
+			width: 210px;
+		}
+		.section {
+			margin: 0 auto;
+			max-width: 1240px;
+			padding: 70px 38px;
+		}
+
+		.section h2 {
+			font-size: 40px;
+			font-weight: 900;
+			letter-spacing: -0.8px;
+			margin: 0 0 12px;
+		}
+
+		.section-lead {
+			color: var(--muted);
+			font-size: 17px;
+			line-height: 1.6;
+			margin: 0 0 30px;
+			max-width: 820px;
+		}
+
+		.stats-strip {
+			background: var(--nav);
+			color: #fff;
+		}
+
+		.stats-grid {
+			display: grid;
+			gap: 16px;
+			grid-template-columns: repeat(4, minmax(0, 1fr));
+		}
+
+		.stat-card {
+			background: rgba(255,255,255,0.08);
+			border: 1px solid rgba(255,255,255,0.12);
+			border-radius: 14px;
+			padding: 20px;
+		}
+
+		.stat-card strong {
+			display: block;
+			font-size: 30px;
+			font-weight: 900;
+			margin-bottom: 6px;
+		}
+
+		.stat-card span {
+			color: #d5dbdb;
+			font-size: 13px;
+			font-weight: 700;
+		}
+
+		.service-grid {
+			display: grid;
+			gap: 22px;
+			grid-template-columns: repeat(3, minmax(0, 1fr));
+		}
+
+		.service-card {
+			background:
+				linear-gradient(180deg, rgba(255,255,255,0.98), rgba(255,255,255,1)),
+				#fff;
+			border: 1px solid rgba(213, 219, 219, 0.8);
+			border-radius: 20px;
+			box-shadow:
+				0 12px 28px rgba(15, 23, 32, 0.06),
+				0 24px 60px rgba(15, 23, 32, 0.07);
+			min-height: 265px;
+			overflow: hidden;
+			padding: 28px;
+			position: relative;
+			transition: border-color 180ms ease, box-shadow 180ms ease, transform 180ms ease;
+		}
+
+		.service-card::before {
+			content: "";
+			height: 6px;
+			left: 0;
+			position: absolute;
+			right: 0;
+			top: 0;
+		}
+
+		.service-card::after {
+			border-radius: 999px;
+			content: "";
+			height: 150px;
+			opacity: 0.1;
+			position: absolute;
+			right: -70px;
+			top: -70px;
+			width: 150px;
+			z-index: 0;
+		}
+
+		.service-card > * {
+			position: relative;
+			z-index: 1;
+		}
+
+		.service-card:hover {
+			border-color: rgba(165, 138, 98, 0.45);
+			box-shadow:
+				0 20px 42px rgba(15, 23, 32, 0.11),
+				0 34px 88px rgba(15, 23, 32, 0.14);
+			transform: translateY(-7px);
+		}
+
+		.service-icon {
+			border: 0;
+			border-radius: 16px;
+			color: #fff;
+			display: grid;
+			font-size: 13px;
+			font-weight: 900;
+			height: 58px;
+			letter-spacing: -0.2px;
+			place-items: center;
+			width: 64px;
+			box-shadow: 0 14px 28px rgba(15, 23, 32, 0.16);
+		}
+
+		.service-card h3 {
+			font-size: 22px;
+			margin: 22px 0 10px;
+		}
+
+		.service-card p {
+			color: var(--muted);
+			font-size: 14px;
+			line-height: 1.58;
+			margin: 0;
+		}
+
+		.service-meta {
+			align-items: center;
+			border-top: 1px solid rgba(213, 219, 219, 0.8);
+			display: flex;
+			font-size: 12px;
+			font-weight: 800;
+			justify-content: space-between;
+			margin-top: 18px;
+			padding-top: 14px;
+		}
+
+		.service-card:nth-child(1)::before {
+			background: linear-gradient(90deg, #146eb4, #4ea8ff);
+		}
+
+		.service-card:nth-child(1)::after {
+			background: #146eb4;
+		}
+
+		.service-card:nth-child(1) .service-icon {
+			background: linear-gradient(135deg, #146eb4, #4ea8ff);
+		}
+
+		.service-card:nth-child(1) .service-meta {
+			color: #146eb4;
+		}
+
+		.service-card:nth-child(2)::before {
+			background: linear-gradient(90deg, #a58a62, #ffb84d);
+		}
+
+		.service-card:nth-child(2)::after {
+			background: #ffb84d;
+		}
+
+		.service-card:nth-child(2) .service-icon {
+			background: linear-gradient(135deg, #a58a62, #ffb84d);
+			color: #111;
+		}
+
+		.service-card:nth-child(2) .service-meta {
+			color: #8a5200;
+		}
+
+		.service-card:nth-child(3)::before {
+			background: linear-gradient(90deg, #067d62, #2dd4bf);
+		}
+
+		.service-card:nth-child(3)::after {
+			background: #2dd4bf;
+		}
+
+		.service-card:nth-child(3) .service-icon {
+			background: linear-gradient(135deg, #067d62, #2dd4bf);
+		}
+
+		.service-card:nth-child(3) .service-meta {
+			color: #067d62;
+		}
+
+		.service-card:nth-child(4)::before {
+			background: linear-gradient(90deg, #7c3aed, #a855f7);
+		}
+
+		.service-card:nth-child(4)::after {
+			background: #a855f7;
+		}
+
+		.service-card:nth-child(4) .service-icon {
+			background: linear-gradient(135deg, #7c3aed, #a855f7);
+		}
+
+		.service-card:nth-child(4) .service-meta {
+			color: #7c3aed;
+		}
+
+		.service-card:nth-child(5)::before {
+			background: linear-gradient(90deg, #e11d48, #fb7185);
+		}
+
+		.service-card:nth-child(5)::after {
+			background: #fb7185;
+		}
+
+		.service-card:nth-child(5) .service-icon {
+			background: linear-gradient(135deg, #e11d48, #fb7185);
+		}
+
+		.service-card:nth-child(5) .service-meta {
+			color: #e11d48;
+		}
+
+		.service-card:nth-child(6)::before {
+			background: linear-gradient(90deg, #f97316, #fdba74);
+		}
+
+		.service-card:nth-child(6)::after {
+			background: #fdba74;
+		}
+
+		.service-card:nth-child(6) .service-icon {
+			background: linear-gradient(135deg, #f97316, #fdba74);
+			color: #111;
+		}
+
+		.service-card:nth-child(6) .service-meta {
+			color: #c2410c;
+		}
+
+		.service-card:nth-child(7)::before {
+			background: linear-gradient(90deg, #0891b2, #67e8f9);
+		}
+
+		.service-card:nth-child(7)::after {
+			background: #67e8f9;
+		}
+
+		.service-card:nth-child(7) .service-icon {
+			background: linear-gradient(135deg, #0891b2, #67e8f9);
+		}
+
+		.service-card:nth-child(7) .service-meta {
+			color: #0891b2;
+		}
+
+		.service-card:nth-child(8)::before {
+			background: linear-gradient(90deg, #16a34a, #86efac);
+		}
+
+		.service-card:nth-child(8)::after {
+			background: #86efac;
+		}
+
+		.service-card:nth-child(8) .service-icon {
+			background: linear-gradient(135deg, #16a34a, #86efac);
+			color: #111;
+		}
+
+		.service-card:nth-child(8) .service-meta {
+			color: #15803d;
+		}
+
+		.service-card:nth-child(9)::before {
+			background: linear-gradient(90deg, #6366f1, #a5b4fc);
+		}
+
+		.service-card:nth-child(9)::after {
+			background: #a5b4fc;
+		}
+
+		.service-card:nth-child(9) .service-icon {
+			background: linear-gradient(135deg, #6366f1, #a5b4fc);
+		}
+
+		.service-card:nth-child(9) .service-meta {
+			color: #4f46e5;
+		}
+
+		.read-more-btn {
+			align-items: center;
+			background: rgba(165, 138, 98, 0.12);
+			border: 1px solid rgba(165, 138, 98, 0.26);
+			border-radius: 999px;
+			box-shadow: 0 8px 18px rgba(165, 138, 98, 0.12);
+			color: #8a5200;
+			cursor: pointer;
+			display: inline-flex;
+			font: inherit;
+			font-size: 13px;
+			font-weight: 900;
+			justify-content: center;
+			margin-top: 18px;
+			min-height: 40px;
+			padding: 10px 15px;
+			transition: transform 160ms ease, box-shadow 160ms ease, background 160ms ease;
+		}
+
+		.read-more-btn:hover {
+			background: rgba(255, 184, 77, 0.22);
+			box-shadow: 0 12px 24px rgba(165, 138, 98, 0.2);
+			transform: translateY(-2px);
+		}
+
+
+		.pain-section {
+			background: #f6f7f8;
+			border-bottom: 1px solid var(--line);
+			border-top: 1px solid var(--line);
+		}
+
+		.pain-grid {
+			display: grid;
+			gap: 18px;
+			grid-template-columns: repeat(3, minmax(0, 1fr));
+		}
+
+		.pain-card {
+			background: #fff;
+			border: 1px solid var(--line);
+			border-radius: 16px;
+			padding: 24px;
+		}
+
+		.pain-card b {
+			background: var(--nav);
+			border-radius: 999px;
+			color: #fff;
+			display: inline-grid;
+			height: 38px;
+			margin-bottom: 18px;
+			place-items: center;
+			width: 38px;
+		}
+
+		.pain-card h3 {
+			font-size: 22px;
+			margin: 0 0 10px;
+		}
+
+		.pain-card p {
+			color: var(--muted);
+			font-size: 14px;
+			line-height: 1.65;
+			margin: 0;
+		}
+
+		.journey-section {
+			background:
+				radial-gradient(circle at 10% 20%, rgba(165,138,98,0.15), transparent 26%),
+				linear-gradient(135deg, #101923, #182536 46%, #0f1720);
+			color: #fff;
+		}
+
+		.journey-wrap {
+			display: grid;
+			gap: 34px;
+			grid-template-columns: minmax(0, 0.9fr) minmax(390px, 1.1fr);
+			align-items: center;
+		}
+
+		.journey-copy h2 {
+			color: #fff;
+		}
+
+		.journey-copy p {
+			color: #d5dbdb;
+			font-size: 16px;
+			line-height: 1.7;
+			max-width: 620px;
+		}
+
+		.timeline {
+			display: grid;
+			gap: 14px;
+			position: relative;
+		}
+
+		.timeline::before {
+			background: linear-gradient(var(--orange), var(--blue));
+			content: "";
+			height: calc(100% - 44px);
+			left: 21px;
+			position: absolute;
+			top: 22px;
+			width: 3px;
+		}
+
+		.timeline-item {
+			align-items: start;
+			display: grid;
+			gap: 14px;
+			grid-template-columns: 46px 1fr;
+			position: relative;
+			z-index: 1;
+		}
+
+		.timeline-number {
+			background: linear-gradient(135deg, var(--orange), var(--orange-2));
+			border-radius: 999px;
+			color: #111;
+			display: grid;
+			font-weight: 900;
+			height: 46px;
+			place-items: center;
+			width: 46px;
+		}
+
+		.timeline-card {
+			background: rgba(255,255,255,0.08);
+			border: 1px solid rgba(255,255,255,0.14);
+			border-radius: 14px;
+			padding: 16px;
+		}
+
+		.timeline-card strong {
+			display: block;
+			margin-bottom: 5px;
+		}
+
+		.timeline-card span {
+			color: #d5dbdb;
+			font-size: 13px;
+			font-weight: 700;
+		}
+
+		.industry-grid {
+			display: grid;
+			gap: 14px;
+			grid-template-columns: repeat(4, minmax(0, 1fr));
+		}
+
+		.industry-item {
+			background: #f7f8fa;
+			border: 1px solid var(--line);
+			border-radius: 14px;
+			padding: 18px;
+		}
+
+		.industry-item strong {
+			display: block;
+			font-size: 18px;
+			margin-bottom: 6px;
+		}
+
+		.industry-item span {
+			color: var(--muted);
+			font-size: 13px;
+			font-weight: 700;
+		}
+
+		.contact-section {
+			background:
+				linear-gradient(135deg, rgba(15, 23, 32, 0.94), rgba(35, 47, 62, 0.9)),
+				url("https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=1600&auto=format&fit=crop") center / cover;
+			color: #fff;
+		}
+
+		.contact-layout {
+			display: grid;
+			gap: 28px;
+			grid-template-columns: minmax(0, 0.9fr) minmax(360px, 0.7fr);
+		}
+
+		.contact-panel {
+			background: rgba(255, 255, 255, 0.09);
+			border: 1px solid rgba(255, 255, 255, 0.14);
+			border-radius: 16px;
+			padding: 28px;
+		}
+
+		.contact-panel h2 {
+			color: #fff;
+			margin-top: 0;
+		}
+
+		.contact-panel p {
+			color: #d5dbdb;
+			line-height: 1.7;
+		}
+
+		.lead-form {
+			background: #fff;
+			border-radius: 16px;
+			color: var(--ink);
+			display: grid;
+			gap: 14px;
+			padding: 24px;
+		}
+
+		.lead-form input,
+		.lead-form select,
+		.lead-form textarea {
+			border: 1px solid var(--line);
+			border-radius: 999px;
+			font: inherit;
+			min-height: 46px;
+			padding: 0 16px;
+			width: 100%;
+		}
+
+		.lead-form textarea {
+			border-radius: 16px;
+			min-height: 104px;
+			padding-top: 12px;
+			resize: vertical;
+		}
+
+		.lead-form button {
+			border: 0;
+			cursor: pointer;
+		}
+
+		.modal-contact-btn {
+			border: 0;
+			cursor: pointer;
+			font-family: inherit;
+		}
+
+
+		.modal-overlay {
+			align-items: center;
+			background: rgba(15, 23, 32, 0.74);
+			backdrop-filter: blur(10px);
+			display: none;
+			inset: 0;
+			justify-content: center;
+			padding: 24px;
+			position: fixed;
+			z-index: 100;
+		}
+
+		.modal-overlay.active {
+			display: flex;
+		}
+
+		.service-modal {
+			background: #fff;
+			border-radius: 18px;
+			box-shadow: 0 42px 90px rgba(0,0,0,0.38);
+			max-height: 90vh;
+			max-width: 880px;
+			overflow: hidden;
+			width: 100%;
+		}
+
+		.modal-head {
+			background:
+				radial-gradient(circle at 88% 12%, rgba(255,184,77,0.2), transparent 28%),
+				linear-gradient(135deg, #101923, #172231 58%, #0f1720);
+			color: #fff;
+			padding: 28px;
+			position: relative;
+		}
+
+		.modal-head small {
+			color: var(--orange-2);
+			display: block;
+			font-size: 12px;
+			font-weight: 900;
+			letter-spacing: 0.5px;
+			margin-bottom: 10px;
+			text-transform: uppercase;
+		}
+
+		.modal-head h3 {
+			font-size: 34px;
+			line-height: 1.08;
+			margin: 0;
+			max-width: 720px;
+		}
+
+		.modal-close {
+			background: rgba(255,255,255,0.1);
+			border: 1px solid rgba(255,255,255,0.22);
+			border-radius: 999px;
+			color: #fff;
+			cursor: pointer;
+			font-size: 24px;
+			height: 42px;
+			line-height: 1;
+			position: absolute;
+			right: 20px;
+			top: 20px;
+			width: 42px;
+		}
+
+		.modal-body {
+			max-height: calc(90vh - 140px);
+			overflow-y: auto;
+			padding: 28px;
+		}
+
+		.modal-intro {
+			color: var(--muted);
+			font-size: 16px;
+			line-height: 1.7;
+			margin: 0 0 22px;
+			max-width: 760px;
+		}
+
+		.modal-grid {
+			display: grid;
+			gap: 18px;
+			grid-template-columns: 1fr 1fr;
+		}
+
+		.modal-box {
+			background: #f7f8fa;
+			border: 1px solid var(--line);
+			border-radius: 14px;
+			padding: 18px;
+		}
+
+		.modal-box h4 {
+			font-size: 17px;
+			margin: 0 0 12px;
+		}
+
+		.modal-box ul {
+			display: grid;
+			gap: 9px;
+			list-style: none;
+			margin: 0;
+			padding: 0;
+		}
+
+		.modal-box li {
+			color: var(--muted);
+			font-size: 14px;
+			font-weight: 700;
+			line-height: 1.45;
+			padding-left: 20px;
+			position: relative;
+		}
+
+		.modal-box li::before {
+			color: var(--orange);
+			content: "✓";
+			font-weight: 900;
+			left: 0;
+			position: absolute;
+		}
+
+		.modal-cta {
+			align-items: center;
+			background: linear-gradient(135deg, #101923, #172231);
+			border-radius: 14px;
+			color: #fff;
+			display: flex;
+			flex-wrap: wrap;
+			gap: 16px;
+			justify-content: space-between;
+			margin-top: 20px;
+			padding: 18px;
+		}
+
+		.modal-cta strong {
+			display: block;
+			font-size: 18px;
+			margin-bottom: 4px;
+		}
+
+		.modal-cta span {
+			color: #d5dbdb;
+			font-size: 13px;
+			font-weight: 700;
+		}
+
+		.modal-cta .primary {
+			box-shadow: none;
+		}
+
+		.footer {
+			background: var(--nav);
+			color: #d5dbdb;
+			font-size: 13px;
+			padding: 24px 38px;
+		}
+
+		.footer-inner {
+			display: flex;
+			gap: 16px;
+			justify-content: space-between;
+			margin: 0 auto;
+			max-width: 1240px;
+		}
+
+		.reveal {
+			opacity: 0;
+			transform: translateY(22px);
+			transition: opacity 700ms ease, transform 700ms ease;
+		}
+
+		.reveal.visible {
+			opacity: 1;
+			transform: translateY(0);
+		}
+
+		@media (max-width: 980px) {
+			.top-nav {
+				align-items: flex-start;
+				flex-direction: column;
+				padding: 18px;
+			}
+
+			.main-links,
+			.utility-links {
+				flex-wrap: wrap;
+			}
+
+			.hero-inner,
+			.journey-wrap,
+			.contact-layout {
+				grid-template-columns: 1fr;
+			}
+
+			.commerce-showcase {
+				min-height: 620px;
+			}
+
+			.device-frame {
+				left: 50%;
+				right: auto;
+				transform: translateX(-50%);
+			}
+
+			.checkout-card {
+				left: 0;
+			}
+
+			.portal-card {
+				left: 20px;
+			}
+
+			.service-grid,
+			.stats-grid,
+			.industry-grid {
+				grid-template-columns: repeat(2, minmax(0, 1fr));
+			}
+
+			.pain-grid {
+				grid-template-columns: 1fr;
+			}
+		}
+
+		@media (max-width: 760px) {
+			.modal-grid {
+				grid-template-columns: 1fr;
+			}
+
+			.modal-head h3 {
+				font-size: 27px;
+				padding-right: 42px;
+			}
+
+			.modal-cta {
+				align-items: flex-start;
+				flex-direction: column;
+			}
+		}
+
+
+		@media (max-width: 620px) {
+			.hero,
+			.section {
+				padding-left: 20px;
+				padding-right: 20px;
+			}
+
+			h1 {
+				font-size: 38px;
+			}
+
+			.hero p {
+				font-size: 16px;
+			}
+
+			.service-grid,
+			.stats-grid,
+			.industry-grid {
+				grid-template-columns: 1fr;
+			}
+
+			.commerce-showcase {
+				min-height: 690px;
+			}
+
+			.device-frame {
+				position: relative;
+				left: auto;
+				right: auto;
+				top: auto;
+				transform: none;
+				width: 100%;
+			}
+
+			.checkout-card,
+			.portal-card,
+			.float-card {
+				position: relative;
+				left: auto;
+				right: auto;
+				top: auto;
+				bottom: auto;
+				margin-top: 14px;
+				width: 100%;
+			}
+
+			.product-grid {
+				grid-template-columns: 1fr;
+			}
+
+			.footer-inner {
+				flex-direction: column;
+			}
+		}
+	</style>
+</head>
+
+<body>
+	<header>
+		<div class="top-nav">
+			<a class="logo" href="#">Verity<span>Core</span></a>
+
+			<nav class="main-links">
+				<a href="#services">Services</a>
+				<a href="#pain">Business Problems</a>
+				<a href="#journey">Customer Journey</a>
+				<a href="#industries">Industries</a>
+				<a href="#contact">Contact</a>
+			</nav>
+
+			<div class="utility-links">
+				<a href="tel:+263710778538">0710 778 538</a>
+				<a href="mailto:sales@veritycore.co.zw">sales@veritycore.co.zw</a>
+				<a class="console-btn" href="#contact">Start a Project</a>
+			</div>
+		</div>
+
+		<nav class="sub-nav">
+			<a href="#services">Websites</a>
+			<a href="#services">E-commerce</a>
+			<a href="#services">Online Payments</a>
+			<a href="#services">Customer Portals</a>
+			<a href="#services">Web Applications</a>
+			<a href="#services">Dashboards</a>
+			<a href="#services">Hosting</a>
+			<a href="#services">Integrations</a>
+		</nav>
+	</header>
+
+	<main>
+		<section class="hero">
+			<div class="hero-inner">
+				<div class="reveal">
+					<div class="eyebrow">E-commerce and web application development</div>
+					<h1><span>Sell, get paid and serve customers online.</span></h1>
+					<p>
+						We design and develop websites, online stores, customer portals and custom web applications
+						that move your business beyond a basic online presence into a working digital sales and service channel.
+					</p>
+
+					<div class="hero-tags">
+						<span>Online stores</span>
+						<span>Payment gateways</span>
+						<span>Customer portals</span>
+						<span>Custom dashboards</span>
+					</div>
+
+					<div class="hero-actions">
+						<a class="primary" href="#contact">Start your project</a>
+						<a class="secondary" href="#services">View services</a>
+					</div>
+				</div>
+
+				<div class="commerce-showcase reveal" aria-label="E-commerce and web app visual preview">
+					<div class="orb one"></div>
+					<div class="orb two"></div>
+
+					<div class="checkout-card">
+						<h3>Checkout Ready</h3>
+						<div class="mini-row"><span>Cart</span><strong>Active</strong></div>
+						<div class="mini-row"><span>Gateway</span><strong>Live</strong></div>
+						<div class="mini-row"><span>Receipt</span><strong>Auto</strong></div>
+					</div>
+
+					<div class="device-frame">
+						<div class="browser-window">
+							<div class="browser-head">
+								<span class="browser-dot one"></span>
+								<span class="browser-dot two"></span>
+								<span class="browser-dot three"></span>
+							</div>
+
+							<div class="store-hero-mini">
+								<small>Online Store</small>
+								<h3>Sell products and services 24/7</h3>
+								<p>Product catalog, checkout, customer accounts and order workflows in one experience.</p>
+							</div>
+
+							<div class="product-grid">
+								<div class="product-tile">
+									<div class="product-img"></div>
+									<strong>Catalog</strong>
+									<span>Products</span>
+								</div>
+								<div class="product-tile">
+									<div class="product-img"></div>
+									<strong>Orders</strong>
+									<span>Tracking</span>
+								</div>
+								<div class="product-tile">
+									<div class="product-img"></div>
+									<strong>Payments</strong>
+									<span>Online</span>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="portal-card">
+						<h3>Customer Portal</h3>
+						<div class="mini-row"><span>Login</span><strong>Secure</strong></div>
+						<div class="mini-row"><span>Requests</span><strong>Tracked</strong></div>
+						<div class="mini-row"><span>Dashboard</span><strong>Visible</strong></div>
+					</div>
+
+					<div class="float-card">
+						<h3>Live Activity</h3>
+						<div class="spark-line" aria-hidden="true">
+							<span style="height:34%;"></span>
+							<span style="height:58%;"></span>
+							<span style="height:46%;"></span>
+							<span style="height:76%;"></span>
+							<span style="height:64%;"></span>
+							<span style="height:88%;"></span>
+							<span style="height:70%;"></span>
+							<span style="height:96%;"></span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<section class="stats-strip">
+			<div class="section stats-grid">
+				<div class="stat-card reveal">
+					<strong>Web</strong>
+					<span>Professional websites that explain value and drive enquiries</span>
+				</div>
+				<div class="stat-card reveal">
+					<strong>Shop</strong>
+					<span>Online stores with products, checkout and customer accounts</span>
+				</div>
+				<div class="stat-card reveal">
+					<strong>Pay</strong>
+					<span>Payment-enabled journeys that reduce collection friction</span>
+				</div>
+				<div class="stat-card reveal">
+					<strong>App</strong>
+					<span>Custom portals, dashboards and workflow applications</span>
+				</div>
+			</div>
+		</section>
+
+		<section class="section" id="services">
+			<h2>Digital services built around growth and conversion</h2>
+			<p class="section-lead">
+				Your website should do more than look good. It should help customers understand your offer, take action, buy online, make payments and interact with your business easily.
+			</p>
+
+			<div class="service-grid">
+				<article class="service-card reveal">
+					<div class="service-icon">WEB</div>
+					<h3>Business Websites</h3>
+					<p>Modern company websites with clear service pages, strong calls to action, lead forms and mobile-first layouts.</p>
+					<button class="read-more-btn" type="button" data-modal="websites">Read More</button>
+					<div class="service-meta"><span>Brand</span><span>Leads</span></div>
+				</article>
+
+				<article class="service-card reveal">
+					<div class="service-icon">LP</div>
+					<h3>Landing Pages</h3>
+					<p>Focused pages for ads, campaigns and product promotions designed to turn traffic into enquiries or sales.</p>
+					<button class="read-more-btn" type="button" data-modal="landing">Read More</button>
+					<div class="service-meta"><span>Ads</span><span>Conversion</span></div>
+				</article>
+
+				<article class="service-card reveal">
+					<div class="service-icon">COM</div>
+					<h3>E-commerce Platforms</h3>
+					<p>Product catalogs, carts, checkout, customer accounts, order tracking and online selling experiences.</p>
+					<button class="read-more-btn" type="button" data-modal="ecommerce">Read More</button>
+					<div class="service-meta"><span>Products</span><span>Orders</span></div>
+				</article>
+
+				<article class="service-card reveal">
+					<div class="service-icon">PAY</div>
+					<h3>Online Payments</h3>
+					<p>Payment gateway setup for checkout payments, invoice payments, digital collections and confirmations.</p>
+					<button class="read-more-btn" type="button" data-modal="payments">Read More</button>
+					<div class="service-meta"><span>Checkout</span><span>Payments</span></div>
+				</article>
+
+				<article class="service-card reveal">
+					<div class="service-icon">APP</div>
+					<h3>Custom Web Apps</h3>
+					<p>Business-specific systems for forms, approvals, dashboards, records, workflow tracking and operations.</p>
+					<button class="read-more-btn" type="button" data-modal="webapps">Read More</button>
+					<div class="service-meta"><span>Systems</span><span>Automation</span></div>
+				</article>
+
+				<article class="service-card reveal">
+					<div class="service-icon">POR</div>
+					<h3>Customer Portals</h3>
+					<p>Secure portals where customers can log in, submit requests, view records, track orders or access services.</p>
+					<button class="read-more-btn" type="button" data-modal="portals">Read More</button>
+					<div class="service-meta"><span>Login</span><span>Self-Service</span></div>
+				</article>
+
+				<article class="service-card reveal">
+					<div class="service-icon">DASH</div>
+					<h3>Dashboards & Reports</h3>
+					<p>Views that show orders, leads, payments, service requests, customer activity and key performance metrics.</p>
+					<button class="read-more-btn" type="button" data-modal="dashboards">Read More</button>
+					<div class="service-meta"><span>Insights</span><span>Reports</span></div>
+				</article>
+
+				<article class="service-card reveal">
+					<div class="service-icon">CRM</div>
+					<h3>Lead Capture & CRM</h3>
+					<p>Forms, enquiry routing, quote requests and CRM integrations so sales teams can follow up properly.</p>
+					<button class="read-more-btn" type="button" data-modal="crm">Read More</button>
+					<div class="service-meta"><span>Forms</span><span>Follow-up</span></div>
+				</article>
+
+				<article class="service-card reveal">
+					<div class="service-icon">API</div>
+					<h3>System Integrations</h3>
+					<p>Connect websites and apps to ERP, CRM, payment gateways, WhatsApp, email, inventory or APIs.</p>
+					<button class="read-more-btn" type="button" data-modal="integrations">Read More</button>
+					<div class="service-meta"><span>APIs</span><span>Sync</span></div>
+				</article>
+			</div>
+		</section>
+
+		<section class="pain-section" id="pain">
+			<div class="section">
+				<h2>Problems this solves for your business</h2>
+				<p class="section-lead">
+					Many businesses have a website but still depend on manual calls, WhatsApp messages, paper orders and disconnected payment processes. We help you turn that into a structured digital flow.
+				</p>
+
+				<div class="pain-grid">
+					<article class="pain-card reveal">
+						<b>1</b>
+						<h3>Your website is not converting</h3>
+						<p>If visitors are not calling, enquiring or buying, the issue is often unclear messaging, weak structure, poor calls to action or a confusing user journey.</p>
+					</article>
+
+					<article class="pain-card reveal">
+						<b>2</b>
+						<h3>Customers struggle to buy</h3>
+						<p>If people must call or WhatsApp before they can order, you create friction. A store, cart and payment flow makes buying easier.</p>
+					</article>
+
+					<article class="pain-card reveal">
+						<b>3</b>
+						<h3>Admin work is slowing growth</h3>
+						<p>Portals, forms, dashboards and automations reduce repetitive work and make customer interactions easier to manage.</p>
+					</article>
+				</div>
+			</div>
+		</section>
+
+		<section class="journey-section" id="journey">
+			<div class="section journey-wrap">
+				<div class="journey-copy">
+					<div class="eyebrow">Customer journey</div>
+					<h2>From first visit to confirmed order, every step should be intentional.</h2>
+					<p>
+						We design the full journey: how customers discover you, understand your offer, take action, submit details, make payment and receive confirmation.
+					</p>
+					<p>
+						This is how a website becomes a serious business tool instead of a digital brochure.
+					</p>
+
+					<div class="hero-actions">
+						<a class="primary" href="#contact">Plan your platform</a>
+					</div>
+				</div>
+
+				<div class="timeline" aria-label="Customer journey timeline">
+					<div class="timeline-item">
+						<div class="timeline-number">1</div>
+						<div class="timeline-card">
+							<strong>Visitor lands on a focused page</strong>
+							<span>Clear offer, strong message and relevant call to action</span>
+						</div>
+					</div>
+
+					<div class="timeline-item">
+						<div class="timeline-number">2</div>
+						<div class="timeline-card">
+							<strong>Customer takes action</strong>
+							<span>Form, cart, booking, quote request or customer registration</span>
+						</div>
+					</div>
+
+					<div class="timeline-item">
+						<div class="timeline-number">3</div>
+						<div class="timeline-card">
+							<strong>Payment or request is processed</strong>
+							<span>Online payment, order submission or service workflow starts</span>
+						</div>
+					</div>
+
+					<div class="timeline-item">
+						<div class="timeline-number">4</div>
+						<div class="timeline-card">
+							<strong>Business tracks everything</strong>
+							<span>Leads, orders, payments and requests become visible to your team</span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<section class="section" id="industries">
+			<h2>Useful for many types of businesses</h2>
+			<p class="section-lead">
+				We build websites, shops and web applications around your business model, not just generic templates.
+			</p>
+
+			<div class="industry-grid">
+				<div class="industry-item reveal"><strong>Retail Stores</strong><span>Online shops, catalogs, payments and orders</span></div>
+				<div class="industry-item reveal"><strong>Service Businesses</strong><span>Lead capture, bookings, quotes and client portals</span></div>
+				<div class="industry-item reveal"><strong>Schools</strong><span>Portals, forms, notices, applications and payments</span></div>
+				<div class="industry-item reveal"><strong>Clinics</strong><span>Patient portals, bookings, forms and payment flows</span></div>
+				<div class="industry-item reveal"><strong>Consultants</strong><span>Professional websites, appointment flows and client dashboards</span></div>
+				<div class="industry-item reveal"><strong>Wholesalers</strong><span>B2B catalogs, customer accounts and order workflows</span></div>
+				<div class="industry-item reveal"><strong>Hardware Shops</strong><span>Product listings, stock visibility and enquiry flows</span></div>
+				<div class="industry-item reveal"><strong>Startups</strong><span>MVP web apps, dashboards and scalable platforms</span></div>
+			</div>
+		</section>
+
+		<section class="contact-section" id="contact">
+			<div class="section contact-layout">
+				<div class="contact-panel reveal">
+					<div class="eyebrow">Start the conversation</div>
+					<h2>Ready to build a website, store or web app that actually works?</h2>
+					<p>
+						Talk to VerityCore Consultancy about your website, e-commerce platform, customer portal or custom web application. We will help you plan the right structure, features and conversion flow.
+					</p>
+					<p>
+						<strong>Phone:</strong> 0710 778 538<br>
+						<strong>Email:</strong> sales@veritycore.co.zw<br>
+						<strong>Website:</strong> www.veritycore.co.zw
+					</p>
+				</div>
+
+				<form class="lead-form reveal" action="mailto:sales@veritycore.co.zw" method="post" enctype="text/plain">
+					<input type="text" name="name" placeholder="Your name" required>
+					<input type="email" name="email" placeholder="Email address" required>
+					<input type="tel" name="phone" placeholder="Phone number">
+					<select name="project_need">
+						<option value="">What do you need?</option>
+						<option>Business website</option>
+						<option>E-commerce store</option>
+						<option>Online payments setup</option>
+						<option>Customer portal</option>
+						<option>Custom web application</option>
+						<option>Website redesign</option>
+					</select>
+					<textarea name="message" placeholder="Briefly describe what you want to build or improve"></textarea>
+					<button class="primary" type="submit">Send enquiry</button>
+				</form>
+			</div>
+		</section>
+	</main>
+
+	<footer class="footer">
+		<div class="footer-inner">
+			<span>VerityCore Consultancy (Pvt) Ltd — E-commerce & Web Applications</span>
+			<span>Websites • Online Stores • Payments • Portals • Custom Web Apps</span>
+		</div>
+	</footer>
+
+	<script>
+		const serviceDetails = {'websites': {'kicker': 'Business Websites', 'title': 'Professional websites that turn visitors into enquiries.', 'intro': 'We build business websites that explain your value clearly, guide visitors to take action and make your company look credible across desktop and mobile.', 'features': ['Company profile and service pages', 'Clear homepage structure', 'Contact and enquiry forms', 'Mobile responsive design', 'SEO-ready page structure', 'Fast loading layouts', 'WhatsApp, email and call CTAs'], 'benefits': ['Build trust with potential customers', 'Increase calls and enquiries', 'Explain services clearly', 'Support ad campaigns and referrals', 'Give your business a professional online presence'], 'ideal': ['Consultants and service firms', 'SMEs and growing companies', 'Clinics, schools and professional offices', 'Businesses that need stronger online credibility']}, 'landing': {'kicker': 'Landing Pages', 'title': 'High-converting campaign pages for ads, offers and launches.', 'intro': 'Landing pages are built for one goal: turning traffic into action. They are ideal for Facebook ads, Google ads, product promotions and specific service campaigns.', 'features': ['Ad-focused page structure', 'Strong hook and offer positioning', 'Conversion-focused copy sections', 'Lead capture forms', 'Click-to-call and WhatsApp actions', 'Trust sections and proof points', 'Fast mobile-first layouts'], 'benefits': ['Improve ad conversion rates', 'Reduce wasted traffic', 'Make offers clearer', 'Capture qualified leads', 'Track campaign interest better'], 'ideal': ['Paid ad campaigns', 'Promotions and special offers', 'New service launches', 'Businesses that need sales enquiries quickly']}, 'ecommerce': {'kicker': 'E-commerce Platforms', 'title': 'Online stores that help customers browse, buy and pay with less friction.', 'intro': 'We build online stores with product catalogs, carts, checkout flows and order handling so your business can sell products and services online 24/7.', 'features': ['Product catalog and categories', 'Shopping cart and checkout', 'Customer accounts', 'Order tracking and notifications', 'Stock and pricing structure', 'Promotions and discounts', 'Admin order management'], 'benefits': ['Sell beyond physical location', 'Make buying easier for customers', 'Reduce manual WhatsApp ordering', 'Improve order visibility', 'Support growth into online sales'], 'ideal': ['Retail shops', 'Hardware stores', 'Wholesalers', 'Boutiques and product sellers', 'Businesses that want online ordering']}, 'payments': {'kicker': 'Online Payments', 'title': 'Payment-enabled websites and checkout flows.', 'intro': 'We help businesses collect payments online through integrated payment flows for stores, invoices, booking payments and service payments.', 'features': ['Payment gateway integration', 'Checkout payment flow', 'Invoice or service payment links', 'Payment confirmation messages', 'Order status updates', 'Basic reconciliation support', 'Customer payment experience design'], 'benefits': ['Collect money faster', 'Reduce manual payment follow-up', 'Improve customer convenience', 'Support e-commerce and booking flows', 'Create a more professional buying process'], 'ideal': ['Online stores', 'Schools and clinics', 'Service businesses', 'Subscription or booking platforms', 'Businesses that collect deposits or invoices']}, 'webapps': {'kicker': 'Custom Web Apps', 'title': 'Web systems designed around how your business works.', 'intro': 'When a normal website is not enough, we build custom web applications for forms, approvals, records, dashboards and internal or customer-facing workflows.', 'features': ['Custom forms and workflows', 'User login and role access', 'Admin dashboards', 'Approval processes', 'Records and database management', 'Notifications and status tracking', 'Reports and operational views'], 'benefits': ['Reduce manual admin work', 'Centralize important records', 'Improve process visibility', 'Automate repeated steps', 'Build tools around your exact workflow'], 'ideal': ['Startups building MVPs', 'Service firms with internal workflows', 'Schools and clinics', 'Businesses using spreadsheets for operations', 'Teams needing dashboards or portals']}, 'portals': {'kicker': 'Customer Portals', 'title': 'Secure customer access for requests, records, orders and services.', 'intro': 'Customer portals allow clients to log in, submit requests, view records, track orders and interact with your business without needing constant manual communication.', 'features': ['Customer login', 'Profile and account pages', 'Request submission forms', 'Order or service tracking', 'Document or record access', 'Notifications and updates', 'Admin management area'], 'benefits': ['Improve customer experience', 'Reduce repetitive support messages', 'Give clients self-service access', 'Track requests professionally', 'Make your business feel more organized'], 'ideal': ['Service providers', 'Schools and clinics', 'E-commerce businesses', 'Consultants and agencies', 'Companies with repeat customers']}, 'dashboards': {'kicker': 'Dashboards & Reports', 'title': 'Management views that make activity visible.', 'intro': 'Dashboards help you see what is happening across leads, orders, payments, requests and customer activity without digging through scattered messages or spreadsheets.', 'features': ['Lead and enquiry dashboards', 'Order and payment summaries', 'Customer activity views', 'Request and ticket tracking', 'Performance metrics', 'Filtered reports', 'Admin overview screens'], 'benefits': ['Make better decisions faster', 'See activity in one place', 'Track business performance', 'Reduce manual report preparation', 'Improve accountability'], 'ideal': ['Management teams', 'Online stores', 'Service businesses', 'Operations-heavy companies', 'Teams that need reporting visibility']}, 'crm': {'kicker': 'Lead Capture & CRM', 'title': 'Capture enquiries and make follow-up easier.', 'intro': 'We connect your website forms and enquiry flows to structured lead capture so potential customers do not disappear into WhatsApp chats, inboxes or forgotten calls.', 'features': ['Website enquiry forms', 'Quote request forms', 'CRM-ready lead capture', 'Email notifications', 'WhatsApp click actions', 'Lead source tracking', 'Follow-up workflow planning'], 'benefits': ['Never lose serious enquiries', 'Improve sales follow-up', 'Understand where leads come from', 'Organize customer interest', 'Support your sales pipeline'], 'ideal': ['Businesses running ads', 'Service companies', 'Consultants and agencies', 'Companies receiving many enquiries', 'Sales teams needing structure']}, 'integrations': {'kicker': 'System Integrations', 'title': 'Connect your website or app to the tools your business already uses.', 'intro': 'We integrate websites and web applications with payment gateways, CRM systems, ERP systems, WhatsApp, email and third-party APIs so your digital platform works as part of your operations.', 'features': ['Payment gateway integrations', 'CRM and ERP connections', 'Email notifications', 'WhatsApp links or workflows', 'Inventory or order syncing', 'API connections', 'Custom data flows'], 'benefits': ['Reduce double entry', 'Keep systems connected', 'Automate customer communication', 'Improve operational accuracy', 'Make your platform more useful'], 'ideal': ['E-commerce businesses', 'ERP-connected companies', 'Service teams', 'Businesses using multiple tools', 'Platforms that need automation']}};
+
+		function initRevealAnimations() {
+			const revealItems = document.querySelectorAll(".reveal");
+			if (!("IntersectionObserver" in window)) {
+				revealItems.forEach((item) => item.classList.add("visible"));
+				return;
+			}
+
+			const observer = new IntersectionObserver((entries) => {
+				entries.forEach((entry) => {
+					if (entry.isIntersecting) {
+						entry.target.classList.add("visible");
+						observer.unobserve(entry.target);
+					}
+				});
+			}, { threshold: 0.18 });
+
+			revealItems.forEach((item) => observer.observe(item));
+		}
+
+		function renderList(target, items) {
+			target.innerHTML = items.map((item) => `<li>${item}</li>`).join("");
+		}
+
+		function initServiceModal() {
+			const overlay = document.getElementById("serviceModal");
+			const closeBtn = overlay.querySelector(".modal-close");
+			const modalKicker = document.getElementById("modalKicker");
+			const modalTitle = document.getElementById("modalTitle");
+			const modalIntro = document.getElementById("modalIntro");
+			const modalFeatures = document.getElementById("modalFeatures");
+			const modalBenefits = document.getElementById("modalBenefits");
+			const modalIdeal = document.getElementById("modalIdeal");
+
+			function openModal(id) {
+				const data = serviceDetails[id];
+				if (!data) return;
+
+				modalKicker.textContent = data.kicker;
+				modalTitle.textContent = data.title;
+				modalIntro.textContent = data.intro;
+				renderList(modalFeatures, data.features);
+				renderList(modalBenefits, data.benefits);
+				renderList(modalIdeal, data.ideal);
+
+				overlay.classList.add("active");
+				overlay.setAttribute("aria-hidden", "false");
+				document.body.style.overflow = "hidden";
+			}
+
+			function closeModal() {
+				overlay.classList.remove("active");
+				overlay.setAttribute("aria-hidden", "true");
+				document.body.style.overflow = "";
+			}
+
+			function goToContact() {
+				closeModal();
+				const contact = document.getElementById("contact");
+				if (contact) {
+					setTimeout(() => {
+						contact.scrollIntoView({ behavior: "smooth", block: "start" });
+					}, 120);
+				}
+			}
+
+			const modalContactBtn = overlay.querySelector(".modal-contact-btn");
+			if (modalContactBtn) {
+				modalContactBtn.addEventListener("click", goToContact);
+			}
+
+			document.querySelectorAll("[data-modal]").forEach((button) => {
+				button.addEventListener("click", () => openModal(button.dataset.modal));
+			});
+
+			closeBtn.addEventListener("click", closeModal);
+			overlay.addEventListener("click", (event) => {
+				if (event.target === overlay) closeModal();
+			});
+
+			document.addEventListener("keydown", (event) => {
+				if (event.key === "Escape" && overlay.classList.contains("active")) closeModal();
+			});
+		}
+
+		document.addEventListener("DOMContentLoaded", () => {
+			initRevealAnimations();
+			initServiceModal();
+		});
+	</script>
+	<div class="modal-overlay" id="serviceModal" aria-hidden="true">
+		<div class="service-modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+			<div class="modal-head">
+				<small id="modalKicker">Service</small>
+				<h3 id="modalTitle">Service Title</h3>
+				<button class="modal-close" type="button" aria-label="Close dialog">×</button>
+			</div>
+			<div class="modal-body">
+				<p class="modal-intro" id="modalIntro"></p>
+				<div class="modal-grid">
+					<div class="modal-box">
+						<h4>What is included</h4>
+						<ul id="modalFeatures"></ul>
+					</div>
+					<div class="modal-box">
+						<h4>Business benefits</h4>
+						<ul id="modalBenefits"></ul>
+					</div>
+					<div class="modal-box">
+						<h4>Ideal for</h4>
+						<ul id="modalIdeal"></ul>
+					</div>
+					<div class="modal-box">
+						<h4>How we approach it</h4>
+						<ul>
+							<li>Understand your business goal and customer journey</li>
+							<li>Design the structure, pages, workflows and actions</li>
+							<li>Build, test, launch and improve based on real usage</li>
+						</ul>
+					</div>
+				</div>
+				<div class="modal-cta">
+					<div>
+						<strong>Want this for your business?</strong>
+						<span>Send us your project details and we will help you plan the best setup.</span>
+					</div>
+					<button class="primary modal-contact-btn" type="button">Request consultation</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</body>
+</html>
